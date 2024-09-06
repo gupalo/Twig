@@ -1,23 +1,23 @@
-Twig for Developers
-===================
+Twig для розробників
+====================
 
-This chapter describes the API to Twig and not the template language. It will
-be most useful as reference to those implementing the template interface to
-the application and not those who are creating Twig templates.
+Ця глава описує API до Twig, а не мову шаблонів. Вона буде найбільш корисною
+як довідник для тих, хто реалізує інтерфейс шаблонів у додатку, а не для тих,
+хто створює шаблони Twig.
 
-Basics
+Основи
 ------
 
-Twig uses a central object called the **environment** (of class
-``\Twig\Environment``). Instances of this class are used to store the
-configuration and extensions, and are used to load templates.
+Twig використовує центральний об'єкт, який називається **середовище** (класу
+``\Twig\Environment``). Екземпляри цього класу використовуються для зберігання
+конфігурації та розширень, а також для завантаження шаблонів.
 
-Most applications create one ``\Twig\Environment`` object on application
-initialization and use that to load templates. In some cases, it might be useful
-to have multiple environments side by side, with different configurations.
+Більшість додатків створюють один об'єкт ``\Twig\Environment`` під час ініціалізації
+додатку і використовують його для завантаження шаблонів. У деяких випадках може бути
+корисно мати декілька оточень пліч-о-пліч з різними конфігураціями.
 
-The typical way to configure Twig to load templates for an application looks
-roughly like this::
+Типовий спосіб конфігурації Twig для завантаження шаблонів для додатку виглядає
+приблизно так::
 
     require_once '/path/to/vendor/autoload.php';
 
@@ -26,176 +26,172 @@ roughly like this::
         'cache' => '/path/to/compilation_cache',
     ]);
 
-This creates a template environment with a default configuration and a loader
-that looks up templates in the ``/path/to/templates/`` directory. Different
-loaders are available and you can also write your own if you want to load
-templates from a database or other resources.
+Це створить середовище шаблонів з конфігурацією за замовчуванням і завантажувачем
+який шукає шаблони у каталозі ``/path/to/templates/``. Доступні різні завантажувачі,
+і ви також можете написати свій власний, якщо ви хочете завантажувати шаблони з бази
+даних або інших джерел.
 
 .. note::
 
-    Notice that the second argument of the environment is an array of options.
-    The ``cache`` option is a compilation cache directory, where Twig caches
-    the compiled templates to avoid the parsing phase for sub-sequent
-    requests. It is very different from the cache you might want to add for
-    the evaluated templates. For such a need, you can use any available PHP
-    cache library.
+    Зверніть увагу, що другим аргументом середовища є масив опцій.
+    Опція ``cache`` - це каталог кешу компіляції, куди Twig кешує
+    скомпільовані шаблони, щоб уникнути фази аналізу для наступних
+    запитів. Це дуже відрізняється від кешу, який ви можете додати для
+    для шаблонів, що обробляються. Для такої потреби ви можете використовувати
+    будь-яку доступну бібліотеку кешу PHP.
 
-Rendering Templates
--------------------
+Відображення шаблонів
+---------------------
 
-To load a template from a Twig environment, call the ``load()`` method which
-returns a ``\Twig\TemplateWrapper`` instance::
+Щоб завантажити шаблон з середовища Twig, викличте метод ``load()``, який
+повертає екземпляр ``\Twig\TemplateWrapper``::
 
     $template = $twig->load('index.html');
 
-To render the template with some variables, call the ``render()`` method::
+Щоб відобразити шаблон з деякими змінними, викличте метод ``render()``::
 
     echo $template->render(['the' => 'variables', 'go' => 'here']);
 
 .. note::
 
-    The ``display()`` method is a shortcut to output the rendered template.
+    Метод ``display()`` є скороченням для виведення відображеного шаблону.
 
-You can also load and render the template in one fell swoop::
+Ви також можете завантажити та відобразити шаблон одним махом::
 
     echo $twig->render('index.html', ['the' => 'variables', 'go' => 'here']);
 
-If a template defines blocks, they can be rendered individually via the
-``renderBlock()`` call::
+Якщо шаблон визначає блоки, їх можна відобразити окремо за допомогою виклику
+``renderBlock()``::
 
     echo $template->renderBlock('block_name', ['the' => 'variables', 'go' => 'here']);
 
-.. _environment_options:
+.. _environment_options-uk:
 
-Environment Options
--------------------
+Опції середовища
+----------------
 
-When creating a new ``\Twig\Environment`` instance, you can pass an array of
-options as the constructor second argument::
+При створенні нового екземпляру ``\Twig\Environment`` ви можете передати масив опцій в
+якості другого аргумента конструктора::
 
     $twig = new \Twig\Environment($loader, ['debug' => true]);
 
-The following options are available:
+Доступні наступні опції:
 
-* ``debug`` *boolean*
+* ``debug`` *булеве значення*
 
-  When set to ``true``, the generated templates have a
-  ``__toString()`` method that you can use to display the generated nodes
-  (default to ``false``).
+  Коли встановлено як ``true``, згенеровані шаблони мають метод
+  ``__toString()``, який ви можете використовувати для відображення
+  згенерованих вузлів (за замовчуванням ``false``).
 
-* ``charset`` *string* (defaults to ``utf-8``)
+* ``charset`` *рядок* (за замовчуванням - ``utf-8``)
 
-  The charset used by the templates.
+  Набір символів, що використовується шаблонами.
 
-* ``cache`` *string* or ``false``
+* ``cache`` *рядок* або ``false``
 
-  An absolute path where to store the compiled templates, or
-  ``false`` to disable caching (which is the default).
+  Абсолютний шлях, де зберігати скомпільовані шаблони, або
+  ``false`` для вимкнення кешування (за замовчуванням).
 
-* ``auto_reload`` *boolean*
+* ``auto_reload`` *булеве значення*
 
-  When developing with Twig, it's useful to recompile the
-  template whenever the source code changes. If you don't provide a value for
-  the ``auto_reload`` option, it will be determined automatically based on the
-  ``debug`` value.
+  При розробці за допомогою Twig корисно повторно компілювати шаблон щоразу,
+  коли змінюється вихідний код. Якщо ви не вкажете значення для опції 
+  ``auto_reload``, воно буде визначено автоматично на основі значення
+  ``debug``.
 
-.. _environment_options_strict_variables:
+.. _environment_options_strict_variables-uk:
 
-* ``strict_variables`` *boolean*
+* ``strict_variables`` *булеве значення*
 
-  If set to ``false``, Twig will silently ignore invalid
-  variables (variables and or attributes/methods that do not exist) and
-  replace them with a ``null`` value. When set to ``true``, Twig throws an
-  exception instead (default to ``false``).
+  Якщо встановлено у значення ``false``, Twig буде мовчки ігнорувати невалідні
+  змінні (змінні та/або атрибути/методи, яких не існує) і замінюватиме їх значенням
+  ``null``. Якщо встановлено значення ``true``, Twig викличе виключення (за 
+  замовчуванням ``false``).
 
-* ``autoescape`` *string*
+* ``autoescape`` *рядок*
 
-  Sets the default auto-escaping strategy (``name``, ``html``, ``js``, ``css``,
-  ``url``, ``html_attr``, or a PHP callback that takes the template "filename"
-  and returns the escaping strategy to use -- the callback cannot be a function
-  name to avoid collision with built-in escaping strategies); set it to
-  ``false`` to disable auto-escaping. The ``name`` escaping strategy determines
-  the escaping strategy to use for a template based on the template filename
-  extension (this strategy does not incur any overhead at runtime as
-  auto-escaping is done at compilation time.)
+  Встановлює стратегію авто-екранування за замовчуванням (``name``, ``html``, ``js``,
+  ``css``, ``url``, ``html_attr``, або зворотний виклик PHP, який приймає "filename" шаблону 
+  і повертає стратегію екранування для використання - зворотний виклик не може бути імʼям 
+  функції, щоб уникнути зіткнення з вбудованими стратегіями екранування); встановіть значення
+  ``false``, щоб вимкнути автоматичне екранування. Стратегія екранування ``name`` визначає
+  стратегію екранування для шаблону на основі розширення імені файлу шаблону
+  (ця стратегія не спричиняє жодних додаткових витрат під час виконання, оскільки
+  автоматичне екранування виконується під час компіляції).
 
-* ``optimizations`` *integer*
+* ``optimizations`` *ціле число*
 
-  A flag that indicates which optimizations to apply
-  (default to ``-1`` -- all optimizations are enabled; set it to ``0`` to
-  disable).
+  Прапорець, який вказує, які оптимізації застосовувати (за замовчуванням ``-1``
+  - усі оптимізації ввімкнено; встановіть ``0`` для того, щоб їх вимкнути).
 
-Loaders
--------
+Завантажувачі
+-------------
 
-Loaders are responsible for loading templates from a resource such as the file
-system.
+Завантажувачі відповідають за завантаження шаблонів з таких джерел, як файлова система.
 
-Compilation Cache
-~~~~~~~~~~~~~~~~~
+Кеш компіляції
+~~~~~~~~~~~~~~
 
-All template loaders can cache the compiled templates on the filesystem for
-future reuse. It speeds up Twig a lot as templates are only compiled once.
+Усі завантажувачі шаблонів можуть кешувати скомпільовані шаблони у файловій системі для 
+подальшого використання. Це значно пришвидшує роботу Twig, оскільки шаблони компілюються
+лише один раз.
 
-Built-in Loaders
-~~~~~~~~~~~~~~~~
+Вбудовані завантажувачі
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Here is a list of the built-in loaders:
+Ось список вбудованих завантажувачів:
 
 ``\Twig\Loader\FilesystemLoader``
 .................................
 
-``\Twig\Loader\FilesystemLoader`` loads templates from the file system. This loader
-can find templates in folders on the file system and is the preferred way to
-load them::
+``\Twig\Loader\FilesystemLoader`` завантажує шаблони з файлової системи. Цей завантажувач
+може знаходити шаблони у папках файлової системи і є бажаним способом їх завантаження::
 
     $loader = new \Twig\Loader\FilesystemLoader($templateDir);
 
-It can also look for templates in an array of directories::
+Він також може шукати шаблони в масиві каталогів::
 
     $loader = new \Twig\Loader\FilesystemLoader([$templateDir1, $templateDir2]);
 
-With such a configuration, Twig will first look for templates in
-``$templateDir1`` and if they do not exist, it will fallback to look for them
-in the ``$templateDir2``.
+З такою конфігурацією Twig спочатку шукатиме шаблони у ``$templateDir1``, і якщо
+вони не існують, то буде шукати їх у ``$templateDir2``.
 
-You can add or prepend paths via the ``addPath()`` and ``prependPath()``
-methods::
+Ви можете додавати або змінювати шляхи за допомогою методів ``addPath()`` та ``prependPath()``::
+
 
     $loader->addPath($templateDir3);
     $loader->prependPath($templateDir4);
 
-The filesystem loader also supports namespaced templates. This allows to group
-your templates under different namespaces which have their own template paths.
+Завантажувач файлової системи також підтримує шаблони з простором імен. Це дозволяє групувати
+ваші шаблони у різних просторах імен, які мають власні шляхи до шаблонів.
 
-When using the ``setPaths()``, ``addPath()``, and ``prependPath()`` methods,
-specify the namespace as the second argument (when not specified, these
-methods act on the "main" namespace)::
+При використанні методів ``setPaths()``, ``addPath()`` і ``prependPath()``, вкажіть простір
+імен як другий аргумент (якщо його не вказано, ці методи працюють з «основним» простором імен)::
 
     $loader->addPath($templateDir, 'admin');
 
-Namespaced templates can be accessed via the special
-``@namespace_name/template_path`` notation::
+До шаблонів з простором імен можна отримати доступ через спеціальну нотацію
+``@namespace_name/template_path``::
 
     $twig->render('@admin/index.html', []);
 
-``\Twig\Loader\FilesystemLoader`` supports absolute and relative paths. Using relative
-paths is preferred as it makes the cache keys independent of the project root
-directory (for instance, it allows warming the cache from a build server where
-the directory might be different from the one used on production servers)::
+``\Twig\Loader\FilesystemLoader`` підтримує абсолютні та відносні шляхи. Використання відносних
+шляхів є кращим, оскільки це робить ключі кешу незалежними від кореневого каталогу проекту
+(наприклад, це дозволяє прогрівати кеш з сервера збірки, де каталог може відрізнятися від того,
+що використовується на  серверах виробництва)::
 
     $loader = new \Twig\Loader\FilesystemLoader('templates', getcwd().'/..');
 
 .. note::
 
-    When not passing the root path as a second argument, Twig uses ``getcwd()``
-    for relative paths.
+    Якщо не передавати кореневий шлях як другий аргумент, Twig використовує ``getcwd()``
+    для відносних шляхів.
 
 ``\Twig\Loader\ArrayLoader``
 ............................
 
-``\Twig\Loader\ArrayLoader`` loads a template from a PHP array. It is passed an
-array of strings bound to template names::
+``\Twig\Loader\ArrayLoader`` завантажує шаблон з масиву PHP. Йому передається
+масив рядків, прив'язаних до назв шаблонів::
 
     $loader = new \Twig\Loader\ArrayLoader([
         'index.html' => 'Hello {{ name }}!',
@@ -204,21 +200,20 @@ array of strings bound to template names::
 
     echo $twig->render('index.html', ['name' => 'Fabien']);
 
-This loader is very useful for unit testing. It can also be used for small
-projects where storing all templates in a single PHP file might make sense.
+Цей завантажувач дуже корисний для модульного тестування. Він також може бути використаний
+для невеликих проектів, де зберігання всіх шаблонів в одному PHP-файлі може мати сенс. 
 
 .. tip::
 
-    When using the ``Array`` loader with a cache mechanism, you should know that
-    a new cache key is generated each time a template content "changes" (the
-    cache key being the source code of the template). If you don't want to see
-    your cache grows out of control, you need to take care of clearing the old
-    cache file by yourself.
+    При використанні завантажувача ``Array`` з механізмом кешування слід знати, що
+    новий ключ кешу генерується кожного разу, коли зміст шаблону "змінюється" (ключ кешу
+    є вихідним кодом шаблону). Якщо ви не хочете, щоб ваш кеш вийшов з-під контролю, вам
+    потрібно подбати про очищення старого файлу кешу самостійно.
 
 ``\Twig\Loader\ChainLoader``
 ............................
 
-``\Twig\Loader\ChainLoader`` delegates the loading of templates to other loaders::
+``\Twig\Loader\ChainLoader`` делегує завантаження шаблонів іншим завантажувачам::
 
     $loader1 = new \Twig\Loader\ArrayLoader([
         'base.html' => '{% block content %}{% endblock %}',
@@ -232,142 +227,141 @@ projects where storing all templates in a single PHP file might make sense.
 
     $twig = new \Twig\Environment($loader);
 
-When looking for a template, Twig tries each loader in turn and returns as soon
-as the template is found. When rendering the ``index.html`` template from the
-above example, Twig will load it with ``$loader2`` but the ``base.html``
-template will be loaded from ``$loader1``.
+Шукаючи шаблон, Twig пробує кожен завантажувач по черзі і повертається, як тільки
+шаблон буде знайдено. Під час відображення шаблону ``index.html`` з наведеного вище
+прикладу, Twig завантажить його за допомогою ``$loader2``, але шаблон ``base.html``
+буде завантажено з ``$loader1``.
 
 .. note::
 
-    You can also add loaders via the ``addLoader()`` method.
+    Ви також можете додавати завантажувачі через метод ``addLoader()``.
 
-Create your own Loader
-~~~~~~~~~~~~~~~~~~~~~~
+Створіть ваш власний завантажувач
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All loaders implement the ``\Twig\Loader\LoaderInterface``::
+Всі завантажувачі реалізують ``\Twig\Loader\LoaderInterface``::
 
     interface \Twig\Loader\LoaderInterface
     {
         /**
-         * Returns the source context for a given template logical name.
+         * Повертає контекст джерела для заданого логічного імені шаблону.
          *
-         * @param string $name The template logical name
+         * @param string $name Логічне імʼя шаблону
          *
          * @return \Twig\Source
          *
-         * @throws \Twig\Error\LoaderError When $name is not found
+         * @throws \Twig\Error\LoaderError Коли $name не знайдено
          */
         public function getSourceContext($name);
 
         /**
-         * Gets the cache key to use for the cache for a given template name.
+         * Отримує ключ кешу для використання для кешу заданого імені шаблону.
          *
-         * @param string $name The name of the template to load
+         * @param string $name Імʼя шаблону для завантаження
          *
-         * @return string The cache key
+         * @return string Ключ кешу
          *
-         * @throws \Twig\Error\LoaderError When $name is not found
+         * @throws \Twig\Error\LoaderError Коли $name не знайдено
          */
         public function getCacheKey($name);
 
         /**
-         * Returns true if the template is still fresh.
+         * Повертає true, якщо шаблон все ще свіжий.
          *
-         * @param string    $name The template name
-         * @param timestamp $time The last modification time of the cached template
+         * @param string    $name Імʼя шаблону
+         * @param timestamp $time Час останньої модифікації кешованого шаблону
          *
-         * @return bool    true if the template is fresh, false otherwise
+         * @return bool    true, якщо шаблон свіжий, false - в іншому випадку
          *
-         * @throws \Twig\Error\LoaderError When $name is not found
+         * @throws \Twig\Error\LoaderError Коли $name не знайдено
          */
         public function isFresh($name, $time);
 
         /**
-         * Check if we have the source code of a template, given its name.
+         * Перевірити, чи у нас є вихідний код шаблону, маючи його імʼя.
          *
-         * @param string $name The name of the template to check if we can load
+         * @param string $name Імʼя шаблону для перевірки того, чи можемо ми його завантажити
          *
-         * @return bool    If the template source code is handled by this loader or not
+         * @return bool    Чи обробляється вихідний код шаблону завантажувачем
          */
         public function exists($name);
     }
 
-The ``isFresh()`` method must return ``true`` if the current cached template
-is still fresh, given the last modification time, or ``false`` otherwise.
+Метод ``isFresh()`` повинен повертати ``true``, якщо поточний кешований шаблон
+все ще свіжий, враховуючи час останньої модифікації, або ``false`` в іншому випадку.
 
-The ``getSourceContext()`` method must return an instance of ``\Twig\Source``.
+Метод ``getSourceContext()`` повинен повертати екземпляр ``\Twig\Source``.
 
-Using Extensions
-----------------
+Використання розширень
+----------------------
 
-Twig extensions are packages that add new features to Twig. Register an
-extension via the ``addExtension()`` method::
+Розширення Twig - це пакети, які додають нові можливості до Twig. Зареєструйте розширення
+за допомогою методу ``addExtension()``::
 
     $twig->addExtension(new \Twig\Extension\SandboxExtension());
 
-Twig comes bundled with the following extensions:
+Twig постачається з наступними розширеннями:
 
-* *Twig\Extension\CoreExtension*: Defines all the core features of Twig.
+* *Twig\Extension\CoreExtension*: Визначає всі основні функції Twig.
 
-* *Twig\Extension\DebugExtension*: Defines the ``dump`` function to help debug
-  template variables.
+* *Twig\Extension\DebugExtension*: Визначає функцію ``dump``, щоб допомогти з налагодженням
+  змінних шаблону.
 
-* *Twig\Extension\EscaperExtension*: Adds automatic output-escaping and the
-  possibility to escape/unescape blocks of code.
+* *Twig\Extension\EscaperExtension*: Додає автоматичне екранування виведення та можливість
+  екранувати/не екранувати блоки коду.
 
-* *Twig\Extension\SandboxExtension*: Adds a sandbox mode to the default Twig
-  environment, making it safe to evaluate untrusted code.
+* *Twig\Extension\SandboxExtension*: Додає режим пісочниці до середовища Twig за замовчуванням,
+  що робить оцінку ненадійного коду безпечною.
 
-* *Twig\Extension\ProfilerExtension*: Enables the built-in Twig profiler.
+* *Twig\Extension\ProfilerExtension*: Включає вбудований профілювальник Twig.
 
-* *Twig\Extension\OptimizerExtension*: Optimizes the node tree before
-  compilation.
+* *Twig\Extension\OptimizerExtension*: Оптимізує дерево вузлів перед компіляцією.
 
-* *Twig\Extension\StringLoaderExtension*: Defines the ``template_from_string``
-   function to allow loading templates from string in a template.
+* *Twig\Extension\StringLoaderExtension*: Визначає функцію ``template_from_string``, щоб
+  дозволити завантажувати шаблоні з рядку у шаблоні.
 
-The Core, Escaper, and Optimizer extensions are registered by default.
+Розширення Core, Escaper, та Optimizer реєструються за замовчуванням.
 
-Built-in Extensions
--------------------
+Вбудовані розширення
+--------------------
 
-This section describes the features added by the built-in extensions.
+Цей розділ описує функції, що додаються вбудованими розширеннями.
 
 .. tip::
 
-    Read the chapter about :doc:`extending Twig <advanced>` to learn how to
-    create your own extensions.
+    Прочитайте главу про :doc:`розширення Twig <advanced>`, щоб дізнатися, як
+    створювати ваші власні розширення.
 
-Core Extension
-~~~~~~~~~~~~~~
+Основні розширення
+~~~~~~~~~~~~~~~~~~
 
-The ``core`` extension defines all the core features of Twig:
+``core`` Розширення визначає усі основні функції Twig:
 
-* :doc:`Tags <tags/index>`;
-* :doc:`Filters <filters/index>`;
-* :doc:`Functions <functions/index>`;
-* :doc:`Tests <tests/index>`.
+* :doc:`Теги <tags/index>`;
+* :doc:`Фільтри <filters/index>`;
+* :doc:`Функції <functions/index>`;
+* :doc:`Тести <tests/index>`.
 
-Escaper Extension
-~~~~~~~~~~~~~~~~~
+Розширення Escaper
+~~~~~~~~~~~~~~~~~~
 
-The ``escaper`` extension adds automatic output escaping to Twig. It defines a
-tag, ``autoescape``, and a filter, ``raw``.
+Розширення ``escaper`` додає до Twig автоматичне екранування виводу. Воно визначає тег
+тег ``autoescape`` і фільтр ``raw``.
 
-When creating the escaper extension, you can switch on or off the global
-output escaping strategy::
+При створенні розширення екранування ви можете увімкнути або вимкнути глобальну
+стратегію екранування виведення::
 
     $escaper = new \Twig\Extension\EscaperExtension('html');
     $twig->addExtension($escaper);
 
-If set to ``html``, all variables in templates are escaped (using the ``html``
-escaping strategy), except those using the ``raw`` filter:
+Якщо встановлено у значення ``html``, усі змінні у шаблонах екрануються (за допомогою
+стратегії екранування ``html``), окрім тих, що використовують фільтр ``raw``:
 
 .. code-block:: twig
 
     {{ article.to_html|raw }}
 
-You can also change the escaping mode locally by using the ``autoescape`` tag:
+Ви також можете змінити режим екранування локально за допомогою тегу ``autoescape``:
 
 .. code-block:: twig
 
@@ -379,59 +373,59 @@ You can also change the escaping mode locally by using the ``autoescape`` tag:
 
 .. warning::
 
-    The ``autoescape`` tag has no effect on included files.
+    Тег ``autoescape`` не має жодного ефекту на включені файли.
 
-The escaping rules are implemented as follows:
+Правила екранування реалізовані наступним чином:
 
-* Literals (integers, booleans, arrays, ...) used in the template directly as
-  variables or filter arguments are never automatically escaped:
+* Літерали (цілі числа, булеві, масиви, ...), що використовуються в шаблоні безпосередньо як
+  як змінні або аргументи фільтрів, ніколи не екрануються автоматично:
 
   .. code-block:: html+twig
 
-        {{ "Twig<br/>" }} {# won't be escaped #}
+        {{ "Twig<br/>" }} {# не буде екрановано #}
 
         {% set text = "Twig<br/>" %}
         {{ text }} {# will be escaped #}
 
-* Expressions which the result is a literal or a variable marked safe
-  are never automatically escaped:
+* Вирази, результатом яких є літерал або змінна, позначені безпечними, 
+  ніколи не екрануються автоматично:
 
   .. code-block:: html+twig
 
         {{ foo ? "Twig<br/>" : "<br/>Twig" }} {# won't be escaped #}
 
         {% set text = "Twig<br/>" %}
-        {{ true ? text : "<br/>Twig" }} {# will be escaped #}
-        {{ false ? text : "<br/>Twig" }} {# won't be escaped #}
+        {{ true ? text : "<br/>Twig" }} {# буде екрановано #}
+        {{ false ? text : "<br/>Twig" }} {# не буде екрановано #}
 
         {% set text = "Twig<br/>" %}
-        {{ foo ? text|raw : "<br/>Twig" }} {# won't be escaped #}
+        {{ foo ? text|raw : "<br/>Twig" }} {# не буде екрановано #}
 
-* Objects with a ``__toString`` method are converted to strings and
-  escaped. You can mark some classes and/or interfaces as being safe for some
-  strategies via ``EscaperExtension::addSafeClass()``:
+* Об'єкти з методом ``__toString`` конвертуються в рядки і 
+  екрануються. Ви можете позначити деякі класи та/або інтерфейси як безпечні для деяких
+  стратегій за допомогою ``EscaperExtension::addSafeClass()``:
 
   .. code-block:: twig
 
-        // mark object of class Foo as safe for the HTML strategy
+        // позначити обʼєкт класу Foo як безпесний для стратегії HTML
         $escaper->addSafeClass('Foo', ['html']);
 
-        // mark object of interface Foo as safe for the HTML strategy
+        // позначити обʼєкт інтерфейсу Foo як безпечний для стратегії HTML
         $escaper->addSafeClass('FooInterface', ['html']);
 
-        // mark object of class Foo as safe for the HTML and JS strategies
+        // позначити обʼєкт класу Foo як безпечний для стратегій HTML та JS
         $escaper->addSafeClass('Foo', ['html', 'js']);
 
-        // mark object of class Foo as safe for all strategies
+        // позначити обʼєкт класу Foo як безпечний для всіх стратегій
         $escaper->addSafeClass('Foo', ['all']);
 
-* Escaping is applied before printing, after any other filter is applied:
+* Екранування застосовується перед виведенням, після застосування будь-якого іншого фільтра:
 
   .. code-block:: twig
 
         {{ var|upper }} {# is equivalent to {{ var|upper|escape }} #}
 
-* The ``raw`` filter should only be used at the end of the filter chain:
+* Фільтр ``raw`` слід використовувати лише в кінці ланцюжка фільтрів:
 
   .. code-block:: twig
 
@@ -439,35 +433,34 @@ The escaping rules are implemented as follows:
 
         {{ var|upper|raw }} {# won't be escaped #}
 
-* Automatic escaping is not applied if the last filter in the chain is marked
-  safe for the current context (e.g. ``html`` or ``js``). ``escape`` and
-  ``escape('html')`` are marked safe for HTML, ``escape('js')`` is marked
-  safe for JavaScript, ``raw`` is marked safe for everything.
+* Автоматичне екранування не застосовується, якщо останній фільтр у ланцюжку позначено
+  безпечним для поточного контексту (наприклад, ``html`` або ``js``). ``escape`` і
+  ``escape('html')`` позначені як безпечні для HTML, ``escape('js')`` позначений
+  безпечним для JavaScript, ``raw`` - безпечним для всього.
 
   .. code-block:: twig
 
         {% autoescape 'js' %}
-            {{ var|escape('html') }} {# will be escaped for HTML and JavaScript #}
-            {{ var }} {# will be escaped for JavaScript #}
-            {{ var|escape('js') }} {# won't be double-escaped #}
+            {{ var|escape('html') }} {# буде екрановано для HTML та JavaScript #}
+            {{ var }} {# буде екрановано для JavaScript #}
+            {{ var|escape('js') }} {# не буде подвійно екрановано #}
         {% endautoescape %}
 
 .. note::
 
-    Note that autoescaping has some limitations as escaping is applied on
-    expressions after evaluation. For instance, when working with
-    concatenation, ``{{ foo|raw ~ bar }}`` won't give the expected result as
-    escaping is applied on the result of the concatenation, not on the
-    individual variables (so, the ``raw`` filter won't have any effect here).
+    Зауважте, що автоматичне екранування має деякі обмеження, оскільки екранування застосовується у
+    виразах після обчислення. Наприклад, при роботі з конкатенацією, ``{{ foo|raw ~ bar }}`` не дасть
+    очікуваного результату, оскільки екранування застосовується до результату конкатенації, а не до
+    окремих змінних (отже, фільтр ``raw`` тут не матиме жодного ефекту).
 
-Sandbox Extension
-~~~~~~~~~~~~~~~~~
+Розширення Sandbox
+~~~~~~~~~~~~~~~~~~
 
-The ``sandbox`` extension can be used to evaluate untrusted code. Access to
-unsafe attributes and methods is prohibited. The sandbox security is managed
-by a policy instance. By default, Twig comes with one policy class:
-``\Twig\Sandbox\SecurityPolicy``. This class allows you to white-list some
-tags, filters, functions, properties, and methods::
+Розширення ``sandbox`` можна використовувати для оцінки ненадійного коду. Доступ до
+небезпечних атрибутів та методів заборонено. Безпекою пісочниці керує
+екземпляр політики. За замовчуванням Twig постачається з одним класом політики:
+``\Twig\Sandbox\SecurityPolicy``. Цей клас дозволяє вам вносити до білого списку деякі
+теги, фільтри, функції, властивості та методи::
 
     $tags = ['if'];
     $filters = ['upper'];
@@ -480,25 +473,25 @@ tags, filters, functions, properties, and methods::
     $functions = ['range'];
     $policy = new \Twig\Sandbox\SecurityPolicy($tags, $filters, $methods, $properties, $functions);
 
-With the previous configuration, the security policy will only allow usage of
-the ``if`` tag, and the ``upper`` filter. Moreover, the templates will only be
-able to call the ``getTitle()`` and ``getBody()`` methods on ``Article``
-objects, and the ``title`` and ``body`` public properties. Everything else
-won't be allowed and will generate a ``\Twig\Sandbox\SecurityError`` exception.
+У попередній конфігурації політика безпеки дозволятиме використання лише
+тегу ``if`` та фільтра ``upper``. Крім того, шаблони зможуть 
+викликати методи ``getTitle()`` і ``getBody()`` лише в об'єктах ``Article``, а
+також публічних властивостях ``title`` і ``body``. Все інше буде заборонено і викличе
+виключення ``\Twig\Sandbox\SecurityError``.
 
 .. caution::
 
-    The ``extends`` and ``use`` tags are always allowed in a sandboxed
-    template. That behavior will change in 4.0 where these tags will need to be
-    explicitly allowed like any other tag.
+    Теги ``extends`` та ``use`` завжди дозволені в шаблоні пісочниці. 
+    Ця поведінка зміниться у версії 4.0, де ці теги потрібно буде 
+    явно дозволити, як і будь-який інший тег.
 
-The policy object is the first argument of the sandbox constructor::
+Об'єкт політики є першим аргументом конструктора пісочниці::
 
     $sandbox = new \Twig\Extension\SandboxExtension($policy);
     $twig->addExtension($sandbox);
 
-By default, the sandbox mode is disabled and should be enabled when including
-untrusted template code by using the ``sandbox`` tag:
+За замовчуванням режим пісочниці відключений і повинен бути включений при додаванні 
+ненадійного коду шаблону за допомогою тегу ``sandbox``:
 
 .. code-block:: twig
 
@@ -506,16 +499,16 @@ untrusted template code by using the ``sandbox`` tag:
         {% include 'user.html' %}
     {% endsandbox %}
 
-You can sandbox all templates by passing ``true`` as the second argument of
-the extension constructor::
+Ви можете пропісочити всі шаблони, передавши ``true`` як другий аргумент 
+конструктора розширення::
 
     $sandbox = new \Twig\Extension\SandboxExtension($policy, true);
 
-Profiler Extension
-~~~~~~~~~~~~~~~~~~
+Розширення Profiler
+~~~~~~~~~~~~~~~~~~~
 
-The ``profiler`` extension enables a profiler for Twig templates; it should
-only be used on your development machines as it adds some overhead::
+Розширення ``profiler`` вмикає профілювальник для шаблонів Twig; його слід 
+використовувати лише на ваших машинах для розробки, оскільки воно додає певні додаткові витрати::
 
     $profile = new \Twig\Profiler\Profile();
     $twig->addExtension(new \Twig\Extension\ProfilerExtension($profile));
@@ -523,63 +516,59 @@ only be used on your development machines as it adds some overhead::
     $dumper = new \Twig\Profiler\Dumper\TextDumper();
     echo $dumper->dump($profile);
 
-A profile contains information about time and memory consumption for template,
-block, and macro executions.
+Профіль містить інформацію про витрати часу та пам'яті на для шаблону, 
+блоків і макросів.
 
-You can also dump the data in a `Blackfire.io <https://blackfire.io/>`_
-compatible format::
+Ви також можете скинути дані у сумісному з `Blackfire.io <https://blackfire.io/>`_
+форматі::
 
     $dumper = new \Twig\Profiler\Dumper\BlackfireDumper();
     file_put_contents('/path/to/profile.prof', $dumper->dump($profile));
 
-Upload the profile to visualize it (create a `free account
-<https://blackfire.io/signup?utm_source=twig&utm_medium=doc&utm_campaign=profiler>`_
-first):
+Завантажте профіль для його візуалізації (спочатку створіть `безкоштовний акаунт 
+<https://blackfire.io/signup?utm_source=twig&utm_medium=doc&utm_campaign=profiler>`_):
 
 .. code-block:: sh
 
     blackfire --slot=7 upload /path/to/profile.prof
 
-Optimizer Extension
-~~~~~~~~~~~~~~~~~~~
+Розширення Optimizer
+~~~~~~~~~~~~~~~~~~~~
 
-The ``optimizer`` extension optimizes the node tree before compilation::
+Розширення ``optimizer`` оптимізує дерево вузлів перед компіляцією::
 
     $twig->addExtension(new \Twig\Extension\OptimizerExtension());
 
-By default, all optimizations are turned on. You can select the ones you want
-to enable by passing them to the constructor::
+За замовчуванням усі оптимізації ввімкнено. Ви можете вибрати ті, які хочете включити, передавши їх конструктору::
 
     $optimizer = new \Twig\Extension\OptimizerExtension(\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_FOR);
 
     $twig->addExtension($optimizer);
 
-Twig supports the following optimizations:
+Twig підтримує наступні оптимізації:
 
-* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_ALL``, enables all optimizations
-  (this is the default value).
+* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_ALL``, вмикає всі оптимізації (це є
+  значенням за замовчуванням).
 
-* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_NONE``, disables all optimizations.
-  This reduces the compilation time, but it can increase the execution time
-  and the consumed memory.
+* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_NONE``, вимикає усі оптимізації. 
+  Це зменшує час компіляції, але може збільшити час виконання та спожиту памʼять.
 
-* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_FOR``, optimizes the ``for`` tag by
-  removing the ``loop`` variable creation whenever possible.
+* ``\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_FOR``, оптимізує тег ``for`` шляхом
+  видалення створення змінної ``loop``, коли це можливо.
 
-Exceptions
+Виключення
 ----------
 
-Twig can throw exceptions:
+Twig може викликати виключення:
 
-* ``\Twig\Error\Error``: The base exception for all errors.
+* ``\Twig\Error\Error``: Базове виключення для всіх помилок.
 
-* ``\Twig\Error\SyntaxError``: Thrown to tell the user that there is a problem with
-  the template syntax.
+* ``\Twig\Error\SyntaxError``: Викликається, щоб сказати користувачу, що є проблема з синтаксисом шаблону.
 
-* ``\Twig\Error\RuntimeError``: Thrown when an error occurs at runtime (when a filter
-  does not exist for instance).
+* ``\Twig\Error\RuntimeError``: Викликається, коли виникає помилка під час виконання (наприклад,
+  коли фільтр не існує).
 
-* ``\Twig\Error\LoaderError``: Thrown when an error occurs during template loading.
+* ``\Twig\Error\LoaderError``: Викликається, коли помилка виникає під час завантаження шаблону.
 
-* ``\Twig\Sandbox\SecurityError``: Thrown when an unallowed tag, filter, or
-  method is called in a sandboxed template.
+* ``\Twig\Sandbox\SecurityError``: Викликається, коли викликається недозволений тег, фільтр або
+  метод у пропісоченому шаблоні.
