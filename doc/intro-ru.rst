@@ -1,50 +1,49 @@
-Introduction
-============
+Вступ
+=====
 
-Welcome to the documentation for Twig, the flexible, fast, and secure template
-engine for PHP.
+Ласкаво просимо до документації Twig - гнучкого, швидкого і безпечного шаблонного движку для PHP.
 
-Twig is both designer and developer friendly by sticking to PHP's principles and
-adding functionality useful for templating environments.
+Twig є зручним як для дизайнерів, так і для розробників, оскільки дотримується принципів PHP і
+і додає функціональність, корисну для середовищ шаблонування.
 
-The key-features are...
+Основні можливості...
 
-* *Fast*: Twig compiles templates down to plain optimized PHP code. The
-  overhead compared to regular PHP code was reduced to the very minimum.
+* *Швидкий*: Twig компілює шаблони до простого оптимізованого PHP-коду. У порівнянні зі
+  звичайним PHP-кодом, додаткові витрати було зведено до мінімуму.
 
-* *Secure*: Twig has a sandbox mode to evaluate untrusted template code. This
-  allows Twig to be used as a template language for applications where users
-  may modify the template design.
+* *Безпечний*: Twig має режим пісочниці для оцінки ненадійного коду шаблону. Це дозволяє
+  використовувати Twig як мову шаблонів для додатків, де користувачі можуть змінювати 
+  дизайн шаблону.
 
-* *Flexible*: Twig is powered by a flexible lexer and parser. This allows the
-  developer to define their own custom tags and filters, and to create their own DSL.
+* *Гнучкий*: Twig працює на основі гнучкого лексера та парсера. Це дозволяє розробнику 
+  визначати власні користувацькі теги та фільтри, а також створювати власні DSL.
 
-Twig is used by many Open-Source projects like Symfony, Drupal8, eZPublish,
-phpBB, Matomo, OroCRM; and many frameworks have support for it as well like
-Slim, Yii, Laravel, and Codeigniter — just to name a few.
+Twig використовується багатьма проектами з відкритим вихідним кодом, такими як Symfony,
+Drupal8, eZPublish, phpBB, Matomo, OroCRM; і багато фреймворків також підтримують його,
+наприклад Slim, Yii, Laravel та Codeigniter - і це лише деякі з них.
 
 .. admonition:: Screencast
 
-    Like to learn from video tutorials? Check out the `SymfonyCasts Twig Tutorial`_!
+    Хочете навчатися по відео-туторіалах? Перегляньте `SymfonyCasts Twig Tutorial`_!
 
-Prerequisites
--------------
+Передумови
+----------
 
-Twig 3.x needs at least **PHP 8.0.2** to run.
+Twig 3.x потребує принаймні **PHP 8.0.2** для роботи.
 
-Installation
-------------
+Установка
+---------
 
-The recommended way to install Twig is via Composer:
+Рекомендований спосіб установки Twig - через Composer:
 
 .. code-block:: bash
 
     composer require "twig/twig:^3.0"
 
-Basic API Usage
----------------
+Базове використання API
+-----------------------
 
-This section gives you a brief introduction to the PHP API for Twig::
+У цьому розділі ви отримаєте короткий вступ до PHP API для Twig::
 
     require_once '/path/to/vendor/autoload.php';
 
@@ -55,14 +54,14 @@ This section gives you a brief introduction to the PHP API for Twig::
 
     echo $twig->render('index', ['name' => 'Fabien']);
 
-Twig uses a loader (``\Twig\Loader\ArrayLoader``) to locate templates, and an
-environment (``\Twig\Environment``) to store its configuration.
+Twig використовує завантажувач (``\Twig\Loader\ArrayLoader``) для пошуку шаблонів та
+середовище (``\Twig\Environment``) для зберігання його конфігурації.
 
-The ``render()`` method loads the template passed as a first argument and
-renders it with the variables passed as a second argument.
+Метод ``render()`` завантажує шаблон, переданий як перший аргумент, і
+відображає його зі змінними, переданими в якості другого аргументу.
 
-As templates are generally stored on the filesystem, Twig also comes with a
-filesystem loader::
+Оскільки шаблони зазвичай зберігаються у файловій системі, Twig також постачається з
+завантажувачем файлової системи::
 
     $loader = new \Twig\Loader\FilesystemLoader('/path/to/templates');
     $twig = new \Twig\Environment($loader, [
