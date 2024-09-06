@@ -1,7 +1,7 @@
-Installation
-============
+Установка
+=========
 
-Install `Composer`_ and run the following command to get the latest version:
+Встановіть `Composer`_ та виконайте наступну команду, щоб отримати останню версію:
 
 .. code-block:: bash
 
