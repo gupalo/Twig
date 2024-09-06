@@ -1,75 +1,75 @@
-Extending Twig
-==============
+Розширення Twig
+===============
 
-Twig can be extended in many ways; you can add extra tags, filters, tests,
-operators, global variables, and functions. You can even extend the parser
-itself with node visitors.
+Twig можна розширювати багатьма способами: ви можете додавати додаткові теги, фільтри, тести,
+оператори, глобальні змінні та функції. Ви навіть можете розширити сам парсер
+за допомогою відвідувачів вузлів.
 
 .. note::
 
-    The first section of this chapter describes how to extend Twig. If you want
-    to reuse your changes in different projects or if you want to share them
-    with others, you should then create an extension as described in the
-    following section.
+    У першому розділі цієї глави описано, як розширити Twig. Якщо ви хочете
+    повторно використовувати ваші зміни у різних проєктах або якщо ви хочете поділитися ними
+    з іншими, вам слід створити розширення, як описано у
+    наступному розділі.
 
 .. caution::
 
-    When extending Twig without creating an extension, Twig won't be able to
-    recompile your templates when the PHP code is updated. To see your changes
-    in real-time, either disable template caching or package your code into an
-    extension (see the next section of this chapter).
+    При розширенні Twig без створення розширення, Twig не зможе
+    повторно скомпілювати ваші шаблони при оновленні PHP-коду. Щоб бачити ваші зміни
+    в реальному часі, вимкніть кешування шаблонів або упакуйте ваш код в
+    розширення (див. наступний розділ цієї глави).
 
-Before extending Twig, you must understand the differences between all the
-different possible extension points and when to use them.
+Перш ніж розширювати Twig, ви повинні розуміти відмінності між усіма
+різними можливими точками розширення і коли їх використовувати.
 
-First, remember that Twig has two main language constructs:
+По-перше, пам'ятайте, що Twig має дві основні мовні конструкції:
 
-* ``{{ }}``: used to print the result of an expression evaluation;
+* ``{{ }}``: використовується для виведення результату обчислення виразу;
 
-* ``{% %}``: used to execute statements.
+* ``{% %}``: використовується для виконання стверджень.
 
-To understand why Twig exposes so many extension points, let's see how to
-implement a *Lorem ipsum* generator (it needs to know the number of words to
-generate).
+Щоб зрозуміти, чому Twig виставляє так багато точок розширення, давайте подивимося, як
+реалізувати генератор *Lorem ipsum* (йому потрібно знати кількість слів для
+для генерування).
 
-You can use a ``lipsum`` *tag*:
+Ви можете використати *тег* ``lipsum``:
 
 .. code-block:: twig
 
     {% lipsum 40 %}
 
-That works, but using a tag for ``lipsum`` is not a good idea for at least
-three main reasons:
+Це працює, але використання тегу для ``lipsum`` не є гарною ідеєю щонайменше з
+з трьох основних причин:
 
-* ``lipsum`` is not a language construct;
-* The tag outputs something;
-* The tag is not flexible as you cannot use it in an expression:
+* ``lipsum`` не є мовною конвтрукцією;
+* Тег щось виводить;
+* Тег не є гнучким, так як ви не можете використовувати його у виразі:
 
   .. code-block:: twig
 
       {{ 'some text' ~ {% lipsum 40 %} ~ 'some more text' }}
 
-In fact, you rarely need to create tags; and that's good news because tags are
-the most complex extension point.
+Насправді, вам рідко доведеться створювати теги; і це хороша новина, тому що теги - це
+найскладніша точка розширення.
 
-Now, let's use a ``lipsum`` *filter*:
+Тепер давайте скористаємося *фільтром* ``lipsum``:
 
 .. code-block:: twig
 
     {{ 40|lipsum }}
 
-Again, it works. But a filter should transform the passed value to something
-else. Here, we use the value to indicate the number of words to generate (so,
-``40`` is an argument of the filter, not the value we want to transform).
+Знову ж таки, це працює. Але фільтр повинен перетворити передане значення на щось
+інше. Тут ми використовуємо значення для вказання кількості слів, які потрібно згенерувати (тобто,
+``40`` - це аргумент фільтра, а не значення, яке ми хочемо перетворити).
 
-Next, let's use a ``lipsum`` *function*:
+Далі давайте використаємо *функцію* ``lipsum``:
 
 .. code-block:: twig
 
     {{ lipsum(40) }}
 
-Here we go. For this specific example, the creation of a function is the
-extension point to use. And you can use it anywhere an expression is accepted:
+Отже, почнемо. У цьому конкретному прикладі створення функції є точкою розширення,
+яку слід використовувати. І ви можете використовувати її скрізь, де приймається вираз:
 
 .. code-block:: twig
 
@@ -77,77 +77,76 @@ extension point to use. And you can use it anywhere an expression is accepted:
 
     {% set lipsum = lipsum(40) %}
 
-Lastly, you can also use a *global* object with a method able to generate lorem
-ipsum text:
+Нарешті, ви також можете використовувати *глобальний* об'єкт з методом, здатним генерувати текст
+lorem ipsum:
 
 .. code-block:: twig
 
     {{ text.lipsum(40) }}
 
-As a rule of thumb, use functions for frequently used features and global
-objects for everything else.
+Як загальне правило, використовуйте функції для часто використовуваних можливостей, а глобальні
+об'єкти для всього іншого.
 
-Keep in mind the following when you want to extend Twig:
+Коли ви хочете розширити Twig, майте на увазі наступне:
 
 ========== ========================== ========== =========================
-What?      Implementation difficulty? How often? When?
+Що?        Складніть реалізації?      Як часто?  Коли?
 ========== ========================== ========== =========================
-*macro*    simple                     frequent   Content generation
-*global*   simple                     frequent   Helper object
-*function* simple                     frequent   Content generation
-*filter*   simple                     frequent   Value transformation
-*tag*      complex                    rare       DSL language construct
-*test*     simple                     rare       Boolean decision
-*operator* simple                     rare       Values transformation
+*macro*    просто                     часто      Генерування змісту
+*global*   просто                     часто      Обʼєкт-помічник
+*function* просто                     часто      Генерування змісту
+*filter*   просто                     часто      Перетворення значення
+*tag*      складно                    рідко      Мовна конструкція DSL
+*test*     просто                     рідко      Булеве рішення
+*operator* просто                     рідко      Перетворення значення
 ========== ========================== ========== =========================
 
-Globals
+Глобали
 -------
 
-A global variable is like any other template variable, except that it's
-available in all templates and macros::
+Глобальна змінна схожа на будь-яку іншу змінну шаблону, за винятком того, що вона
+доступна у всіх шаблонах і макросах::
 
     $twig = new \Twig\Environment($loader);
     $twig->addGlobal('text', new Text());
 
-You can then use the ``text`` variable anywhere in a template:
+Потім ви можете використовувати змінну ``text`` будь-де у шаблоні:
 
 .. code-block:: twig
 
     {{ text.lipsum(40) }}
 
-Filters
+Фільтри
 -------
 
-Creating a filter consists of associating a name with a PHP callable::
+Створення фільтра полягає у зв'язуванні імені з PHP-викличним::
 
-    // an anonymous function
+    // анонімна функція
     $filter = new \Twig\TwigFilter('rot13', function ($string) {
         return str_rot13($string);
     });
 
-    // or a simple PHP function
+    // або проста PHP-функція
     $filter = new \Twig\TwigFilter('rot13', 'str_rot13');
 
-    // or a class static method
+    // або статичний метод класу
     $filter = new \Twig\TwigFilter('rot13', ['SomeClass', 'rot13Filter']);
     $filter = new \Twig\TwigFilter('rot13', 'SomeClass::rot13Filter');
 
-    // or a class method
+    // або метод класу
     $filter = new \Twig\TwigFilter('rot13', [$this, 'rot13Filter']);
-    // the one below needs a runtime implementation (see below for more information)
+    // наведений нижче потребує реалізації під час виконання (див. нижче для отримання додаткової інформації)
     $filter = new \Twig\TwigFilter('rot13', ['SomeClass', 'rot13Filter']);
 
-The first argument passed to the ``\Twig\TwigFilter`` constructor is the name of the
-filter you will use in templates and the second one is the PHP callable to
-associate with it.
+Перший аргумент, що передається конструктору ``\Twig\TwigFilter`` - це назва фільтра, який ви
+будете використовувати у шаблонах, а другий - це PHP-викличне для зв'язку з ним.
 
-Then, add the filter to the Twig environment::
+Потім додайте фільтр до середовища Twig::
 
     $twig = new \Twig\Environment($loader);
     $twig->addFilter($filter);
 
-And here is how to use it in a template:
+А ось приклад, як використовувати його у шаблоні:
 
 .. code-block:: twig
 
@@ -155,43 +154,42 @@ And here is how to use it in a template:
 
     {# will output Gjvt #}
 
-When called by Twig, the PHP callable receives the left side of the filter
-(before the pipe ``|``) as the first argument and the extra arguments passed
-to the filter (within parentheses ``()``) as extra arguments.
+При виклику Twig, PHP-викличне отримує ліву частину фільтра (перед символом ``|``) в якості
+першого аргумента і додаткові аргументи, передані фільтру (в дужках ``()``) як додаткові аргументи.
 
-For instance, the following code:
+Наприклад, наступний код:
 
 .. code-block:: twig
 
     {{ 'TWIG'|lower }}
     {{ now|date('d/m/Y') }}
 
-is compiled to something like the following::
+компілюється приблизно так::
 
     <?php echo strtolower('TWIG') ?>
     <?php echo twig_date_format_filter($now, 'd/m/Y') ?>
 
-The ``\Twig\TwigFilter`` class takes an array of options as its last argument::
+Клас ``\Twig\TwigFilter`` бере масив опцій в якості свого останнього аргумента::
 
     $filter = new \Twig\TwigFilter('rot13', 'str_rot13', $options);
 
-Charset-aware Filters
-~~~~~~~~~~~~~~~~~~~~~
+Фільтри, що враховують набір символів
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to access the default charset in your filter, set the
-``needs_charset`` option to ``true``; Twig will pass the default charset as the
-first argument to the filter call::
+Якщо ви хочете отримати доступ до набору кодувань за замовчуванням у вашому фільтрі, встановіть опцію
+``needs_charset`` у значення ``true``; Twig передасть набір символів за замовчуванням як
+як перший аргумент виклику фільтра::
 
     $filter = new \Twig\TwigFilter('rot13', function (string $charset, $string) {
         return str_rot13($string);
     }, ['needs_charset' => true]);
 
-Environment-aware Filters
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Фільтри, що враховують середовище
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to access the current environment instance in your filter, set the
-``needs_environment`` option to ``true``; Twig will pass the current
-environment as the first argument to the filter call::
+Якщо ви хочете отримати доступ до поточного екземпляру середовища у вашому фільтрі, встановіть опцію
+``needs_environment`` у значення ``true``; Twig передасть поточне
+середовище як перший аргумент виклику фільтра::
 
     $filter = new \Twig\TwigFilter('rot13', function (\Twig\Environment $env, $string) {
         // get the current charset for instance
@@ -200,13 +198,13 @@ environment as the first argument to the filter call::
         return str_rot13($string);
     }, ['needs_environment' => true]);
 
-Context-aware Filters
-~~~~~~~~~~~~~~~~~~~~~
+Фільтри, що враховують контекст
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to access the current context in your filter, set the
-``needs_context`` option to ``true``; Twig will pass the current context as
-the first argument to the filter call (or the second one if
-``needs_environment`` is also set to ``true``)::
+Якщо ви хочете отримати доступ до поточного контексту у вашому фільтрі, встановіть опцію
+``needs_context`` у значення ``true``; Twig передасть поточний контекст як
+перший аргумент виклику фільтра (або другий, якщо ``needs_environment`` також встановлено
+у значення ``true``)::
 
     $filter = new \Twig\TwigFilter('rot13', function ($context, $string) {
         // ...
@@ -216,70 +214,69 @@ the first argument to the filter call (or the second one if
         // ...
     }, ['needs_context' => true, 'needs_environment' => true]);
 
-Automatic Escaping
-~~~~~~~~~~~~~~~~~~
+Автоматичне екранування
+~~~~~~~~~~~~~~~~~~~~~~~
 
-If automatic escaping is enabled, the output of the filter may be escaped
-before printing. If your filter acts as an escaper (or explicitly outputs HTML
-or JavaScript code), you will want the raw output to be printed. In such a
-case, set the ``is_safe`` option::
+Якщо увімкнено автоматичне екранування, виведення фільтра може бути екрановано
+перед відображенням. Якщо ваш фільтр діє як екранувальник (або явно виводить HTML
+чи JavaScript код), ви хочете, щоб було відображено чисте виведення. У такому випадку
+встановіть опцію ``is_safe``::
 
     $filter = new \Twig\TwigFilter('nl2br', 'nl2br', ['is_safe' => ['html']]);
 
-Some filters may need to work on input that is already escaped or safe, for
-example when adding (safe) HTML tags to originally unsafe output. In such a
-case, set the ``pre_escape`` option to escape the input data before it is run
-through your filter::
+Деяким фільтрам може знадобитися працювати з введеням, яке вже було екрановане або є безпечним,
+наприклад, при додаванні (безпечних) HTML-тегів до початково небезпечного виведення. У такому
+випадку встановіть опцію ``pre_escape``, щоб екранувати дані введення перед тим, як вони будуть
+пропущені через ваш фільтр ::
 
     $filter = new \Twig\TwigFilter('somefilter', 'somefilter', ['pre_escape' => 'html', 'is_safe' => ['html']]);
 
-Variadic Filters
-~~~~~~~~~~~~~~~~
+Варіативні фільтри
+~~~~~~~~~~~~~~~~~~
 
-When a filter should accept an arbitrary number of arguments, set the
-``is_variadic`` option to ``true``; Twig will pass the extra arguments as the
-last argument to the filter call as an array::
+Якщо фільтр має приймати довільну кількість аргументів, встановіть опцію
+``is_variadic`` у значення ``true``; Twig передасть додаткові аргументи як
+як останній аргумент виклику фільтра у вигляді масиву::
 
     $filter = new \Twig\TwigFilter('thumbnail', function ($file, array $options = []) {
         // ...
     }, ['is_variadic' => true]);
 
-Be warned that :ref:`named arguments <named-arguments>` passed to a variadic
-filter cannot be checked for validity as they will automatically end up in the
-option array.
+Зверніть увагу, що :ref:`іменовані аргументи <іменовані-аргументи>`, передані у варіативний
+фільтр, не можуть бути перевірені на валідність, оскільки вони автоматично потрапляють до масиву
+опцій.
 
-Dynamic Filters
-~~~~~~~~~~~~~~~
+Динамічні фільтри
+~~~~~~~~~~~~~~~~~
 
-A filter name containing the special ``*`` character is a dynamic filter and
-the ``*`` part will match any string::
+Ім'я фільтра, що містить спеціальний символ ``*``, є динамічним фільтром, а
+частина ``*`` буде співпадати з будь-яким рядком::
 
     $filter = new \Twig\TwigFilter('*_path', function ($name, $arguments) {
         // ...
     });
 
-The following filters are matched by the above defined dynamic filter:
+Наступні фільтри співпадають з визначеним вище динамічним фільтром:
 
 * ``product_path``
 * ``category_path``
 
-A dynamic filter can define more than one dynamic parts::
+Динамічний фільтр може визначати більше однієї динамічної частини::
 
     $filter = new \Twig\TwigFilter('*_path_*', function ($name, $suffix, $arguments) {
         // ...
     });
 
-The filter receives all dynamic part values before the normal filter arguments,
-but after the environment and the context. For instance, a call to
-``'foo'|a_path_b()`` will result in the following arguments to be passed to the
-filter: ``('a', 'b', 'foo')``.
+Фільтр отримує всі значення динамічних частин перед звичайними аргументами фільтра,
+але після середовища та контексту. Наприклад, виклик ``'foo'|a_path_b()`` призведе до
+того, що фільтру буде передано наступні аргументи: ``('a', 'b', 'foo')``.
 
-Deprecated Filters
-~~~~~~~~~~~~~~~~~~
+Застарілі фільтри
+~~~~~~~~~~~~~~~~~
 
-You can mark a filter as being deprecated by setting the ``deprecated`` option
-to ``true``. You can also give an alternative filter that replaces the
-deprecated one when that makes sense::
+Ви можете позначити фільтр як застарілий, встановивши опцію ``deprecated``
+у значення ``true``. Ви також можете вказати альтернативний фільтр, який замінить
+застарілий, якщо це має сенс::
 
     $filter = new \Twig\TwigFilter('obsolete', function () {
         // ...
@@ -287,24 +284,24 @@ deprecated one when that makes sense::
 
 .. versionadded:: 3.11
 
-    The ``deprecating_package`` option was added in Twig 3.11.
+    Опція ``deprecating_package`` була представлена в Twig 3.11.
 
-You can also set the ``deprecating_package`` option to specify the package that
-is deprecating the filter, and ``deprecated`` can be set to the package version
-when the filter was deprecated::
+Ви також можете встановити опцію ``deprecating_package``, щоб вказати пакет, який
+оголошує фільтр застарілим, а ``deprecated`` можна встановити на версію пакета, в якій
+фільтр було оголошено застарілим::
 
     $filter = new \Twig\TwigFilter('obsolete', function () {
         // ...
     }, ['deprecated' => '1.1', 'deprecating_package' => 'foo/bar']);
 
-When a filter is deprecated, Twig emits a deprecation notice when compiling a
-template using it. See :ref:`deprecation-notices` for more information.
+Коли фільтр застаріває, Twig видає повідомлення про застарівання під час компіляції
+шаблону, який його використовує. Докладнішу інформацію наведено у :ref:`deprecation-notices`.
 
-Functions
----------
+Функції
+-------
 
-Functions are defined in the exact same way as filters, but you need to create
-an instance of ``\Twig\TwigFunction``::
+Функції визначаються точно так само, як і фільтри, але вам потрібно створити
+екземпляр ``\Twig\TwigFunction``::
 
     $twig = new \Twig\Environment($loader);
     $function = new \Twig\TwigFunction('function_name', function () {
@@ -312,14 +309,14 @@ an instance of ``\Twig\TwigFunction``::
     });
     $twig->addFunction($function);
 
-Functions support the same features as filters, except for the ``pre_escape``
-and ``preserves_safety`` options.
+Функції підтримують ті самі можливості, що й фільтри, за винятком опцій ``pre_escape`` та
+``preserves_safety``.
 
-Tests
+Тести
 -----
 
-Tests are defined in the exact same way as filters and functions, but you need
-to create an instance of ``\Twig\TwigTest``::
+Тести визначаються так само, як фільтри та функції, але вам потрібно створити екземпляр
+``\Twig\TwigTest``::
 
     $twig = new \Twig\Environment($loader);
     $test = new \Twig\TwigTest('test_name', function () {
@@ -327,9 +324,8 @@ to create an instance of ``\Twig\TwigTest``::
     });
     $twig->addTest($test);
 
-Tests allow you to create custom application specific logic for evaluating
-boolean conditions. As a simple example, let's create a Twig test that checks if
-objects are 'red'::
+Тести дозволяють вам створювати власну логіку, специфічну для додатків, для оцінки булевих 
+умов. Як простий приклад, давайте створимо Twig-тест, який перевіряє, чи є об'єкти 'red'::
 
     $twig = new \Twig\Environment($loader);
     $test = new \Twig\TwigTest('red', function ($value) {
@@ -343,11 +339,11 @@ objects are 'red'::
     });
     $twig->addTest($test);
 
-Test functions must always return ``true``/``false``.
+Функції тестів мають завжди повертати ``true``/``false``.
 
-When creating tests you can use the ``node_class`` option to provide custom test
-compilation. This is useful if your test can be compiled into PHP primitives.
-This is used by many of the tests built into Twig::
+При створенні тестів ви можете використовувати опцію ``node_class``, щоб надати 
+користувацьку компіляцію тесту. Це корисно, якщо ваш тест може бути скомпільовано 
+у вигляді примітивів PHP. Це використовується у багатьох тестах, вбудованих у Twig::
 
     namespace App;
 
@@ -375,44 +371,44 @@ This is used by many of the tests built into Twig::
         }
     }
 
-The above example shows how you can create tests that use a node class. The node
-class has access to one sub-node called ``node``. This sub-node contains the
-value that is being tested. When the ``odd`` filter is used in code such as:
+У наведеному вище прикладі показано, як створювати тести, що використовують клас вузла.
+Клас вузла має доступ до одного підвузла з назвою ``node``. Цей підвузол містить значення,
+яке тестується. Коли фільтр ``odd`` використовується в коді типу:
 
 .. code-block:: twig
 
     {% if my_value is odd %}
 
-The ``node`` sub-node will contain an expression of ``my_value``. Node-based
-tests also have access to the ``arguments`` node. This node will contain the
-various other arguments that have been provided to your test.
+Підвузол ``node`` міститиме вираз ``my_value``. Тести на основі вузлів також мають доступ
+до вузла ``arguments``. Цей вузол буде містити різні інші аргументи, які були надані 
+вашому тесту.
 
-If you want to pass a variable number of positional or named arguments to the
-test, set the ``is_variadic`` option to ``true``. Tests support dynamic
-names (see dynamic filters for the syntax).
+Якщо ви хочете передати змінну кількість позиційних або іменованих аргументів до
+тесту, встановіть опцію ``is_variadic`` у значення ``true``. Тести підтримують динамічні
+імена (щоб дізнатися про синтаксис, дивіться розділ  про динамічні фільтри).
 
-Tags
+Теги
 ----
 
-One of the most exciting features of a template engine like Twig is the
-possibility to define new **language constructs**. This is also the most complex
-feature as you need to understand how Twig's internals work.
+Однією з найцікавіших особливостей шаблонізаторів, таких як Twig, є
+можливість визначення нових **мовних конструкцій**. Це також і найскладніша
+функція, оскільки вам потрібно розуміти, як працюють внутрішні механізми Twig.
 
-Most of the time though, a tag is not needed:
+Втім, здебільшого тег не є необхідним:
 
-* If your tag generates some output, use a **function** instead.
+* Якщо ваш тег генерує деяке виведення, використовуйте **функцію** замість цього.
 
-* If your tag modifies some content and returns it, use a **filter** instead.
+* Якщо ваш тег змінює деякий зміст і повертає його, використовуйте **фільтр** замість цього.
 
-  For instance, if you want to create a tag that converts a Markdown formatted
-  text to HTML, create a ``markdown`` filter instead:
+  Наприклад, якщо ви хочете створити тег, який перетворить текст у форматі Markdown
+  на HTML, створіть замість цього фільтр ``markdown``:
 
   .. code-block:: twig
 
       {{ '**markdown** text'|markdown }}
 
-  If you want use this filter on large amounts of text, wrap it with the
-  :doc:`apply <tags/apply>` tag:
+  Якщо ви хочете використовувати цей фільтр для великих обсягів тексту, обгорніть його тегом
+  :doc:`apply <tags/apply>`:
 
   .. code-block:: twig
 
@@ -420,24 +416,24 @@ Most of the time though, a tag is not needed:
       Title
       =====
 
-      Much better than creating a tag as you can **compose** filters.
+      Набагато краще, ніж створення тегу, так як ви можете **складати** фільтри.
       {% endapply %}
 
-* If your tag does not output anything, but only exists because of a side
-  effect, create a **function** that returns nothing and call it via the
-  :doc:`do <tags/do>` tag.
+* Якщо ваш тег нічого не виводить, а існує лише завдяки побічному
+  ефекту, створіть **функцію**, яка нічого не повертає, і викличте її за допомогою тегу
+  :doc:`do <tags/do>`.
 
-  For instance, if you want to create a tag that logs text, create a ``log``
-  function instead and call it via the :doc:`do <tags/do>` tag:
+  Наприклад, якщо ви хочете створити тег, який веде логи тексту, створіть замість цього функцію ``log``
+  і викличте її за допомогою тега :doc:`do <tags/do>`:
 
   .. code-block:: twig
 
       {% do log('Log some things') %}
 
-If you still want to create a tag for a new language construct, great!
+Якщо ви все ще хочете створити тег для нової мовної конструкції, чудово!
 
-Let's create a ``set`` tag that allows the definition of simple variables from
-within a template. The tag can be used like follows:
+Давайте створимо тег ``set``, який дозволяє визначати прості змінні з шаблону. Цей 
+тег можна використовувати наступним чином:
 
 .. code-block:: twig
 
@@ -449,31 +445,30 @@ within a template. The tag can be used like follows:
 
 .. note::
 
-    The ``set`` tag is part of the Core extension and as such is always
-    available. The built-in version is slightly more powerful and supports
-    multiple assignments by default.
+    Тег ``set`` є частиною розширення Core і тому завжди
+    доступний. Вбудована версія є дещо потужнішою і підтримує
+    декілька призначень за замовчуванням.
 
-Three steps are needed to define a new tag:
+Для визначення нового тегу необхідно зробити три кроки:
 
-* Defining a Token Parser class (responsible for parsing the template code);
+* Визначення класу Token Parser (відповідає за аналіз коду шаблону);
 
-* Defining a Node class (responsible for converting the parsed code to PHP);
+* Визначення класу Node (відповідає за перетворення проаналізованого коду в PHP);
 
-* Registering the tag.
+* Реєстрація тегу.
 
-Registering a new tag
-~~~~~~~~~~~~~~~~~~~~~
+Реєстрація нового тегу
+~~~~~~~~~~~~~~~~~~~~~~
 
-Add a tag by calling the ``addTokenParser`` method on the ``\Twig\Environment``
-instance::
+Додайте тег, викликавши метод ``addTokenParser`` в екземплярі ``\Twig\Environment``::
 
     $twig = new \Twig\Environment($loader);
     $twig->addTokenParser(new CustomSetTokenParser());
 
-Defining a Token Parser
-~~~~~~~~~~~~~~~~~~~~~~~
+Визначення парсера токена
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Now, let's see the actual code of this class::
+Тепер давайте подивимось реальний код цього класу::
 
     class CustomSetTokenParser extends \Twig\TokenParser\AbstractTokenParser
     {
@@ -496,41 +491,41 @@ Now, let's see the actual code of this class::
         }
     }
 
-The ``getTag()`` method must return the tag we want to parse, here ``set``.
+Метод ``getTag()`` повинен повернути тег, який ми хочемо проаналізувати, тут - ``set``.
 
-The ``parse()`` method is invoked whenever the parser encounters a ``set``
-tag. It should return a ``\Twig\Node\Node`` instance that represents the node (the
-``CustomSetNode`` calls creating is explained in the next section).
+Метод ``parse()`` викликається кожного разу, коли парсер зустрічає тег ``set``. 
+Він має повернути екземпляр ``\Twig\Node\Node``, який представляє вузол (створення 
+викликів ``CustomSetNode`` описано у наступному розділі).
 
-The parsing process is simplified thanks to a bunch of methods you can call
-from the token stream (``$this->parser->getStream()``):
+Процес аналізу спрощено завдяки низці методів, які ви можете викликати
+з потоку токенів (``$this->parser->getStream()``):
 
-* ``getCurrent()``: Gets the current token in the stream.
+* ``getCurrent()``: Отримує поточний токен у потоці.
 
-* ``next()``: Moves to the next token in the stream, *but returns the old one*.
+* ``next()``: Переходить до наступного токену в потоці, *але повертає старий*.
 
-* ``test($type)``, ``test($value)`` or ``test($type, $value)``: Determines whether
-  the current token is of a particular type or value (or both). The value may be an
-  array of several possible values.
+* ``test($type)``, ``test($value)`` або ``test($type, $value)``: Визначає, чи має
+  поточний токен певний тип або значення (або обидва). Значення може бути
+  масивом з декількох можливих значень.
 
-* ``expect($type[, $value[, $message]])``: If the current token isn't of the given
-  type/value a syntax error is thrown. Otherwise, if the type and value are correct,
-  the token is returned and the stream moves to the next token.
+* ``expect($type[, $value[, $message]])``: Якщо поточний токен не має заданого
+  типу/значення, буде викликано помилку синтаксису. В іншому випадку, якщо тип і 
+  значення правильні, токен повертається і потік переходить до наступного токену.
 
-* ``look()``: Looks at the next token without consuming it.
+* ``look()``: Переглядає наступний токен, не споживаючи його.
 
-Parsing expressions is done by calling the ``parseExpression()`` like we did for
-the ``set`` tag.
+Аналіз виразів виконується за допомогою виклику методу ``parseExpression()`` так само,
+як ми це робили для тегу ``set``.
 
 .. tip::
 
-    Reading the existing ``TokenParser`` classes is the best way to learn all
-    the nitty-gritty details of the parsing process.
+    Читання існуючих класів ``TokenParser`` - найкращий спосіб вивчити всі
+    дрібні деталі процесу аналізу.
 
-Defining a Node
-~~~~~~~~~~~~~~~
+Визначення вузла
+~~~~~~~~~~~~~~~~
 
-The ``CustomSetNode`` class itself is quite short::
+Сам клас ``CustomSetNode`` достатньо короткий::
 
     class CustomSetNode extends \Twig\Node\Node
     {
@@ -550,123 +545,121 @@ The ``CustomSetNode`` class itself is quite short::
         }
     }
 
-The compiler implements a fluid interface and provides methods that help the
-developer generate beautiful and readable PHP code:
+Компілятор реалізує гнучкий інтерфейс і надає методи, які допомагають
+розробнику створювати красивий та читабельний PHP-код:
 
-* ``subcompile()``: Compiles a node.
+* ``subcompile()``: Компілює вузол.
 
-* ``raw()``: Writes the given string as is.
+* ``raw()``: Записує заданий рядок як є.
 
-* ``write()``: Writes the given string by adding indentation at the beginning
-  of each line.
+* ``write()``: Записує заданий рядок з додаванням відступу на початку
+кожного рядка.
 
-* ``string()``: Writes a quoted string.
+* ``string()``: Записує рядок у лапках.
 
-* ``repr()``: Writes a PHP representation of a given value (see
-  ``\Twig\Node\ForNode`` for a usage example).
+* ``repr()``: Записує PHP-представлення заданого значення (див.
+  ``\Twig\Node\ForNode`` для прикладу використання).
 
-* ``addDebugInfo()``: Adds the line of the original template file related to
-  the current node as a comment.
+* ``addDebugInfo()``: Додає рядок оригінального файлу шаблону, пов'язаний з
+  з поточним вузлом як коментар.
 
-* ``indent()``: Indents the generated code (see ``\Twig\Node\BlockNode`` for a
-  usage example).
+* ``indent()``: Робить відступи у згенерованому коді (див. ``\Twig\Node\BlockNode`` для
+  прикладу використання).
 
-* ``outdent()``: Outdents the generated code (see ``\Twig\Node\BlockNode`` for a
-  usage example).
+* ``outdent()``: Робить відступи у згенерованому коді (див. ``\Twig\Node\BlockNode`` для 
+  прикладу використання).
 
-.. _creating_extensions:
+.. _creating_extensions-uk:
 
-Creating an Extension
----------------------
+Створення розширення
+--------------------
 
-The main motivation for writing an extension is to move often used code into a
-reusable class like adding support for internationalization. An extension can
-define tags, filters, tests, operators, functions, and node visitors.
+Основною мотивацією для написання розширення є перенесення часто використовуваного коду у клас
+багаторазового використання, наприклад, для додавання підтримки інтернаціоналізації. Розширення може
+визначати теги, фільтри, тести, оператори, функції та відвідувачів вузлів.
 
-Most of the time, it is useful to create a single extension for your project,
-to host all the specific tags and filters you want to add to Twig.
+Найчастіше корисно створити одне розширення для вашого проекту,
+щоб розмістити в ньому всі специфічні теги і фільтри, які ви хочете додати до Twig.
 
 .. tip::
 
-    When packaging your code into an extension, Twig is smart enough to
-    recompile your templates whenever you make a change to it (when
-    ``auto_reload`` is enabled).
+    Коли ви упаковуєте свій код у розширення, Twig достатньо розумний, щоб
+    перекомпілювати ваші шаблони щоразу, коли ви вносите до них зміни (якщо 
+    увімкнено ``auto_reload``).
 
-An extension is a class that implements the following interface::
+Розширення - це клас, який реалізує наступний інтерфейс::
 
     interface \Twig\Extension\ExtensionInterface
     {
         /**
-         * Returns the token parser instances to add to the existing list.
+         * Повертає екземпляри парсера токенів для додавання до існуючого списку.
          *
          * @return \Twig\TokenParser\TokenParserInterface[]
          */
         public function getTokenParsers();
 
         /**
-         * Returns the node visitor instances to add to the existing list.
+         * Повертає екземпляри відвідувачів вузла для додавання до існуючого списку.
          *
          * @return \Twig\NodeVisitor\NodeVisitorInterface[]
          */
         public function getNodeVisitors();
 
         /**
-         * Returns a list of filters to add to the existing list.
+         * Повертає список фільтрів для додавання до існуючого списку.
          *
          * @return \Twig\TwigFilter[]
          */
         public function getFilters();
 
         /**
-         * Returns a list of tests to add to the existing list.
+         * Повертає список тестів для додавання до існуючого списку.
          *
          * @return \Twig\TwigTest[]
          */
         public function getTests();
 
         /**
-         * Returns a list of functions to add to the existing list.
+         * Повертає список фукнцій для додавання до існуючого списку.
          *
          * @return \Twig\TwigFunction[]
          */
         public function getFunctions();
 
         /**
-         * Returns a list of operators to add to the existing list.
+         * Повертає список операторів для додавання до існуючого списку.
          *
          * @return array<array> First array of unary operators, second array of binary operators
          */
         public function getOperators();
     }
 
-To keep your extension class clean and lean, inherit from the built-in
-``\Twig\Extension\AbstractExtension`` class instead of implementing the interface as it provides
-empty implementations for all methods::
+Щоб зберегти клас розширення чистим та компактним, успадковуйте від вбудованого класу ``\Twig\Extension\AbstractExtension`` замість того, щоб реалізовувати інтерфейс так як 
+він надає порожні реалізації для всіх методів::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
     }
 
-This extension does nothing for now. We will customize it in the next sections.
+Наразі це розширення нічого не робить. Ми налаштуємо його у наступних розділах.
 
-You can save your extension anywhere on the filesystem, as all extensions must
-be registered explicitly to be available in your templates.
+Ви можете зберегти своє розширення будь-де у файловій системі, оскільки всі розширення мають бути
+явно зареєстровані, щоб бути доступними у ваших шаблонах.
 
-You can register an extension by using the ``addExtension()`` method on your
-main ``Environment`` object::
+Ви можете зареєструвати розширення за допомогою методу ``addExtension()`` у вашому
+головному об'єкті ``Environment`` ::
 
     $twig = new \Twig\Environment($loader);
     $twig->addExtension(new CustomTwigExtension());
 
 .. tip::
 
-    The Twig core extensions are great examples of how extensions work.
+    Основні розширення Twig є чудовим прикладом того, як працюють розширення.
 
-Globals
+Глобали
 ~~~~~~~
 
-Global variables can be registered in an extension via the ``getGlobals()``
-method::
+Глобальні змінні можуть бути зареєстровані в розширенні за допомогою методу ``getGlobals()``::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension implements \Twig\Extension\GlobalsInterface
     {
@@ -680,11 +673,10 @@ method::
         // ...
     }
 
-Functions
-~~~~~~~~~
+Фукнції
+~~~~~~~
 
-Functions can be registered in an extension via the ``getFunctions()``
-method::
+Функції можуть бути зареєстровані у розширенні за допомогою методу ``getFunctions()``::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -698,12 +690,11 @@ method::
         // ...
     }
 
-Filters
+Фільтри
 ~~~~~~~
 
-To add a filter to an extension, you need to override the ``getFilters()``
-method. This method must return an array of filters to add to the Twig
-environment::
+Щоб додати фільтр до розширення, вам потрібно перевизначити метод ``getFilters()``. 
+Цей метод повинен повертати масив фільтрів для додавання у середовище  Twig::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -717,12 +708,12 @@ environment::
         // ...
     }
 
-Tags
+Теги
 ~~~~
 
-Adding a tag in an extension can be done by overriding the
-``getTokenParsers()`` method. This method must return an array of tags to add
-to the Twig environment::
+Додавання тегу у розширення може бути виконано шляхом перевизначення методу
+``getTokenParsers()``. Цей метод повинен повертати масив тегів для додавання
+до середовища Twig::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -734,15 +725,14 @@ to the Twig environment::
         // ...
     }
 
-In the above code, we have added a single new tag, defined by the
-``CustomSetTokenParser`` class. The ``CustomSetTokenParser`` class is
-responsible for parsing the tag and compiling it to PHP.
+У вищенаведеному коді ми додали один новий тег, визначений класом ``CustomSetTokenParser``.
+Клас ``CustomSetTokenParser`` відповідає за аналіз тегу та його компіляцію в PHP.
 
-Operators
+Оператори
 ~~~~~~~~~
 
-The ``getOperators()`` methods lets you add new operators. Here is how to add
-the ``!``, ``||``, and ``&&`` operators::
+Метод ``getOperators()`` дозволяє вам додавати нові оператори. Ось як додати
+оператори ``!``, ``||`` та ``&&``::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -762,10 +752,10 @@ the ``!``, ``||``, and ``&&`` operators::
         // ...
     }
 
-Tests
+Тести
 ~~~~~
 
-The ``getTests()`` method lets you add new test functions::
+Метод ``getTests()`` дозволяє вам додавати нові функції тестів::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -779,22 +769,21 @@ The ``getTests()`` method lets you add new test functions::
         // ...
     }
 
-Definition vs Runtime
-~~~~~~~~~~~~~~~~~~~~~
+Визначення vs Виконання
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Twig filters, functions, and tests runtime implementations can be defined as
-any valid PHP callable:
+Реалізації фільтрів, функцій і тестів Twig під час виконання можуть бути визначені як
+будь-яке валідне викличне PHP:
 
-* **functions/static methods**: Simple to implement and fast (used by all Twig
-  core extensions); but it is hard for the runtime to depend on external
-  objects;
+* **функції/статичні методи**: Прості у реалізації та швидкі (використовуються всіма
+  розширеннями ядра Twig); але для часу виконання важко залежати від зовнішніх
+  об'єктів;
 
-* **closures**: Simple to implement;
+* **замикання**: Прості у реалізації;
 
-* **object methods**: More flexible and required if your runtime code depends
-  on external objects.
+* **методи об'єктів**: Більш гнучкі та необхідні, якщо ваш код виконання залежить від зовнішніх об'єктів.
 
-The simplest way to use methods is to define them on the extension itself::
+Найпростіший спосіб використовувати методи - визначити їх у самому розширенні::
 
     class CustomTwigExtension extends \Twig\Extension\AbstractExtension
     {
@@ -818,22 +807,22 @@ The simplest way to use methods is to define them on the extension itself::
         }
     }
 
-This is very convenient but not recommended as it makes template compilation
-depend on runtime dependencies even if they are not needed (think for instance
-as a dependency that connects to a database engine).
+Це дуже зручно, але не рекомендується, оскільки це змушує компіляцію шаблонів
+залежати від залежностей часу виконання, навіть якщо вони не потрібні (подумайте,
+наприклад, як залежність, що з'єднує шаблон з движком бази даних).
 
-You can decouple the extension definitions from their runtime implementations by
-registering a ``\Twig\RuntimeLoader\RuntimeLoaderInterface`` instance on the
-environment that knows how to instantiate such runtime classes (runtime classes
-must be autoload-able)::
+Ви можете відокремити визначення розширень від їхніх реалізацій під час виконання
+зареєструвавши екземпляр ``\Twig\RuntimeLoader\RuntimeLoaderInterface`` у середовищі,
+яке знає, як створювати екземпляри таких класів часу виконання (класи часу виконання
+мають бути автозавантажуваними)::
 
     class RuntimeLoader implements \Twig\RuntimeLoader\RuntimeLoaderInterface
     {
         public function load($class)
         {
-            // implement the logic to create an instance of $class
-            // and inject its dependencies
-            // most of the time, it means using your dependency injection container
+            // реалізувати логіку для створення екземпляру $class
+            // та впровадити його залежності
+            // в більшості випадків це означає використання вашого контейнера впровадження залежностей
             if ('CustomRuntimeExtension' === $class) {
                 return new $class(new Rot13Provider());
             } else {
@@ -846,11 +835,11 @@ must be autoload-able)::
 
 .. note::
 
-    Twig comes with a PSR-11 compatible runtime loader
+    Twig постачається з PSR-11-сумісним завантажувачем часу виконання
     (``\Twig\RuntimeLoader\ContainerRuntimeLoader``).
 
-It is now possible to move the runtime logic to a new
-``CustomRuntimeExtension`` class and use it directly in the extension::
+Тепер є можливість перенести логіку виконання у новий клас
+``CustomRuntimeExtension`` і використовувати його безпосередньо у розширенні::
 
     class CustomRuntimeExtension
     {
@@ -873,20 +862,20 @@ It is now possible to move the runtime logic to a new
         {
             return [
                 new \Twig\TwigFunction('rot13', ['CustomRuntimeExtension', 'rot13']),
-                // or
+                // або
                 new \Twig\TwigFunction('rot13', 'CustomRuntimeExtension::rot13'),
             ];
         }
     }
 
-Testing an Extension
---------------------
+Тестування розширення
+---------------------
 
-Functional Tests
-~~~~~~~~~~~~~~~~
+Функціональні тести
+~~~~~~~~~~~~~~~~~~~
 
-You can create functional tests for extensions by creating the following file
-structure in your test directory::
+Ви можете створювати функціональні тести для розширень, створивши таку структуру файлів
+у вашому каталозі тестів::
 
     Fixtures/
         filters/
@@ -900,7 +889,7 @@ structure in your test directory::
             bar.test
     IntegrationTest.php
 
-The ``IntegrationTest.php`` file should look like this::
+Файл ``IntegrationTest.php`` має виглядати так::
 
     namespace Project\Tests;
 
@@ -922,15 +911,13 @@ The ``IntegrationTest.php`` file should look like this::
         }
     }
 
-Fixtures examples can be found within the Twig repository
-`tests/Twig/Fixtures`_ directory.
+Приклади фікстур можна знайти у сховищі Twig `tests/Twig/Fixtures`_.
 
-Node Tests
-~~~~~~~~~~
+Вузлові тести
+~~~~~~~~~~~~~
 
-Testing the node visitors can be complex, so extend your test cases from
-``\Twig\Test\NodeTestCase``. Examples can be found in the Twig repository
-`tests/Twig/Node`_ directory.
+Тестування відвідувачів вузла може бути складним, тому розширюйте ваші тестові кейси з
+``\Twig\Test\NodeTestCase``. Приклади можна знайти у каталогу сховища Twig `tests/Twig/Node`_.
 
 .. _`tests/Twig/Fixtures`: https://github.com/twigphp/Twig/tree/3.x/tests/Fixtures
 .. _`tests/Twig/Node`:     https://github.com/twigphp/Twig/tree/3.x/tests/Node
