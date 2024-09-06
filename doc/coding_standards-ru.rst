@@ -1,38 +1,35 @@
-Coding Standards
-================
+Стандарти написання коду
+========================
 
 .. note::
 
-    The `Twig CS fixer tool <https://github.com/VincentLanglet/Twig-CS-Fixer>`_
-    uses the coding standards described in this document to automatically fix
-    your templates.
+    `Інструмент Twig CS fixer <https://github.com/VincentLanglet/Twig-CS-Fixer>`_
+    використовує стандарти написання коду, описані у цьому документі, для автоматичного
+    виправлення ваших шаблонів.
 
-When writing Twig templates, we recommend you to follow these official coding
-standards:
+Під час написання шаблонів Twig ми рекомендуємо вам дотримуватися таких офіційних стандартів написання коду:
 
-* Put exactly one space after the start of a delimiter (``{{``, ``{%``,
-  and ``{#``) and before the end of a delimiter (``}}``, ``%}``, and ``#}``):
+* Ставити рівно один пробіл після початку роздільника (``{{``, ``{%``,
+  та ``{#``) і перед кінцем роздільника (``}}``, ``%}`` та ``#}``):
 
   .. code-block:: twig
 
     {{ foo }}
-    {# comment #}
+    {# коментар #}
     {% if foo %}{% endif %}
 
-  When using the whitespace control character, do not put any spaces between
-  it and the delimiter:
+  Використовуючи символ управління пробілами, не ставте пробілів між ним і роздільником:
 
   .. code-block:: twig
 
     {{- foo -}}
-    {#- comment -#}
+    {#- коментар -#}
     {%- if foo -%}{%- endif -%}
 
-* Put exactly one space before and after the following operators:
-  comparison operators (``==``, ``!=``, ``<``, ``>``, ``>=``, ``<=``), math
-  operators (``+``, ``-``, ``/``, ``*``, ``%``, ``//``, ``**``), logic
-  operators (``not``, ``and``, ``or``), ``~``, ``is``, ``in``, and the ternary
-  operator (``?:``):
+* Перед і після наступних операторів слід ставити рівно один пробіл: оператори порівняння
+  (``==``, ``!=``, ``<``, ``>``, ``>=``, ``<=``), математичні оператори (``+``, ``-``, 
+  ``/``, ``*``, ``%``, ``//``, ``**``), логічні оператори (``not``, ``and``, ``or``), 
+  ``~``, ``is``, ``in`` та трійковий оператор (``?:``):
 
   .. code-block:: twig
 
@@ -40,29 +37,27 @@ standards:
      {{ foo ~ bar }}
      {{ true ? true : false }}
 
-* Put exactly one space after the ``:`` sign in mappings and ``,`` in sequences
-  and mappings:
+* Ставте рівно один пробіл після знаку ``:`` у відображеннях та ``,`` у послідовностях та відображеннях:
 
   .. code-block:: twig
 
      {{ [1, 2, 3] }}
      {{ {'foo': 'bar'} }}
 
-* Do not put any spaces after an opening parenthesis and before a closing
-  parenthesis in expressions:
+* Не ставте пробілів після відкриваючої дужки і перед закриваючою дужкою у виразах:
 
   .. code-block:: twig
 
     {{ 1 + (2 * 3) }}
 
-* Do not put any spaces before and after string delimiters:
+* Не ставте пробілів до і після роздільниками рядків:
 
   .. code-block:: twig
 
     {{ 'foo' }}
     {{ "foo" }}
 
-* Do not put any spaces before and after the following operators: ``|``,
+* Не ставте пробілів до і після наступних операторів: ``|``,
   ``.``, ``..``, ``[]``:
 
   .. code-block:: twig
@@ -72,31 +67,29 @@ standards:
     {{ user[name] }}
     {% for i in 1..12 %}{% endfor %}
 
-* Do not put any spaces before and after the parenthesis used for filter and
-  function calls:
+* Не ставте пробілів до і після дужок, що використовуються для викликів фільтрів і функцій:
 
   .. code-block:: twig
 
      {{ foo|default('foo') }}
      {{ range(1..10) }}
 
-* Do not put any spaces before and after the opening and the closing of
-  sequences and mappings:
+* Не ставте пробілів до і після відкриття і закриття послідовностей та відображень:
 
   .. code-block:: twig
 
      {{ [1, 2, 3] }}
      {{ {'foo': 'bar'} }}
 
-* Use lower cased and underscored variable names:
+* Використовуйте імена змінних у нижньому регістрі та з підкресленнями:
 
   .. code-block:: twig
 
      {% set foo = 'foo' %}
      {% set foo_bar = 'foo' %}
 
-* Indent your code inside tags (use the same indentation as the one used for
-  the target language of the rendered template):
+* Робіть відступ у коду всередині тегів (використовуйте той самий відступ, що й
+  у цільовій мові відображеного шаблону):
 
   .. code-block:: twig
 
@@ -106,7 +99,7 @@ standards:
          {% endif %}
      {% endblock %}
 
-* Use ``:`` instead of ``=`` to separate argument names and values:
+* Використовуйте ``:`` замість ``=``, щоб розділити імена та значення аргументів:
 
   .. code-block:: twig
 
