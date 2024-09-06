@@ -1,61 +1,60 @@
-Twig Internals
+Інтернали Twig
 ==============
 
-Twig is very extensible and you can hack it. Keep in mind that you
-should probably try to create an extension before hacking the core, as most
-features and enhancements can be handled with extensions. This chapter is also
-useful for people who want to understand how Twig works under the hood.
+Twig дуже розширюваний, і ви можете його хакнути. Майте на увазі, що вам
+варто спробувати створити розширення перед тим, як хакнути ядро, оскільки більшість
+функцій та покращень можна реалізувати за допомогою розширень. Цей розділ також може бути
+корисним для людей, які хочуть зрозуміти, як працює Twig «за лаштунками».
 
-How does Twig work?
--------------------
+Як працює Twig?
+---------------
 
-The rendering of a Twig template can be summarized into four key steps:
+Відображення шаблону Twig можна розбити на чотири ключові етапи:
 
-* **Load** the template: If the template is already compiled, load it and go
-  to the *evaluation* step, otherwise:
+* **Завантажте** шаблон: Якщо шаблон вже скомпільовано, завантажте його та перейдіть
+до кроку *оцінювання*, в іншому випадку:
 
-  * First, the **lexer** tokenizes the template source code into small pieces
-    for easier processing;
+  * Спочатку, **лексер** токенізує вихідний код шаблону на невеликі фрагменти
+  для полегшення обробки;
 
-  * Then, the **parser** converts the token stream into a meaningful tree
-    of nodes (the Abstract Syntax Tree);
+  * Потім **парсер** перетворює потік токенів в осмислене дерево вузлів (Дерево Абстрактного Синтаксису, AST);
 
-  * Finally, the **compiler** transforms the AST into PHP code.
+  * Нарешті, **компілятор** перетворює AST на PHP-код.
 
-* **Evaluate** the template: It means calling the ``display()``
-  method of the compiled template and passing it the context.
+* **Оцініть** шаблон: Це означає виклик методу ``display()`` скомпільованого
+  шаблону та передача йому контексту.
 
-The Lexer
----------
+Лексер
+------
 
-The lexer tokenizes a template source code into a token stream (each token is
-an instance of ``\Twig\Token``, and the stream is an instance of
-``\Twig\TokenStream``). The default lexer recognizes 15 different token types:
+Лексер токенізує вихідний код шаблону у потік токенів (кожен токен є
+екземпляром ``\Twig\Token``, а потік - екземпляром ``\Twig\TokenStream``). Стандартний 
+лексер розпізнає 15 різних типів токенів:
 
-* ``\Twig\Token::BLOCK_START_TYPE``, ``\Twig\Token::BLOCK_END_TYPE``: Delimiters for blocks (``{% %}``)
-* ``\Twig\Token::VAR_START_TYPE``, ``\Twig\Token::VAR_END_TYPE``: Delimiters for variables (``{{ }}``)
-* ``\Twig\Token::TEXT_TYPE``: A text outside an expression;
-* ``\Twig\Token::NAME_TYPE``: A name in an expression;
-* ``\Twig\Token::NUMBER_TYPE``: A number in an expression;
-* ``\Twig\Token::STRING_TYPE``: A string in an expression;
-* ``\Twig\Token::OPERATOR_TYPE``: An operator;
-* ``\Twig\Token::ARROW_TYPE``: An arrow function operator (``=>``);
-* ``\Twig\Token::SPREAD_TYPE``: A spread operator (``...``);
-* ``\Twig\Token::PUNCTUATION_TYPE``: A punctuation sign;
-* ``\Twig\Token::INTERPOLATION_START_TYPE``, ``\Twig\Token::INTERPOLATION_END_TYPE``: Delimiters for string interpolation;
-* ``\Twig\Token::EOF_TYPE``: Ends of template.
+* ``\Twig\Token::BLOCK_START_TYPE``, ``\Twig\Token::BLOCK_END_TYPE``: Роздільники для блоків (``{% %}``)
+* ``\Twig\Token::VAR_START_TYPE``, ``\Twig\Token::VAR_END_TYPE``: Роздільники для змінних (``{{ }}``)
+* ``\Twig\Token::TEXT_TYPE``: Текст поза виразом;
+* ``\Twig\Token::NAME_TYPE``: Імʼя у виразі;
+* ``\Twig\Token::NUMBER_TYPE``: Число у виразі;
+* ``\Twig\Token::STRING_TYPE``: Рядок у виразі;
+* ``\Twig\Token::OPERATOR_TYPE``: Оператор;
+* ``\Twig\Token::ARROW_TYPE``: Оператор стрілочної функції (``=>``);
+* ``\Twig\Token::SPREAD_TYPE``: Оператор спреду (``...``);
+* ``\Twig\Token::PUNCTUATION_TYPE``: Знак пунктуації;
+* ``\Twig\Token::INTERPOLATION_START_TYPE``, ``\Twig\Token::INTERPOLATION_END_TYPE``: Роздільники для інтерполяції рядків;
+* ``\Twig\Token::EOF_TYPE``: Закінчення шаблону.
 
-You can manually convert a source code into a token stream by calling the
-``tokenize()`` method of an environment::
+Ви можете вручну перетворити вихідний код на потік токенів, викликавши метод середовища
+``tokenize()``::
 
     $stream = $twig->tokenize(new \Twig\Source($source, $identifier));
 
-As the stream has a ``__toString()`` method, you can have a textual
-representation of it by echoing the object::
+Оскільки потік має метод ``__toString()``, ви можете мати текстове
+представлення потоку шляхом повторення об'єкту::
 
     echo $stream."\n";
 
-Here is the output for the ``Hello {{ name }}`` template:
+Ось виведення для шаблону ``Hello {{ name }}``:
 
 .. code-block:: text
 
@@ -67,28 +66,28 @@ Here is the output for the ``Hello {{ name }}`` template:
 
 .. note::
 
-    The default lexer (``\Twig\Lexer``) can be changed by calling
-    the ``setLexer()`` method::
+    Лексер за замовчуванням (``\Twig\Lexer``) може бути змінений шляхом виклику
+    методу ``setLexer()``::
 
         $twig->setLexer($lexer);
 
-The Parser
-----------
+Парсер
+------
 
-The parser converts the token stream into an AST (Abstract Syntax Tree), or a
-node tree (an instance of ``\Twig\Node\ModuleNode``). The core extension defines
-the basic nodes like: ``for``, ``if``, ... and the expression nodes.
+Парсер перетворює потік токенів на AST (дерево абстрактного синтаксису), або дерево вузлів
+дерево вузлів (екземпляр ``\Twig\Node\ModuleNode``). Основне розширення визначає
+базові вузли, такі як: ``for``, ``if``, ... та вузли виразів.
 
-You can manually convert a token stream into a node tree by calling the
-``parse()`` method of an environment::
+Ви можете вручну перетворити потік токенів на дерево вузлів, викликавши функцію методу середовища
+``parse()``::
 
     $nodes = $twig->parse($stream);
 
-Echoing the node object gives you a nice representation of the tree::
+Повторення об'єкта вузла дає вам гарне представлення дерева::
 
     echo $nodes."\n";
 
-Here is the output for the ``Hello {{ name }}`` template:
+Ось виведення для шаблону ``Hello {{ name }}``:
 
 .. code-block:: text
 
@@ -101,25 +100,24 @@ Here is the output for the ``Hello {{ name }}`` template:
 
 .. note::
 
-    The default parser (``\Twig\TokenParser\AbstractTokenParser``) can be changed by calling the
-    ``setParser()`` method::
+    Парсер за замовчуванням (``\Twig\TokenParser\AbstractTokenParser``) може бути змінено, шляхом
+    виклику методу ``setParser()``::
 
         $twig->setParser($parser);
 
-The Compiler
-------------
+Компілятор
+----------
 
-The last step is done by the compiler. It takes a node tree as an input and
-generates PHP code usable for runtime execution of the template.
+Останній крок виконується компілятором. Він отримує дерево вузлів в якості введеня та
+генерує PHP-код, придатний для використання під час виконання шаблону.
 
-You can manually compile a node tree to PHP code with the ``compile()`` method
-of an environment::
+Ви можете вручну скомпілювати дерево вузлів у PHP-код за допомогою методу середовища 
+``compile()``::
 
     $php = $twig->compile($nodes);
 
-The generated template for a ``Hello {{ name }}`` template reads as follows
-(the actual output can differ depending on the version of Twig you are
-using)::
+Згенерований шаблон для шаблону ``Hello {{ name }}`` виглядає наступним чином
+(фактичне виведення може відрізнятися в залежності від версії Twig, яку ви використовуєте)::
 
     /* Hello {{ name }} */
     class __TwigTemplate_1121b6f109fe93ebe8c6e22e3712bceb extends Template
@@ -127,19 +125,19 @@ using)::
         protected function doDisplay(array $context, array $blocks = []): iterable
         {
             $macros = $this->macros;
-            // line 1
+            // рядок 1
             yield "Hello ";
-            // line 2
+            // рядок 2
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 2, $this->source); })()), "html", null, true);
             return; yield '';
         }
 
-        // some more code
+        // ще трохи коду
     }
 
 .. note::
 
-    The default compiler (``\Twig\Compiler``) can be changed by calling the
-    ``setCompiler()`` method::
+    Компілятор за замовчуванням (``\Twig\Compiler``) може бути змінено, шляхом виклику
+    методу ``setCompiler()``::
 
         $twig->setCompiler($compiler);
