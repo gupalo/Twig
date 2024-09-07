@@ -1,17 +1,17 @@
-Recipes
+Рецепти
 =======
 
-.. _deprecation-notices:
+.. _deprecation-notices-uk:
 
-Displaying Deprecation Notices
-------------------------------
+Відображення сповіщень про застарівання
+---------------------------------------
 
-Deprecated features generate deprecation notices (via a call to the
-``trigger_error()`` PHP function). By default, they are silenced and never
-displayed nor logged.
+Застарілі функції генерують повідомлення про застарівання (за допомогою виклику
+PHP-функції ``trigger_error()`` ). За замовчуванням вони замовчуються і ніколи не
+не відображаються і не записуються в лог.
 
-To remove all deprecated feature usages from your templates, write and run a
-script along the lines of the following::
+Щоб видалити всі застарілі функції з ваших шаблонів, напишіть і запустіть скрипт
+приблизно такого вигляду::
 
     require_once __DIR__.'/vendor/autoload.php';
 
@@ -21,19 +21,19 @@ script along the lines of the following::
 
     print_r($deprecations->collectDir(__DIR__.'/templates'));
 
-The ``collectDir()`` method compiles all templates found in a directory,
-catches deprecation notices, and return them.
+Метод ``collectDir()`` компілює всі шаблони, знайдені у каталозі, відловлює повідомлення
+про застарівання та повертає їх.
 
 .. tip::
 
-    If your templates are not stored on the filesystem, use the ``collect()``
-    method instead. ``collect()`` takes a ``Traversable`` which must return
-    template names as keys and template contents as values (as done by
+    Якщо ваші шаблони не зберігаються у файловій системі, використовуйте метод 
+    ``collect()`` натомість. ``collect()`` приймає ``Traversable``, який має повернути
+    імена шаблонів як ключі і зміст шаблонів як значення (як це робиться за допомогою
     ``\Twig\Util\TemplateDirIterator``).
 
-However, this code won't find all deprecations (like using deprecated some Twig
-classes). To catch all notices, register a custom error handler like the one
-below::
+Однак, цей код не знайде всіх застарівань (наприклад, використання деяких застарілих класів
+Twig). Щоб відловлювати всі сповіщення, зареєструйте користувацький обробник помилок на 
+кшталт того, що наведено нижче::
 
     $deprecations = [];
     set_error_handler(function ($type, $msg) use (&$deprecations) {
@@ -42,74 +42,72 @@ below::
         }
     });
 
-    // run your application
+    // запустіть ваш додаток
 
     print_r($deprecations);
 
-Note that most deprecation notices are triggered during **compilation**, so
-they won't be generated when templates are already cached.
+Зверніть увагу, що більшість сповіщень про застарівання спрацьовують під час **компіляції**, тому 
+вони не будуть згенеровані, коли шаблони вже кешовані.
 
 .. tip::
 
-    If you want to manage the deprecation notices from your PHPUnit tests, have
-    a look at the `symfony/phpunit-bridge
-    <https://github.com/symfony/phpunit-bridge>`_ package, which eases the
-    process.
+    Якщо ви хочете керувати сповіщеннями про застарівання у ваших тестах PHPUnit, 
+    погляньте на пакет `symfony/phpunit-bridge <https://github.com/symfony/phpunit-bridge>`_,
+    який полегшує процес.
 
-Making a Layout conditional
----------------------------
+Робимо макет умовним
+--------------------
 
-Working with Ajax means that the same content is sometimes displayed as is,
-and sometimes decorated with a layout. As Twig layout template names can be
-any valid expression, you can pass a variable that evaluates to ``true`` when
-the request is made via Ajax and choose the layout accordingly:
+Робота з Ajax означає, що один і той самий зміст іноді відображається як є,
+а іноді прикрашається макетом. Оскільки іменами шаблонів макетів Twig можуть бути
+будь-які допустимі вирази, ви можете передати змінну, яка отримає значення ``true``, коли
+запит зроблено через Ajax, і відповідно до цього обрати макет:
 
 .. code-block:: twig
 
     {% extends request.ajax ? "base_ajax.html" : "base.html" %}
 
     {% block content %}
-        This is the content to be displayed.
+        Це зміст для відображення.
     {% endblock %}
 
-Making an Include dynamic
--------------------------
+Робимо включення динамічним
+---------------------------
 
-When including a template, its name does not need to be a string. For
-instance, the name can depend on the value of a variable:
+При включенні шаблону його ім'я не обов'язково має бути рядком. Наприклад, назва
+може залежати від значення змінної:
 
 .. code-block:: twig
 
     {% include var ~ '_foo.html' %}
 
-If ``var`` evaluates to ``index``, the ``index_foo.html`` template will be
-rendered.
+Якщо ``var`` оцінюється як ``index``, буде відображено шаблон ``index_foo.html``.
 
-As a matter of fact, the template name can be any valid expression, such as
-the following:
+Насправді, ім'я шаблону може бути будь-яким валідним виразом, наприклад
+наступним:
 
 .. code-block:: twig
 
     {% include var|default('index') ~ '_foo.html' %}
 
-Overriding a Template that also extends itself
-----------------------------------------------
+Перевизначення шаблону, який також розширюється
+-----------------------------------------------
 
-A template can be customized in two different ways:
+Шаблон можна налаштувати двома різними способами:
 
-* *Inheritance*: A template *extends* a parent template and overrides some
-  blocks;
+* *Успадкування*: Шаблон *розширює* батьківський шаблон і перевизначає деякі
+  блоки;
 
-* *Replacement*: If you use the filesystem loader, Twig loads the first
-  template it finds in a list of configured directories; a template found in a
-  directory *replaces* another one from a directory further in the list.
+* *Заміна*: Якщо ви використовуєте завантажувач файлової системи, Twig завантажує перший
+  шаблон, який він знайде у списку сконфігурованих каталогів; шаблон, знайдений у каталозі,
+  *замінює* інший шаблон з каталогу, розташованого далі у списку.
 
-But how do you combine both: *replace* a template that also extends itself
-(aka a template in a directory further in the list)?
+Але як поєднати обидва варіанти: *замінити* шаблон, який також розширюється
+(тобто, шаблон у каталозі, розташованому далі у списку)?
 
-Let's say that your templates are loaded from both ``.../templates/mysite``
-and ``.../templates/default`` in this order. The ``page.twig`` template,
-stored in ``.../templates/default`` reads as follows:
+Припустимо, що ваші шаблони завантажуються як з папки ``.../templates/mysite``, так і 
+з папки ``.../templates/default`` в такому порядку. Шаблон ``page.twig``,
+що зберігається в ``.../templates/default``, читається наступним чином:
 
 .. code-block:: twig
 
@@ -119,25 +117,23 @@ stored in ``.../templates/default`` reads as follows:
     {% block content %}
     {% endblock %}
 
-You can replace this template by putting a file with the same name in
-``.../templates/mysite``. And if you want to extend the original template, you
-might be tempted to write the following:
+Ви можете замінити цей шаблон, помістивши файл з таким же ім'ям в папку ``.../templates/mysite``.
+А якщо ви хочете розширити оригінальний шаблон, вам може кортіти  написати наступне:
 
 .. code-block:: twig
 
     {# page.twig in .../templates/mysite #}
     {% extends "page.twig" %} {# from .../templates/default #}
 
-However, this will not work as Twig will always load the template from
+Однак, це не працюватиме, так як Twig завжди завантажуватиме шаблон з
 ``.../templates/mysite``.
 
-It turns out it is possible to get this to work, by adding a directory right
-at the end of your template directories, which is the parent of all of the
-other directories: ``.../templates`` in our case. This has the effect of
-making every template file within our system uniquely addressable. Most of the
-time you will use the "normal" paths, but in the special case of wanting to
-extend a template with an overriding version of itself we can reference its
-parent's full, unambiguous template path in the extends tag:
+Виявляється, можна змусити це працювати, додавши каталог прямо в кінці ваших каталогів шаблонів,
+який є батьківським для всіх інших каталогів: ``.../templates`` у нашому випадку. Це призведе 
+до того, що зробить кожен файл шаблону у нашій системі унікально адресованим. Більшість часу ви 
+будете використовувати "нормальні" шляхи, але в особливих випадках, коли ви захочете розширити
+шаблон за допомогою розширити шаблон з перевизначеною версією його самого, ми можемо послатися 
+на його повний, однозначний шлях до шаблону у тегу розширення:
 
 .. code-block:: twig
 
@@ -146,17 +142,17 @@ parent's full, unambiguous template path in the extends tag:
 
 .. note::
 
-    This recipe was inspired by the following Django wiki page:
+    Цей рецепт був натхненний наступною вікі-сторінкою Django:
     https://code.djangoproject.com/wiki/ExtendingTemplates
 
-Customizing the Syntax
-----------------------
+Налаштування синтаксису
+-----------------------
 
-Twig allows some syntax customization for the block delimiters. It's **not**
-recommended to use this feature as templates will be tied with your custom
-syntax. But for specific projects, it can make sense to change the defaults.
+Twig дозволяє деяке налаштування синтаксису для роздільників блоків. Не рекомендується
+використовувати цю можливість, оскільки шаблони будуть прив'язані до вашого користувацького
+синтаксису. Але для певних проектів може мати сенс змінити значення за замовчуванням.
 
-To change the block delimiters, you need to create your own lexer object::
+Щоб змінити роздільники блоків, вам потрібно створити власний об'єкт лексера::
 
     $twig = new \Twig\Environment(...);
 
@@ -168,39 +164,38 @@ To change the block delimiters, you need to create your own lexer object::
     ]);
     $twig->setLexer($lexer);
 
-Here are some configuration example that simulates some other template engines
-syntax::
+Нижче наведено приклад конфігурації, що імітує деякий інший синтексис движку шаблонів::
 
-    // Ruby erb syntax
+    // Синтаксис Ruby erb
     $lexer = new \Twig\Lexer($twig, [
         'tag_comment'  => ['<%#', '%>'],
         'tag_block'    => ['<%', '%>'],
         'tag_variable' => ['<%=', '%>'],
     ]);
 
-    // SGML Comment Syntax
+    // Синтаксис SGML Comment
     $lexer = new \Twig\Lexer($twig, [
         'tag_comment'  => ['<!--#', '-->'],
         'tag_block'    => ['<!--', '-->'],
         'tag_variable' => ['${', '}'],
     ]);
 
-    // Smarty like
+    // Схожий на Smarty
     $lexer = new \Twig\Lexer($twig, [
         'tag_comment'  => ['{*', '*}'],
         'tag_block'    => ['{', '}'],
         'tag_variable' => ['{$', '}'],
     ]);
 
-Using dynamic Object Properties
--------------------------------
+Використання динамічних властивостей обʼєкта
+--------------------------------------------
 
-When Twig encounters a variable like ``article.title``, it tries to find a
-``title`` public property in the ``article`` object.
+Коли Twig зустрічає змінну типу ``article.title``, він намагається знайти в об'єкті 
+``article`` публічну властивість властивість ``title``.
 
-It also works if the property does not exist but is rather defined dynamically
-thanks to the magic ``__get()`` method; you need to also implement the
-``__isset()`` magic method like shown in the following snippet of code::
+Це також працює, якщо властивість не існує, а визначається динамічно,
+завдяки магічному методу ``__get()``; вам також потрібно реалізувати магічний метод
+``__isset()``, як показано у наступному фрагменті коду::
 
     class Article
     {
@@ -210,7 +205,7 @@ thanks to the magic ``__get()`` method; you need to also implement the
                 return 'The title';
             }
 
-            // throw some kind of error
+            // викликати якусь помилку
         }
 
         public function __isset($name)
@@ -223,12 +218,12 @@ thanks to the magic ``__get()`` method; you need to also implement the
         }
     }
 
-Accessing the parent Context in Nested Loops
---------------------------------------------
+Доступ до батьківського контексту у вкладених циклах
+----------------------------------------------------
 
-Sometimes, when using nested loops, you need to access the parent context. The
-parent context is always accessible via the ``loop.parent`` variable. For
-instance, if you have the following template data::
+Іноді при використанні вкладених циклів вам потрібно отримати доступ до батьківського
+контексту. Батьківський контекст завжди доступний через змінну ``loop.parent``. Наприклад,
+якщо у вас є такі дані шаблону::
 
     $data = [
         'topics' => [
@@ -237,7 +232,8 @@ instance, if you have the following template data::
         ],
     ];
 
-And the following template to display all messages in all topics:
+
+І наступний шаблон для відображення всіх повідомлень у всіх темах:
 
 .. code-block:: twig
 
@@ -248,39 +244,39 @@ And the following template to display all messages in all topics:
       {% endfor %}
     {% endfor %}
 
-The output will be similar to:
+Виведення буде схожим на:
 
 .. code-block:: text
 
     * 1: topic1
-      - 1.1: The message 1 of topic 1
-      - 1.2: The message 2 of topic 1
+      - 1.1: Повідомлення 1 теми 1
+      - 1.2: Повідомлення 2 теми 1
     * 2: topic2
-      - 2.1: The message 1 of topic 2
-      - 2.2: The message 2 of topic 2
+      - 2.1: Повідомлення 1 теми 2
+      - 2.2: Повідомлення 2 теми 2
 
-In the inner loop, the ``loop.parent`` variable is used to access the outer
-context. So, the index of the current ``topic`` defined in the outer for loop
-is accessible via the ``loop.parent.loop.index`` variable.
+У внутрішньому циклі змінна ``loop.parent`` використовується для доступу до зовнішнього
+контексту. Отже, індекс поточної ``topic``, визначений зовні для цилку, доступний через
+змінну ``loop.parent.loop.index``.
 
-Defining undefined Functions, Filters, and Tags on the Fly
-----------------------------------------------------------
+Визначення невизначених функцій, фільтрів і тегів на ходу
+---------------------------------------------------------
 
 .. versionadded:: 3.2
 
-    The ``registerUndefinedTokenParserCallback()`` method was added in Twig
+    Метод ``registerUndefinedTokenParserCallback()`` було представлено в Twig
     3.2.
 
-When a function/filter/tag is not defined, Twig defaults to throw a
-``\Twig\Error\SyntaxError`` exception. However, it can also call a `callback`_
-(any valid PHP callable) which should return a function/filter/tag.
+Якщо функцію/фільтр/тег не визначено, за замовчуванням Twig викликає виключення
+``\Twig\Error\SyntaxError``. Однак, він також може викликати `callback`_(будь-яке
+допустиме PHP-викличне), який має повернути функцію/фільтр/тег.
 
-For tags, register callbacks with ``registerUndefinedTokenParserCallback()``.
-For filters, register callbacks with ``registerUndefinedFilterCallback()``.
-For functions, use ``registerUndefinedFunctionCallback()``::
+Для тегів реєструйте зворотні виклики за допомогою ``registerUndefinedTokenParserCallback()``.
+Для фільтрів зареєструйте зворотні виклики за допомогою ``registerUndefinedFilterCallback()``.
+Для функцій використовуйте ``registerUndefinedFunctionCallback()``::
 
-    // auto-register all native PHP functions as Twig functions
-    // NEVER do this in a project as it's NOT secure
+    // автоматично реєструвати всі нативні функції PHP як функції Twig
+    // НІКОЛИ не робіть цього в проєкті, так як це НЕ є безпечним
     $twig->registerUndefinedFunctionCallback(function ($name) {
         if (function_exists($name)) {
             return new \Twig\TwigFunction($name, $name);
@@ -289,81 +285,80 @@ For functions, use ``registerUndefinedFunctionCallback()``::
         return false;
     });
 
-If the callable is not able to return a valid function/filter/tag, it must
-return ``false``.
+Якщо викличне не може повернути коректну функцію/фільтр/тег, воно повинно
+повернути ``false``.
 
-If you register more than one callback, Twig will call them in turn until one
-does not return ``false``.
+Якщо ви зареєструєте більше одного зворотного виклику, Twig буде викликати їх по черзі,
+доки один з них не поверне ``false``.
 
 .. tip::
 
-    As the resolution of functions/filters/tags is done during compilation,
-    there is no overhead when registering these callbacks.
+    Оскільки розвʼязання функцій/фільтрів/тегів відбувається під час компіляції,
+    реєстрація цих зворотних викликів не спричиняє жодних додаткових витрат.
 
-Validating the Template Syntax
-------------------------------
+Валідація синтаксису шаблону
+----------------------------
 
-When template code is provided by a third-party (through a web interface for
-instance), it might be interesting to validate the template syntax before
-saving it. If the template code is stored in a ``$template`` variable, here is
-how you can do it::
+Коли код шаблону надається третьою стороною (наприклад, через веб-інтерфейс), може бути
+корисно перевірити синтаксис шаблону перед його збереженням. Якщо код шаблону зберігається
+у змінній ``$template``, ось як це можна зробити::
 
     try {
         $twig->parse($twig->tokenize(new \Twig\Source($template)));
 
-        // the $template is valid
+        // $template є валідним
     } catch (\Twig\Error\SyntaxError $e) {
-        // $template contains one or more syntax errors
+        // $template містить одну або більше помилок синтаксису
     }
 
-If you iterate over a set of files, you can pass the filename to the
-``tokenize()`` method to get the filename in the exception message::
+Якщо ви виконуєте ітерацію за набором файлів, ви можете передати ім'я файлу методу
+``tokenize()``, щоб отримати ім'я файлу у повідомленні виключення::
 
     foreach ($files as $file) {
         try {
             $twig->parse($twig->tokenize(new \Twig\Source($template, $file->getFilename(), $file)));
 
-            // the $template is valid
+            // $template є валідним
         } catch (\Twig\Error\SyntaxError $e) {
-            // $template contains one or more syntax errors
+            // $template містить одну або більше помилок синтаксису
         }
     }
 
 .. note::
 
-    This method won't catch any sandbox policy violations because the policy
-    is enforced during template rendering (as Twig needs the context for some
-    checks like allowed methods on objects).
+    Цей метод не виявить жодних порушень політики пісочниці, оскільки політика
+    застосовується під час відображення шаблону ( так як Twig потребує контексту
+    для деяких перевірок, таких як дозволені методи в об'єктах).
 
-Refreshing modified Templates when OPcache is enabled
------------------------------------------------------
+Оновлення змінених щаблонів при ввімкненому OPcache
+---------------------------------------------------
 
-When using OPcache with ``opcache.validate_timestamps`` set to ``0``,
-Twig cache enabled and auto reload disabled, clearing the template
-cache won't update the cache.
+При використанні OPcache з ``opcache.validate_timestamps``, встановленим у значення ``0``,
+увімкнено кеш Twig і вимкнено автоматичне перезавантаження, що очищає кеш шаблону, і він
+не буде оновлюватися.
 
-To get around this, force Twig to invalidate the bytecode cache::
+Щоб обійти це, змусьте Twig зробити кеш байт-коду невалідним::
 
     $twig = new \Twig\Environment($loader, [
         'cache' => new \Twig\Cache\FilesystemCache('/some/cache/path', \Twig\Cache\FilesystemCache::FORCE_BYTECODE_INVALIDATION),
         // ...
     ]);
 
-Reusing a stateful Node Visitor
--------------------------------
+Повторне використання відвідувача вузла зі станом
+-------------------------------------------------
 
-When attaching a visitor to a ``\Twig\Environment`` instance, Twig uses it to
-visit *all* templates it compiles. If you need to keep some state information
-around, you probably want to reset it when visiting a new template.
+При приєднанні відвідувача до екземпляра ``\Twig\Environment``, Twig використовує його
+для для відвідування *усіх* шаблонів, які він компілює. Якщо вам потрібно зберегти деяку
+інформацію про стан, ви, ймовірно, захочете обнуляти її при відвідуванні нового шаблону.
 
-This can be achieved with the following code::
+Цього можна досягти за допомогою наступного коду::
 
     protected $someTemplateState = [];
 
     public function enterNode(\Twig\Node\Node $node, \Twig\Environment $env)
     {
         if ($node instanceof \Twig\Node\ModuleNode) {
-            // reset the state as we are entering a new template
+            // обнулити стан, так як ми входимо у новий шаблон
             $this->someTemplateState = [];
         }
 
@@ -372,14 +367,14 @@ This can be achieved with the following code::
         return $node;
     }
 
-Using a Database to store Templates
------------------------------------
+Використання бази даних для зберігання шаблонів
+-----------------------------------------------
 
-If you are developing a CMS, templates are usually stored in a database. This
-recipe gives you a simple PDO template loader you can use as a starting point
-for your own.
+Якщо ви розробляєте CMS, шаблони зазвичай зберігаються в базі даних. Цей рецепт 
+дає вам простий завантажувач шаблонів PDO, який ви можете використовувати як відправну
+точку для свого власного.
 
-First, let's create a temporary in-memory SQLite3 database to work with::
+Спочатку створимо тимчасову базу даних SQLite3 в пам'яті для роботи::
 
     $dbh = new PDO('sqlite::memory:');
     $dbh->exec('CREATE TABLE templates (name STRING, source STRING, last_modified INTEGER)');
@@ -392,10 +387,10 @@ First, let's create a temporary in-memory SQLite3 database to work with::
     $dbh->prepare('INSERT INTO templates (name, source, last_modified) VALUES (?, ?, ?)')->execute(['base.twig', $base, $now]);
     $dbh->prepare('INSERT INTO templates (name, source, last_modified) VALUES (?, ?, ?)')->execute(['index.twig', $index, $now]);
 
-We have created a simple ``templates`` table that hosts two templates:
-``base.twig`` and ``index.twig``.
+Ми створили просту таблицю ``templates``, яка містить два шаблони:
+``base.twig`` та ``index.twig``.
 
-Now, let's define a loader able to use this database::
+Тепер давайте визначимо завантажувач, який може використовувати цю базу даних::
 
     class DatabaseTwigLoader implements \Twig\Loader\LoaderInterface
     {
@@ -443,26 +438,25 @@ Now, let's define a loader able to use this database::
         }
     }
 
-Finally, here is an example on how you can use it::
+Нарешті, оць приклад того, як ви можете це використовувати::
 
     $loader = new DatabaseTwigLoader($dbh);
     $twig = new \Twig\Environment($loader);
 
     echo $twig->render('index.twig', ['name' => 'Fabien']);
 
-Using different Template Sources
---------------------------------
+Використання різних джерел шаблонів
+-----------------------------------
 
-This recipe is the continuation of the previous one. Even if you store the
-contributed templates in a database, you might want to keep the original/base
-templates on the filesystem. When templates can be loaded from different
-sources, you need to use the ``\Twig\Loader\ChainLoader`` loader.
+Цей рецепт є продовженням попереднього. Навіть якщо ви зберігаєте надіслані шаблони в базі
+даних, ви, можливо, захочете зберегти оригінальні/базові шаблони у файловій системі. Якщо
+шаблони можна завантажувати з різних джерел, вам слід скористатися завантажувачем 
+``\Twig\Loader\ChainLoader``.
 
-As you can see in the previous recipe, we reference the template in the exact
-same way as we would have done it with a regular filesystem loader. This is
-the key to be able to mix and match templates coming from the database, the
-filesystem, or any other loader for that matter: the template name should be a
-logical name, and not the path from the filesystem::
+Як ви можете бачити у попередньому рецепті, ми посилаємося на шаблон так само, як це було
+б зроблено за допомогою звичайного завантажувача файлової системи. Це є ключем до можливості
+змішувати різні шаблони, що надходять з бази даних, файлової системи або будь-якого іншого
+завантажувача: ім'я шаблону має бути логічним ім'ям, а не шляхом з файлової системи::
 
     $loader1 = new DatabaseTwigLoader($dbh);
     $loader2 = new \Twig\Loader\ArrayLoader([
@@ -474,47 +468,45 @@ logical name, and not the path from the filesystem::
 
     echo $twig->render('index.twig', ['name' => 'Fabien']);
 
-Now that the ``base.twig`` templates is defined in an array loader, you can
-remove it from the database, and everything else will still work as before.
+Тепер, коли шаблони ``base.twig`` визначено у завантажувачі масиву, ви можете
+видалити його з бази даних, і все інше буде працювати як і раніше.
 
-Loading a Template from a String
---------------------------------
+Завантаження шаблону з рядка
+----------------------------
 
-From a template, you can load a template stored in a string via the
-``template_from_string`` function (via the
-``\Twig\Extension\StringLoaderExtension`` extension):
+З шаблону можна завантажити шаблон, що зберігається у рядку, за допомогою функції
+``template_from_string`` (через розширення ``\Twig\Extension\StringLoaderExtension``):
 
 .. code-block:: twig
 
     {{ include(template_from_string("Hello {{ name }}")) }}
 
-From PHP, it's also possible to load a template stored in a string via
+З PHP також можна завантажити шаблон, збережений у вигляді рядка, за допомогою
 ``\Twig\Environment::createTemplate()``::
 
     $template = $twig->createTemplate('hello {{ name }}');
     echo $template->render(['name' => 'Fabien']);
 
-Using Twig and AngularJS in the same Templates
-----------------------------------------------
+Використання Twig та AngularJS в одному шаблоні
+-----------------------------------------------
 
-Mixing different template syntaxes in the same file is not a recommended
-practice as both AngularJS and Twig use the same delimiters in their syntax:
-``{{`` and ``}}``.
+Змішування різних синтаксисів шаблонів в одному файлі не рекомендується,
+оскільки AngularJS та Twig використовують однакові роздільники у своєму синтаксисі:
+``{{`` та ``}}``.
 
-Still, if you want to use AngularJS and Twig in the same template, there are
-two ways to make it work depending on the amount of AngularJS you need to
-include in your templates:
+Проте, якщо ви хочете використовувати AngularJS і Twig в одному шаблоні, є
+два способи зробити так, щоб це працювало, залежно від кількості AngularJS,
+яку вам потрібно додати до ваших шаблонів:
 
-* Escaping the AngularJS delimiters by wrapping AngularJS sections with the
-  ``{% verbatim %}`` tag or by escaping each delimiter via ``{{ '{{' }}`` and
+* Екранування роздільників AngularJS шляхом обгортання розділів AngularJS тегом
+  ``{% дослівно %}`` або екрануванням кожного роздільника через ``{{ '{{' }}`` та
   ``{{ '}}' }}``;
 
-* Changing the delimiters of one of the template engines (depending on which
-  engine you introduced last):
+* Зміна роздільників одного з движків шаблонів (залежно від того, який з них ви ввели
+  останнім): 
 
-  * For AngularJS, change the interpolation tags using the
-    ``interpolateProvider`` service, for instance at the module initialization
-    time:
+  * Для AngularJS, змініть теги інтерполяції, використовуючи сервіс
+    ``interpolateProvider``, наприклад, під час ініціалізації модуля:
 
     .. code-block:: javascript
 
@@ -522,18 +514,18 @@ include in your templates:
             $interpolateProvider.startSymbol('{[').endSymbol(']}');
         });
 
-  * For Twig, change the delimiters via the ``tag_variable`` Lexer option::
+  * Для Twig, змініть роздільники через опцію лексера ``tag_variable``::
 
         $env->setLexer(new \Twig\Lexer($env, [
             'tag_variable' => ['{[', ']}'],
         ]));
 
-Marking a Node as being safe
-----------------------------
+Позначення вузла як безпечного
+------------------------------
 
-When using the escaper extension, you might want to mark some nodes as being
-safe to avoid any escaping. You can do so by wrapping your expression with a
-``RawFilter`` node::
+При використанні розширення екранування ви можете позначити деякі вузли як
+як безпечні, щоб уникнути будь-якого екранування. Ви можете зробити це, обгорнувши
+ваш вираз за допомогою вузла ``RawFilter``::
 
     use Twig\Node\Expression\Filter\RawFilter;
 
