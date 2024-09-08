@@ -1,9 +1,9 @@
 ``dump``
 ========
 
-The ``dump`` function dumps information about a template variable. This is
-mostly useful to debug a template that does not behave as expected by
-introspecting its variables:
+Функція ``dump`` скидає інформацію про змінну шаблону. Це
+здебільшого корисно для налагодження шаблону, який поводиться не так, як очікувалося
+під час аналізу його змінних:
 
 .. code-block:: twig
 
@@ -11,9 +11,9 @@ introspecting its variables:
 
 .. note::
 
-    The ``dump`` function is not available by default. You must add the
-    ``\Twig\Extension\DebugExtension`` extension explicitly when creating your Twig
-    environment::
+    За замовчуванням функція ``dump`` недоступна. Ви повинні додати розширення
+    ``\Twig\Extension\DebugExtension`` явно при створенні вашого середовища  
+    Twig ::
 
         $twig = new \Twig\Environment($loader, [
             'debug' => true,
@@ -21,12 +21,10 @@ introspecting its variables:
         ]);
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 
-    Even when enabled, the ``dump`` function won't display anything if the
-    ``debug`` option on the environment is not enabled (to avoid leaking debug
-    information on a production server).
+    Навіть коли увімкнена, функція ``dump`` нічого не виводитиме, якщо не увімкнено опцію
+    ``debug`` у середовищі (щоб уникнути витоку інформації про налагодження на виробничому сервері).
 
-In an HTML context, wrap the output with a ``pre`` tag to make it easier to
-read:
+У контексті HTML, обгорніть виведення тегом ``pre``, щоб полегшити його читання:
 
 .. code-block:: html+twig
 
@@ -36,18 +34,17 @@ read:
 
 .. tip::
 
-    Using a ``pre`` tag is not needed when `XDebug`_ is enabled and
-    ``html_errors`` is ``on``; as a bonus, the output is also nicer with
-    XDebug enabled.
+    Використання тегу ``pre`` не потрібне, якщо увімкнено `XDebug`_ і``html_errors``;
+    як бонус, виведення також буде кращим, якщо увімкнено XDebug.
 
-You can debug several variables by passing them as additional arguments:
+Ви можете налагодити декілька змінних, передавши їх як додаткові аргументи:
 
 .. code-block:: twig
 
     {{ dump(user, categories) }}
 
-If you don't pass any value, all variables from the current context are
-dumped:
+Якщо ви не передаєте жодного значення, всі змінні з поточного контексту
+скидаються:
 
 .. code-block:: twig
 
@@ -55,12 +52,12 @@ dumped:
 
 .. note::
 
-    Internally, Twig uses the PHP `var_dump`_ function.
+    Внутрішньо Twig використовує PHP-функцію `var_dump`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``context``: The context to dump
+* ``context``: Контекст для скидання
 
 .. _`XDebug`:   https://xdebug.org/docs/display
 .. _`var_dump`: https://www.php.net/var_dump
