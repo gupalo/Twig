@@ -1,11 +1,11 @@
 ``block``
 =========
 
-Blocks are used for inheritance and act as placeholders and replacements at
-the same time. They are documented in detail in the documentation for the
-:doc:`extends<../tags/extends>` tag.
+Блокування використовуються для успадкування і діють як заповнювачі та заміни одночасно. Вони
+детально описані у документації до тегу :doc:`extends<../tags/extends>`.
 
-Block names must consist of alphanumeric characters, and underscores. The first char can't be a digit and dashes are not permitted.
+Назви блокувань мають складатися з буквено-цифрових символів та символів підкреслення. Перший
+символ не може бути цифрою, а тире не допускається.
 
 .. seealso::
 
