@@ -3,9 +3,9 @@
 
 .. versionadded:: 3.2
 
-    The ``cache`` tag was added in Twig 3.2.
+    Тег ``cache`` був представлений в Twig 3.2.
 
-The ``cache`` tag tells Twig to cache a template fragment:
+Тег ``cache`` вказує Twig кешувати фрагмент шаблону:
 
 .. code-block:: twig
 
@@ -13,8 +13,8 @@ The ``cache`` tag tells Twig to cache a template fragment:
         Cached forever (depending on the cache implementation)
     {% endcache %}
 
-If you want to expire the cache after a certain amount of time, specify an
-expiration in seconds via the ``ttl()`` modifier:
+Якщо ви хочете, щоб кеш завершував свою роботу через певний проміжок часу, вкажіть значення
+у секундах за допомогою модифікатора ``ttl()``:
 
 .. code-block:: twig
 
@@ -22,31 +22,29 @@ expiration in seconds via the ``ttl()`` modifier:
         Cached for 300 seconds
     {% endcache %}
 
-The cache key can be any string that does not use the following reserved
-characters ``{}()/\@:``; a good practice is to embed some useful information in
-the key that allows the cache to automatically expire when it must be
-refreshed:
+Ключем кешу може бути будь-який рядок, який не використовує наступні зарезервовані
+символи ``{}()/\@:``; гарною практикою є вбудовування деякої корисної інформації у ключ, яка дозволяє кешу автоматично завершувати свою роботу, коли він повинен бути
+оновленим:
 
-* Give each cache a unique name and namespace it like your templates;
+* Дайте кожному кешу унікальне ім'я і розмістіть його у просторі імен, як і ваші шаблони;
 
-* Embed an integer that you increment whenever the template code changes (to
-  automatically invalidate all current caches);
+* Вбудуйте ціле число, яке буде збільшуватися щоразу, коли код шаблону змінюється (для того, 
+  щоб автоматично інвалідувати всі поточні кеші);
 
-* Embed a unique key that is updated whenever the variables used in the
-  template code changes.
+* Вбудуйте унікальний ключ, який оновлюється щоразу, коли змінюються змінні, що використовуються
+  в коді шаблону.
 
-For instance, I would use ``{% cache "blog_post;v1;" ~ post.id ~ ";" ~
-post.updated_at %}`` to cache a blog content template fragment where
-``blog_post`` describes the template fragment, ``v1`` represents the first
-version of the template code, ``post.id`` represent the id of the blog post,
-and ``post.updated_at`` returns a timestamp that represents the time where the
-blog post was last modified.
+Наприклад, я б використовував ``{% cache «blog_post;v1;» ~ post.id ~ «;» ~
+post.updated_at %}`` для кешування фрагмента шаблону змісту блогу, де ``blog_post`` описує
+фрагмент шаблону, ``v1`` представляє першу версію коду шаблону, ``post.id`` - ідентифікатор
+запису в блозі, а ``post.updated_at`` повертає мітку часу, яка представляє час, коли
+востаннє було змінено запис у блозі.
 
-Using such a strategy for naming cache keys allows to avoid using a ``ttl``.
-It's like using a "validation" strategy instead of an "expiration" strategy as
-we do for HTTP caches.
+Використання такої стратегії іменування ключів кешу дозволяє уникнути використання ``ttl``.
+Це все одно, що використовувати стратегію "валідації" замість стратегії "закінчення терміну дії", як
+ми робимо для HTTP-кешів.
 
-If your cache implementation supports tags, you can also tag your cache items:
+Якщо ваша реалізація кешу підтримує теги, ви також можете тегувати елементи кешу:
 
 .. code-block:: twig
 
@@ -58,46 +56,46 @@ If your cache implementation supports tags, you can also tag your cache items:
         Some code
     {% endcache %}
 
-The ``cache`` tag creates a new "scope" for variables, meaning that the changes
-are local to the template fragment:
+Тег ``cache`` створює новий "діапазон" для змінних, що означає, що зміни
+відбуваються локально у фрагменті шаблону:
 
 .. code-block:: twig
 
     {% set count = 1 %}
 
     {% cache "cache key" tags('blog') %}
-        {# Won't affect the value of count outside of the cache tag #}
+        {# Не вплине на значення на значення лічильника за межами тегу кешу #}
         {% set count = 2 %}
         Some code
     {% endcache %}
 
-    {# Displays 1 #}
+    {# Відображає 1 #}
     {{ count }}
 
 .. note::
 
-    The ``cache`` tag is part of the ``CacheExtension`` which is not installed
-    by default. Install it first:
+    Тег ``cache`` є частиною ``CacheExtension``, яке не встановлено
+    за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/cache-extra
 
-    On Symfony projects, you can automatically enable it by installing the
+    У проєктах Symfony ви можете автоматично включити це, встановивши
     ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Or add the extension explicitly on the Twig environment::
+    Або додайте розширення явно у середовище Twig::
 
         use Twig\Extra\Cache\CacheExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new CacheExtension());
 
-    If you are not using Symfony, you must also register the extension runtime::
+   Якщо ви не використовуєте Symfony, ви також повинні зареєструвати розширення виконання::
 
         use Symfony\Component\Cache\Adapter\FilesystemAdapter;
         use Symfony\Component\Cache\Adapter\TagAwareAdapter;
