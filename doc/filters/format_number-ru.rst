@@ -1,13 +1,13 @@
 ``format_number``
 =================
 
-The ``format_number`` filter formats a number:
+Фільтр ``format_number`` форматує число:
 
 .. code-block:: twig
 
     {{ '12.345'|format_number }}
 
-You can pass attributes to tweak the output:
+Ви можете передати атрибути, щоб налаштувати виведення:
 
 .. code-block:: twig
 
@@ -17,7 +17,7 @@ You can pass attributes to tweak the output:
     {# 1000000.0000 #}
     {{ '1000000'|format_number({fraction_digit: 4}) }}
 
-The list of supported options:
+Список підтримуваних опцій:
 
 * ``grouping_used``;
 * ``decimal_always_shown``;
@@ -39,20 +39,20 @@ The list of supported options:
 * ``max_significant_digits_used``;
 * ``lenient_parse``.
 
-Besides plain numbers, the filter can also format numbers in various styles:
+Крім простих чисел, фільтр також може форматувати числа в різних стилях:
 
 .. code-block:: twig
 
     {# 1,234% #}
     {{ '12.345'|format_number(style: 'percent') }}
 
-    {# twelve point three four five #}
+    {# дванадцять точка три чотири пʼять #}
     {{ '12.345'|format_number(style: 'spellout') }}
 
-    {# 12 sec. #}
+    {# 12 сек. #}
     {{ '12'|format_duration_number }}
 
-The list of supported styles:
+Список підтримуваних стилів:
 
 * ``decimal``;
 * ``currency``;
@@ -62,25 +62,25 @@ The list of supported styles:
 * ``ordinal``;
 * ``duration``.
 
-As a shortcut, you can use the ``format_*_number`` filters by replacing ``*``
-with a style:
+Як скорочення, ви можете використовувати фільтри ``format_*_number``, замінивши ``*``
+на стиль:
 
 .. code-block:: twig
 
     {# 1,234% #}
     {{ '12.345'|format_percent_number }}
 
-    {# twelve point three four five #}
+    {# дванадцять точка три чотири пʼять #}
     {{ '12.345'|format_spellout_number }}
 
-You can pass attributes to tweak the output:
+Ви можете передати атрибути, щоб налаштувати виведення:
 
 .. code-block:: twig
 
     {# 12.3% #}
     {{ '0.12345'|format_percent_number({rounding_mode: 'floor', fraction_digit: 1}) }}
 
-By default, the filter uses the current locale. You can pass it explicitly:
+За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
 
 .. code-block:: twig
 
@@ -89,29 +89,29 @@ By default, the filter uses the current locale. You can pass it explicitly:
 
 .. note::
 
-    The ``format_number`` filter is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``format_number`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale
-* ``attrs``: A map of attributes
-* ``style``: The style of the number output
+* ``locale``: Локаль
+* ``attrs``: Мапа атрибутів
+* ``style``: Стиль виведення числа
