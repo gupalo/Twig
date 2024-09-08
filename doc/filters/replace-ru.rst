@@ -1,23 +1,23 @@
 ``replace``
 ===========
 
-The ``replace`` filter replaces placeholders in a string (the placeholder
-format is free-form):
+Фільтр ``replace`` замінює заповнювачі у рядку (формат заповнювача
+може бути довільним):
 
 .. code-block:: twig
 
     {{ "I like %this% and %that%."|replace({'%this%': fruit, '%that%': "oranges"}) }}
-    {# if the "fruit" variable is set to "apples", #}
-    {# it outputs "I like apples and oranges" #}
+    {# якщо змінна "fruit" встановлена як "apples", #}
+    {# то виводиться "I like apples and oranges" #}
 
-    {# using % as a delimiter is purely conventional and optional #}
+    {# використання % в якості роздільника суто умовне і не є обовʼязковим #}
     {{ "I like this and --that--."|replace({'this': fruit, '--that--': "oranges"}) }}
-    {# outputs "I like apples and oranges" #}
+    {# виводить "I like apples and oranges" #}
 
-Arguments
+Аргументи
 ---------
 
-* ``from``: The placeholder values as a mapping
+* ``from``: Значення заповнювача як відображення
 
 .. seealso::
 
