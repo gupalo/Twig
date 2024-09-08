@@ -1,8 +1,8 @@
 ``sandbox``
 ===========
 
-The ``sandbox`` tag can be used to enable the sandboxing mode for an included
-template, when sandboxing is not enabled globally for the Twig environment:
+Тег ``sandbox`` може бути використано для увімкнення режиму пісочниці для включеного шаблону
+шаблону, коли режим пісочниці не увімкнено глобально для середовища Twig:
 
 .. code-block:: twig
 
@@ -12,14 +12,14 @@ template, when sandboxing is not enabled globally for the Twig environment:
 
 .. warning::
 
-    The ``sandbox`` tag is only available when the sandbox extension is
-    enabled (see the :doc:`Twig for Developers<../api>` chapter).
+    Тег ``sandbox`` доступний лише тоді, коли увімкнено розширення пісочниці
+    (див. розділ :doc:`Twig для розробників<../api>`).
 
 .. note::
 
-    The ``sandbox`` tag can only be used to sandbox an include tag and it
-    cannot be used to sandbox a section of a template. The following example
-    won't work:
+    Тег ``sandbox`` можна використовувати лише для ізоляції тегу включення, і 
+    не може бути використаний для ізоляції розділу шаблону. Наступний приклад
+    не буде працювати:
 
     .. code-block:: twig
 
