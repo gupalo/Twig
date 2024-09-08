@@ -1,17 +1,17 @@
 ``format_datetime``
 ===================
 
-The ``format_datetime`` filter formats a date time:
+Фільтр ``format_datetime`` форматує дату і час:
 
 .. code-block:: twig
 
     {# Aug 7, 2019, 11:39:12 PM #}
     {{ '2019-08-07 23:39:12'|format_datetime() }}
 
-Format
+Формат
 ------
 
-You can tweak the output for the date part and the time part:
+Ви можете налаштувати виведення частини дати і частини часу:
 
 .. code-block:: twig
 
@@ -24,85 +24,85 @@ You can tweak the output for the date part and the time part:
     {# mercredi 7 août 2019 23:39:12 UTC #}
     {{ '2019-08-07 23:39:12'|format_datetime('full', 'full', locale: 'fr') }}
 
-Supported values are: ``none``, ``short``, ``medium``, ``long``, and ``full``.
+Підтримуваними значеннями є: ``none``, ``short``, ``medium``, ``long`` та ``full``.
 
 .. versionadded:: 3.6
 
-    ``relative_short``, ``relative_medium``, ``relative_long``, and ``relative_full`` are also supported when running on
-    PHP 8.0 and superior or when using a polyfill that define the ``IntlDateFormatter::RELATIVE_*`` constants and
-    associated behavior.
+   ``relative_short``, ``relative_medium``, ``relative_long`` і ``relative_full`` також підтримуються при роботі в
+    PHP 8.0 і новіше або при використанні полізаповнення, яке визначає константи ``IntlDateFormatter::RELATIVE_*`` і
+    пов'язану з ними поведінку.
 
-For greater flexibility, you can even define your own pattern
-(see the `ICU user guide`_ for supported patterns).
+Для більшої гнучкості ви навіть можете визначити власний патерн
+(див. `посібник користувача ICU`_ щодо підтримуваних патернів).
 
 .. code-block:: twig
 
     {# 11 oclock PM, GMT #}
     {{ '2019-08-07 23:39:12'|format_datetime(pattern: "hh 'oclock' a, zzzz") }}
 
-Locale
+Локаль
 ------
 
-By default, the filter uses the current locale. You can pass it explicitly:
+За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
 
 .. code-block:: twig
 
     {# 7 août 2019 23:39:12 #}
     {{ '2019-08-07 23:39:12'|format_datetime(locale: 'fr') }}
 
-Timezone
---------
+Часовий пояс
+------------
 
-By default, the date is displayed by applying the default timezone (the one
-specified in php.ini or declared in Twig -- see below), but you can override
-it by explicitly specifying a timezone:
+За замовчуванням дата відображається шляхом застосування часового поясу за замовчуванням (того,
+що вказаний у php.ini або оголошений у Twig - див. нижче), але ви можете перевизначити його,
+явно вказавши часовий пояс:
 
 .. code-block:: twig
 
     {{ datetime|format_datetime(locale: 'en', timezone: 'Pacific/Midway') }}
 
-If the date is already a DateTime object, and if you want to keep its current
-timezone, pass ``false`` as the timezone value:
+Якщо дата вже є об'єктом типу DateTime, і ви хочете зберегти її поточний
+часовий пояс, передайте ``false`` як значення часового поясу:
 
 .. code-block:: twig
 
     {{ datetime|format_datetime(locale: 'en', timezone: false) }}
 
-The default timezone can also be set globally by calling ``setTimezone()``::
+Часовий пояс за замовчуванням також можна встановити глобально за допомогою виклику ``setTimezone()``::
 
     $twig = new \Twig\Environment($loader);
     $twig->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('Europe/Paris');
 
 .. note::
 
-    The ``format_datetime`` filter is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``format_datetime`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale
-* ``dateFormat``: The date format
-* ``timeFormat``: The time format
-* ``pattern``: A date time pattern
-* ``timezone``: The date timezone name
-* ``calendar``: The calendar ("gregorian" by default)
+* ``locale``: Локаль
+* ``dateFormat``: Формат дати
+* ``timeFormat``: Формат часу
+* ``pattern``: Патерн дати та часу
+* ``timezone``: Імʼя часового поясу дати
+* ``calendar``: Календар ("gregorian" за замовчуванням)
 
-.. _ICU user guide: https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
+.. _посібник користувача ICU: https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
