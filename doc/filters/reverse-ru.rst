@@ -1,7 +1,7 @@
 ``reverse``
 ===========
 
-The ``reverse`` filter reverses a sequence, a mapping, or a string:
+Фільтр ``reverse`` реверсує послідовність, відображення або рядок:
 
 .. code-block:: twig
 
@@ -11,12 +11,12 @@ The ``reverse`` filter reverses a sequence, a mapping, or a string:
 
     {{ '1234'|reverse }}
 
-    {# outputs 4321 #}
+    {# виводить 4321 #}
 
 .. tip::
 
-    For sequences and mappings, numeric keys are not preserved. To reverse
-    them as well, pass ``true`` as an argument to the ``reverse`` filter:
+    Для послідовностей і відображень цифрові клавіші не зберігаються. Щоб реверсувати і їх,
+    передайте ``true`` як аргумент фільтру ``reverse``:
 
     .. code-block:: twig
 
@@ -24,21 +24,21 @@ The ``reverse`` filter reverses a sequence, a mapping, or a string:
             {{ key }}: {{ value }}
         {%- endfor %}
 
-        {# output: 0: c    1: b    2: a #}
+        {# виведення: 0: c    1: b    2: a #}
 
         {% for key, value in {1: "a", 2: "b", 3: "c"}|reverse(true) %}
             {{ key }}: {{ value }}
         {%- endfor %}
 
-        {# output: 3: c    2: b    1: a #}
+        {# виведення: 3: c    2: b    1: a #}
 
 .. note::
 
-    It also works with objects implementing the `Traversable`_ interface.
+    Він також працює з об'єктами, що реалізують інтерфейс `Traversable`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``preserve_keys``: Preserve keys when reversing a mapping or a sequence.
+* ``preserve_keys``: Збереження ключів при реверсуванні відображення або послідовності.
 
 .. _`Traversable`: https://www.php.net/Traversable
