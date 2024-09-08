@@ -1,50 +1,49 @@
 ``split``
 =========
 
-The ``split`` filter splits a string by the given delimiter and returns a list
-of strings:
+Фільтр ``split`` розділяє рядок за заданим роздільником і повертає список
+рядків:
 
 .. code-block:: twig
 
     {% set foo = "one,two,three"|split(',') %}
     {# foo contains ['one', 'two', 'three'] #}
 
-You can also pass a ``limit`` argument:
+Ви також можете передати аргумент ``limit``:
 
-* If ``limit`` is positive, the returned sequence will contain a maximum of
-  limit elements with the last element containing the rest of string;
+* Якщо ``limit`` є додатним, повернута послідовність буде містити максимум
+  елементів з останнім елементом, що містить решту рядка;
 
-* If ``limit`` is negative, all components except the last -limit are
-  returned;
+* Якщо ``limit`` від'ємний, повертаються всі компоненти, окрім останнього -limit;
 
-* If ``limit`` is zero, then this is treated as 1.
+* Якщо ``limit`` дорівнює нулю, то це сприймається як 1.
 
 .. code-block:: twig
 
     {% set foo = "one,two,three,four,five"|split(',', 3) %}
-    {# foo contains ['one', 'two', 'three,four,five'] #}
+    {# foo містить ['one', 'two', 'three,four,five'] #}
 
-If the ``delimiter`` is an empty string, then value will be split by equal
-chunks. Length is set by the ``limit`` argument (one character by default).
+Якщо ``delimiter`` є порожнім рядком, то значення буде розділено на рівні
+частини. Довжина задається аргументом ``limit`` (за замовчуванням один символ).
 
 .. code-block:: twig
 
     {% set foo = "123"|split('') %}
-    {# foo contains ['1', '2', '3'] #}
+    {# foo містить ['1', '2', '3'] #}
 
     {% set bar = "aabbcc"|split('', 2) %}
-    {# bar contains ['aa', 'bb', 'cc'] #}
+    {# bar містить ['aa', 'bb', 'cc'] #}
 
 .. note::
 
-    Internally, Twig uses the PHP `explode`_ or `str_split`_ (if delimiter is
-    empty) functions for string splitting.
+    Всередині Twig використовує PHP-функції `explode`_ або `str_split`_ (якщо роздільник
+    порожній) для розділення рядків.
 
-Arguments
+Аргументи
 ---------
 
-* ``delimiter``: The delimiter
-* ``limit``:     The limit argument
+* ``delimiter``: Роздільник
+* ``limit``:     Аргумент обмеження
 
 .. _`explode`:   https://www.php.net/explode
 .. _`str_split`: https://www.php.net/str_split
