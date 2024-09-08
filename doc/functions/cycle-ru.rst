@@ -1,7 +1,7 @@
 ``cycle``
 =========
 
-The ``cycle`` function cycles on a sequence:
+Функція ``cycle`` виконує циклічний перегляд послідовності:
 
 .. code-block:: twig
 
@@ -23,9 +23,9 @@ The ``cycle`` function cycles on a sequence:
         
     #}
 
-The ``cycle`` function takes two arguments: the ``sequence`` to cycle through and the ``position`` in the sequence.
+Функція ``cycle`` приймає два аргументи: ``sequence`` для перебору та ``position`` у послідовності.
 
-The ``sequence`` must be non-empty and can contain any number of values:
+``sequence`` повинна бути непорожньою і може містити будь-яку кількість значень:
 
 .. code-block:: twig
 
@@ -51,8 +51,8 @@ The ``sequence`` must be non-empty and can contain any number of values:
     
     #}
 
-Arguments
+Аргументи
 ---------
 
-* ``values``: The sequence to cycle on
-* ``position``: The position in the sequence
+* ``values``: Послідовність для перебору
+* ``position``: Позиція в послідовності
