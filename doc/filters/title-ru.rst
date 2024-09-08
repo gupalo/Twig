@@ -1,11 +1,11 @@
 ``title``
 =========
 
-The ``title`` filter returns a titlecased version of the value. Words will
-start with uppercase letters, all remaining characters are lowercase:
+Фільтр ``title`` повертає версію значення у вигляді заголовка. Слова починатимуться з 
+великих літер, всі інші символи будуть малими:
 
 .. code-block:: twig
 
     {{ 'my first car'|title }}
 
-    {# outputs 'My First Car' #}
+    {# виводить 'My First Car' #}
