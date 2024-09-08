@@ -1,8 +1,7 @@
 ``deprecated``
 ==============
 
-Twig generates a deprecation notice (via a call to the ``trigger_error()``
-PHP function) where the ``deprecated`` tag is used in a template:
+Twig генерує повідомлення про застарівання (через виклик PHP-функції ``trigger_error()``), якщо у шаблоні використовується тег ``deprecated``:
 
 .. code-block:: twig
 
@@ -10,7 +9,7 @@ PHP function) where the ``deprecated`` tag is used in a template:
     {% deprecated 'The "base.twig" template is deprecated, use "layout.twig" instead.' %}
     {% extends 'layout.twig' %}
 
-You can also deprecate a macro in the following way:
+Ви також можете оголосити макрос застарілим у такий спосіб:
 
 .. code-block:: twig
 
@@ -20,14 +19,13 @@ You can also deprecate a macro in the following way:
         ...
     {% endmacro %}
 
-Note that by default, the deprecation notices are silenced and never displayed nor logged.
-See :ref:`deprecation-notices` to learn how to handle them.
+Зауважте, що за замовчуванням сповіщення про застарівання вимкнені, вони не відображаються і не записуються до журналу логів. Дивіться :ref:`deprecation-notices`, щоб дізнатися, як з ними поводитися.
 
 .. versionadded:: 3.11
 
-    The ``package`` and ``version`` options were added in Twig 3.11.
+    Опції ``package`` та ``version`` були представлені в Twig 3.11.
 
-You can optionally add the package and the version that introduced the deprecation:
+За бажанням ви можете додати пакет і версію, у якій було введено застарівання:
 
 .. code-block:: twig
 
@@ -36,5 +34,5 @@ You can optionally add the package and the version that introduced the deprecati
 
 .. note::
 
-    Don't use the ``deprecated`` tag to deprecate a ``block`` as the
-    deprecation cannot always be triggered correctly.
+    Не використовуйте тег ``deprecated`` для застарівання ``block``, оскільки це
+    не завжди спрацьовує коректно.
