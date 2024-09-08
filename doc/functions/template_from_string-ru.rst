@@ -1,15 +1,15 @@
 ``template_from_string``
 ========================
 
-The ``template_from_string`` function loads a template from a string:
+Функція ``template_from_string`` завантажує шаблон з рядка:
 
 .. code-block:: twig
 
     {{ include(template_from_string("Hello {{ name }}")) }}
     {{ include(template_from_string(page.template)) }}
 
-To ease debugging, you can also give the template a name that will be part of
-any related error message:
+Для полегшення налагодження ви також можете дати шаблону ім'я, яке буде частиною
+будь-якого пов'язаного з ним повідомлення про помилку:
 
 .. code-block:: twig
 
@@ -17,20 +17,20 @@ any related error message:
 
 .. note::
 
-    The ``template_from_string`` function is not available by default.
+    Функція ``template_from_string`` недоступна за замовчуванням.
 
-    On Symfony projects, you need to load it in your ``services.yaml`` file:
+    У проєктах на Symfony вам потрібно завантажити її у ваш файл ``services.yaml``:
 
     .. code-block:: yaml
 
         services:
             Twig\Extension\StringLoaderExtension:
 
-    or ``services.php`` file::
+    або файл ``services.php``::
 
         $services->set(\Twig\Extension\StringLoaderExtension::class);
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В іншому випадку, додайте розширення явно у середовище Twig::
 
         use Twig\Extension\StringLoaderExtension;
 
@@ -39,12 +39,12 @@ any related error message:
 
 .. note::
 
-    Even if you will probably always use the ``template_from_string`` function
-    with the ``include`` function, you can use it with any tag or function that
-    takes a template as an argument (like the ``embed`` or ``extends`` tags).
+    Навіть якщо ви, ймовірно, завжди будете використовувати функцію ``template_from_string``
+    з функцією ``include``, ви можете використовувати її з будь-яким тегом або функцією, яка
+    приймає шаблон як аргумент (наприклад, теги ``embed`` або ``extends``).
 
-Arguments
+Аргументи
 ---------
 
-* ``template``: The template
-* ``name``: A name for the template
+* ``template``: Шаблон
+* ``name``: Імʼя для шаблону
