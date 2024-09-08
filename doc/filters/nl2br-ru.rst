@@ -1,7 +1,7 @@
 ``nl2br``
 =========
 
-The ``nl2br`` filter inserts HTML line breaks before all newlines in a string:
+Фільтр ``nl2br`` вставляє розриви рядків HTML перед усіма новими рядками у рядку:
 
 .. code-block:: html+twig
 
@@ -15,5 +15,5 @@ The ``nl2br`` filter inserts HTML line breaks before all newlines in a string:
 
 .. note::
 
-    The ``nl2br`` filter pre-escapes the input before applying the
-    transformation.
+    Фільтр ``nl2br`` попередньо екранує введення дані перед застосуванням
+    перетворення.
