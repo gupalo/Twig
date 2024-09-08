@@ -1,14 +1,14 @@
 ``max``
 =======
 
-``max`` returns the biggest value of a sequence or a set of values:
+``max`` повертає найбільше значення послідовності або набір значень:
 
 .. code-block:: twig
 
     {{ max(1, 3, 2) }}
     {{ max([1, 3, 2]) }}
 
-When called with a mapping, max ignores keys and only compares values:
+При виклику з відображенням max ігнорує ключі і лише порівнює значення:
 
 .. code-block:: twig
 
