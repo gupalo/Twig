@@ -1,39 +1,38 @@
 ``trim``
 ========
 
-The ``trim`` filter strips whitespace (or other characters) from the beginning
-and end of a string:
+Фільтр ``trim`` видаляє пробіли (або інші символи) з початку
+та кінця рядка:
 
 .. code-block:: twig
 
     {{ '  I like Twig.  '|trim }}
 
-    {# outputs 'I like Twig.' #}
+    {# виводить 'I like Twig.' #}
 
     {{ '  I like Twig.'|trim('.') }}
 
-    {# outputs '  I like Twig' #}
+    {# виводить '  I like Twig' #}
 
     {{ '  I like Twig.  '|trim(side: 'left') }}
 
-    {# outputs 'I like Twig.  ' #}
+    {# виводить 'I like Twig.  ' #}
 
     {{ '  I like Twig.  '|trim(' ', 'right') }}
 
-    {# outputs '  I like Twig.' #}
+    {# виводить '  I like Twig.' #}
 
 .. note::
 
-    Internally, Twig uses the PHP `trim`_, `ltrim`_, and `rtrim`_ functions.
+    Внутрішньо Twig використовує PHP-функції `trim`_, `ltrim`_, та `rtrim`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``character_mask``: The characters to strip
+* ``character_mask``: Символи для вилучення
 
-* ``side``: The default is to strip from the left and the right (``both``)
-  sides, but ``left`` and ``right`` will strip from either the left side or
-  right side only
+* ``side``: За замовчуванням буде вилучено з лівої та правої сторін (``both``),
+  але ``left`` і ``right`` буде вилучено або з лівої, або з правої сторони.
 
 .. _`trim`: https://www.php.net/trim
 .. _`ltrim`: https://www.php.net/ltrim
