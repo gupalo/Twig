@@ -1,34 +1,34 @@
 ``round``
 =========
 
-The ``round`` filter rounds a number to a given precision:
+Фільтр ``round`` округлює число до заданої точності:
 
 .. code-block:: twig
 
     {{ 42.55|round }}
-    {# outputs 43 #}
+    {# виводить 43 #}
 
     {{ 42.55|round(1, 'floor') }}
-    {# outputs 42.5 #}
+    {# виводить 42.5 #}
 
-The ``round`` filter takes two optional arguments; the first one specifies the
-precision (default is ``0``) and the second the rounding method (default is
+Фільтр ``round`` приймає два необов'язкових аргументи; перший з них визначає
+точність (за замовчуванням ``0``), а другий - метод округлення (за замовчуванням
 ``common``):
 
-* ``common`` rounds either up or down (rounds the value up to precision decimal
-  places away from zero, when it is half way there -- making 1.5 into 2 and
-  -1.5 into -2);
+* ``common`` округлює в більшу або меншу сторону (округлює значення з точністю до десяткових
+  знаків від нуля, коли воно знаходиться на півдорозі до нього - перетворюючи 1.5 на 2 і
+  -1.5 на -2);
 
-* ``ceil`` always rounds up;
+* ``ceil`` завжди округляє в більшу сторону;
 
-* ``floor`` always rounds down.
+* ``floor`` завжди округляє в меншу сторону.
 
 .. note::
 
-    The ``//`` operator is equivalent to ``|round(0, 'floor')``.
+    Оператор ``//`` еквівалентний ``|round(0, 'floor')``.
 
-Arguments
+Аргументи
 ---------
 
-* ``precision``: The rounding precision
-* ``method``: The rounding method
+* ``precision``: Точність округлення
+* ``method``: Метод округлення
