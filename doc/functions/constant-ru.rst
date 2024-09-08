@@ -1,26 +1,26 @@
 ``constant``
 ============
 
-``constant`` returns the constant value for a given string:
+``constant`` повертає константне значення для заданого рядка:
 
 .. code-block:: twig
 
     {{ some_date|date(constant('DATE_W3C')) }}
     {{ constant('Namespace\\Classname::CONSTANT_NAME') }}
 
-You can read constants from object instances as well:
+Ви також можете читати константи з екземплярів об'єктів:
 
 .. code-block:: twig
 
     {{ constant('RSS', date) }}
 
-Retrieve the fully qualified class name of an object:
+Отримати повне ім'я класу об'єкта:
 
 .. code-block:: twig
 
     {{ constant('class', date) }}
 
-Use the ``defined`` test to check if a constant is defined:
+Використовуйте тест ``defined`` для перевірки того, чи є константа визначеною:
 
 .. code-block:: twig
 
