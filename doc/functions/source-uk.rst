@@ -1,26 +1,26 @@
 ``source``
 ==========
 
-The ``source`` function returns the content of a template without rendering it:
+Функція ``source`` повертає зміст шаблону без його відображення:
 
 .. code-block:: twig
 
     {{ source('template.html') }}
     {{ source(some_var) }}
 
-When you set the ``ignore_missing`` flag, Twig will return an empty string if
-the template does not exist:
+Якщо ви встановите прапорець ``ignore_missing``, Twig поверне порожній рядок, якщо
+шаблон не існує:
 
 .. code-block:: twig
 
     {{ source('template.html', ignore_missing = true) }}
 
-The function uses the same template loaders as the ones used to include
-templates. So, if you are using the filesystem loader, the templates are looked
-for in the paths defined by it.
+Функція використовує ті ж самі завантажувачі шаблонів, що й для включення
+шаблонів. Отже, якщо ви використовуєте завантажувач файлової системи, шаблони шукаються
+у визначених ним шляхах.
 
-Arguments
+Аргументи
 ---------
 
-* ``name``: The name of the template to read
-* ``ignore_missing``: Whether to ignore missing templates or not
+* ``name``: Імʼя шаблону для читання
+* ``ignore_missing``: Чи ігнорувати відсутні шаблони
