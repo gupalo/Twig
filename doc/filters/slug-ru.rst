@@ -1,59 +1,58 @@
 ``slug``
 ========
 
-The ``slug`` filter transforms a given string into another string that
-only includes safe ASCII characters. 
+Фільтр ``slug`` перетворює заданий рядок на інший рядок, який
+містить лише безпечні ASCII-символи. 
 
-Here is an example:
+Нижче наведено приклад:
 
 .. code-block:: twig
 
     {{ 'Wôrķšƥáçè ~~sèťtïñğš~~'|slug }}
     Workspace-settings
 
-The default separator between words is a dash (``-``), but you can 
-define a selector of your choice by passing it as an argument:
+За замовчуванням роздільником між словами є тире (``-``), але ви можете 
+визначити селектор на власний розсуд, передавши його як аргумент:
 
 .. code-block:: twig
 
     {{ 'Wôrķšƥáçè ~~sèťtïñğš~~'|slug('/') }}
     Workspace/settings
 
-The slugger automatically detects the language of the original
-string, but you can also specify it explicitly using the second
-argument:
+Слагер автоматично визначає мову оригінального рядка, але ви також можете вказати її явно
+за допомогою другого аргументу:
 
 .. code-block:: twig
 
     {{ '...'|slug('-', 'ko') }}
 
-The ``slug`` filter uses the method by the same name in Symfony's 
-`AsciiSlugger <https://symfony.com/doc/current/components/string.html#slugger>`_. 
+Фільтр ``slug`` використовує однойменний метод у модулі Symfony 
+`AsciiSlugger <https://symfony.com/doc/current/components/string.html#slugger>`_.
 
 .. note::
 
-    The ``slug`` filter is part of the ``StringExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``slug`` є частиною ``StringExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/string-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\String\StringExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new StringExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``separator``: The separator that is used to join words (defaults to ``-``)
-* ``locale``: The locale of the original string (if none is specified, it will be automatically detected)
+* ``separator``: Роздільник, який використовується для з'єднання слів (за замовчуванням ``-``)
+* ``locale``: Локаль початкового рядка (якщо її не вказано, вона буде визначена автоматично)
