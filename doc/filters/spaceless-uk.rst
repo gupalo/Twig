@@ -3,10 +3,10 @@
 
 .. warning::
 
-    The ``spaceless`` filter is deprecated as of Twig 3.12.
+    Фільтр ``spaceless`` застарів, починаючи з Twig 3.12.
 
-Use the ``spaceless`` filter to remove whitespace *between HTML tags*, not
-whitespace within HTML tags or whitespace in plain text:
+Використовуйте фільтр ``spaceless`` для видалення пробілів *між тегами HTML*, а не
+пробіли всередині тегів HTML або пробіли у простому тексті:
 
 .. code-block:: html+twig
 
@@ -16,10 +16,10 @@ whitespace within HTML tags or whitespace in plain text:
         </div>
         "|spaceless }}
 
-    {# output will be <div><strong>foo</strong></div> #}
+    {# виведення буде <div><strong>foo</strong></div> #}
 
-You can combine ``spaceless`` with the ``apply`` tag to apply the transformation
-on large amounts of HTML:
+Ви можете комбінувати ``spaceless`` з тегом ``apply``, щоб застосувати трансформацію
+до великих об'ємів HTML:
 
 .. code-block:: html+twig
 
@@ -29,32 +29,32 @@ on large amounts of HTML:
         </div>
     {% endapply %}
 
-    {# output will be <div><strong>foo</strong></div> #}
+    {# виведення буде <div><strong>foo</strong></div> #}
 
-This tag is not meant to "optimize" the size of the generated HTML content but
-merely to avoid extra whitespace between HTML tags to avoid browser rendering
-quirks under some circumstances.
+Цей тег не призначений для "оптимізації" розміру згенерованого HTML-змісту, а
+лише для того, щоб уникнути зайвих пробілів між тегами HTML, щоб уникнути проблем
+з відображенням браузера за певних обставин.
 
 .. caution::
 
-    As the filter uses a regular expression behind the scenes, its performance
-    is directly related to the text size you are working on (remember that
-    filters are executed at runtime).
+    Оскільки фільтр використовує регулярний вираз за лаштунками, його продуктивність
+    безпосередньо залежить від розміру тексту, з яким ви працюєте (пам'ятайте, що фільтри
+    виконуються під час виконання програми).
 
 .. tip::
 
-    If you want to optimize the size of the generated HTML content, gzip
-    compress the output instead.
+    Якщо ви хочете оптимізувати розмір згенерованого HTML-змісту, скористайтеся gzip для
+    для стиснення виведення.
 
 .. tip::
 
-    If you want to create a tag that actually removes all extra whitespace in
-    an HTML string, be warned that this is not as easy as it seems to be
-    (think of ``textarea`` or ``pre`` tags for instance). Using a third-party
-    library like Tidy is probably a better idea.
+    Якщо ви хочете створити тег, який дійсно видаляє всі зайві пробіли у
+    HTML-рядку, зауважте, що це не так просто, як здається на перший погляд
+    (згадайте, наприклад, теги ``textarea`` або ``pre``). Використання сторонніх
+    бібліотек, таких як Tidy, ймовірно, буде кращою ідеєю.
 
 .. tip::
 
-    For more information on whitespace control, read the
-    :ref:`dedicated section <templates-whitespace-control>` of the documentation and learn how
-    you can also use the whitespace control modifier on your tags.
+    Для отримання додаткової інформації про управління пробілами, прочитайте
+    :ref:`спеціальний розділ <templates-whitespace-control>` документації і дізнайтеся, як
+    ви також можете використовувати модифікатор управління пробілами у своїх тегах.
