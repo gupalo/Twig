@@ -1,25 +1,24 @@
 ``random``
 ==========
 
-The ``random`` function returns a random value depending on the supplied
-parameter type:
+Функція ``random`` повертає рандомне значення в залежності від наданого типу параметру:
 
-* a random item from a sequence;
-* a random character from a string;
-* a random integer between 0 and the integer parameter (inclusive).
-* a random integer between the integer parameter (when negative) and 0 (inclusive).
-* a random integer between the first integer and the second integer parameter (inclusive).
+* рандомний елемент з послідовності;
+* рандомний символ з рядка;
+* рандомне ціле число між 0 та цілим параметром (включно).
+* рандомне ціле число між цілим параметром (коли він від'ємний) і 0 (включно).
+* рандомне ціле число між першим цілим і другим цілим параметром (включно).
 
 .. code-block:: twig
 
-    {{ random(['apple', 'orange', 'citrus']) }} {# example output: orange #}
-    {{ random('ABC') }}                         {# example output: C #}
-    {{ random() }}                              {# example output: 15386094 (works as the native PHP mt_rand function) #}
-    {{ random(5) }}                             {# example output: 3 #}
-    {{ random(50, 100) }}                       {# example output: 63 #}
+    {{ random(['apple', 'orange', 'citrus']) }} {# приклад виведення: orange #}
+    {{ random('ABC') }}                         {# приклад виведення: C #}
+    {{ random() }}                              {# приклад виведення: 15386094 (works as the native PHP mt_rand function) #}
+    {{ random(5) }}                             {# приклад виведення: 3 #}
+    {{ random(50, 100) }}                       {# приклад виведення: 63 #}
 
-Arguments
+Аргументи
 ---------
 
-* ``values``: The values
-* ``max``: The max value when values is an integer
+* ``values``: Значення
+* ``max``: Максимальне значення, коли воно є цілим числом
