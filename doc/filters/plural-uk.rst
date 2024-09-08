@@ -3,14 +3,14 @@
 
 .. versionadded:: 3.11
 
-    The ``plural`` filter was added in Twig 3.11.
+    Фільтр ``plural`` було представлено в Twig 3.11.
 
-The ``plural`` filter transforms a given noun in its singular form into its
-plural version:
+Фільтр ``plural`` перетворює заданий іменник в однині на його
+у множину:
 
 .. code-block:: twig
 
-    {# English (en) rules are used by default #}
+    {# Правила англійської мови (en) використовуються за замовчуванням #}
     {{ 'partition'|pluralize() }}
     partitions
 
@@ -19,35 +19,35 @@ plural version:
 
 .. note::
 
-    The ``plural`` filter is part of the ``StringExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``plural`` є частиною ``StringExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/string-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, установіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\String\StringExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new StringExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale of the original string (limited to languages supported by the from Symfony `inflector`_, part of the String component)
-* ``all``: Whether to return all possible plurals as an array, default is ``false``
+* ``locale``: Локаль початкового рядка (обмежується мовами, які підтримуються `inflector`_ від Symfony, частиною компонента String)
+* ``all``: Чи повертати всі можливі множини у вигляді масиву, за замовчуванням ``false``
 
 .. note::
 
-    Internally, Twig uses the `pluralize`_ method from the Symfony String component.
+    Внутрішньо Twig використовує метод `pluralize`_ з компонента Symfony String.
 
 .. _`inflector`: <https://symfony.com/doc/current/components/string.html#inflector>
 .. _`pluralize`: <https://symfony.com/doc/current/components/string.html#inflector>
