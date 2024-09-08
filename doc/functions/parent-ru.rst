@@ -1,8 +1,8 @@
 ``parent``
 ==========
 
-When a template uses inheritance, it's possible to render the contents of the
-parent block when overriding a block by using the ``parent`` function:
+Коли шаблон використовує успадкування, можна відобразити зміст батьківського блоку
+при перевизначенні блоку за допомогою функції ``parent``:
 
 .. code-block:: html+twig
 
@@ -14,8 +14,7 @@ parent block when overriding a block by using the ``parent`` function:
         {{ parent() }}
     {% endblock %}
 
-The ``parent()`` call will return the content of the ``sidebar`` block as
-defined in the ``base.html`` template.
+Виклик ``parent()`` поверне зміст блоку ``sidebar`` як визначено у шаблоні ``base.html``.
 
 .. seealso::
 
