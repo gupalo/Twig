@@ -1,44 +1,44 @@
 ``date``
 ========
 
-Converts an argument to a date to allow date comparison:
+Перетворює аргумент на дату для можливості порівняння дат:
 
 .. code-block:: html+twig
 
     {% if date(user.created_at) < date('-2days') %}
-        {# do something #}
+        {# зробити щось #}
     {% endif %}
 
-The argument must be in one of PHP’s supported `date and time formats`_.
+Аргумент має бути в одному з підтримуваних PHP `форматів дати і часу`_.
 
-You can pass a timezone as the second argument:
+Ви можете передати часовий пояс як другий аргумент:
 
 .. code-block:: html+twig
 
     {% if date(user.created_at) < date('-2days', 'Europe/Paris') %}
-        {# do something #}
+        {# зробити щось #}
     {% endif %}
 
-If no argument is passed, the function returns the current date:
+Якщо не передано жодного аргументу, функція повертає поточну дату:
 
 .. code-block:: html+twig
 
     {% if date(user.created_at) < date() %}
-        {# always! #}
+        {# завжди! #}
     {% endif %}
 
 .. note::
 
-    You can set the default timezone globally by calling ``setTimezone()`` on
-    the ``core`` extension instance::
+    Ви можете встановити часовий пояс за замовчуванням глобально, викликавши ``setTimezone()`` в
+    екземплярі розширення ``core``::
 
         $twig = new \Twig\Environment($loader);
         $twig->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('Europe/Paris');
 
-Arguments
+Аргументи
 ---------
 
-* ``date``:     The date
-* ``timezone``: The timezone
+* ``date``:     Дата
+* ``timezone``: Часовий пояс
 
-.. _`date and time formats`: https://www.php.net/manual/en/datetime.formats.php
+.. _`форматів дати і часу`: https://www.php.net/manual/en/datetime.formats.php
