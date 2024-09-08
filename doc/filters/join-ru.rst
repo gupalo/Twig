@@ -1,32 +1,32 @@
 ``join``
 ========
 
-The ``join`` filter returns a string which is the concatenation of the items
-of a sequence:
+Фільтр ``join`` повертає рядок, який є конкатенацією елементів
+послідовності:
 
 .. code-block:: twig
 
     {{ [1, 2, 3]|join }}
-    {# returns 123 #}
+    {# повертає 123 #}
 
-The separator between elements is an empty string per default, but you can
-define it with the optional first parameter:
+Роздільник між елементами за замовчуванням є порожнім рядком, але ви можете
+визначити його за допомогою необов'язкового першого параметра:
 
 .. code-block:: twig
 
     {{ [1, 2, 3]|join('|') }}
-    {# outputs 1|2|3 #}
+    {# виводить 1|2|3 #}
 
-A second parameter can also be provided that will be the separator used between
-the last two items of the sequence:
+Також можна надати другий параметр, який буде роздільником, що використовується між
+двома останніми елементами послідовності:
 
 .. code-block:: twig
 
     {{ [1, 2, 3]|join(', ', ' and ') }}
-    {# outputs 1, 2 and 3 #}
+    {# виводить 1, 2 та 3 #}
 
-Arguments
+Аргументи
 ---------
 
-* ``glue``: The separator
-* ``and``: The separator for the last pair of input items
+* ``glue``: Роздільник
+* ``and``: Роздільник для останньої пари елементів введення
