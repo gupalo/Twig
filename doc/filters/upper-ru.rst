@@ -1,7 +1,7 @@
 ``upper``
 =========
 
-The ``upper`` filter converts a value to uppercase:
+Фільтр ``upper`` перетворює значення на верхній регістр:
 
 .. code-block:: twig
 
@@ -11,6 +11,6 @@ The ``upper`` filter converts a value to uppercase:
 
 .. note::
 
-    Internally, Twig uses the PHP `mb_strtoupper`_ function.
+    Внутрішньо Twig використовує PHP-функцію `mb_strtoupper`_.
 
 .. _`mb_strtoupper`: https://www.php.net/mb_strtoupper
