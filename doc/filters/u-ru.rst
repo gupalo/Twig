@@ -1,13 +1,12 @@
 ``u``
 =====
 
-The ``u`` filter wraps a text in a Unicode object (a `Symfony UnicodeString
-instance <https://symfony.com/doc/current/components/string.html>`_) that
-exposes methods to "manipulate" the string.
+Фільтр ``u`` обгортає текст в об'єкт Unicode (екземпляр `Symfony UnicodeString <https://symfony.com/doc/current/components/string.html>`_), який розкриває методи
+для «маніпулювання» рядком.
 
-Let's see some common use cases.
+Розглянемо деякі поширені випадки використання.
 
-Wrapping a text to a given number of characters:
+Обгортання тексту до заданої кількості символів:
 
 .. code-block:: twig
 
@@ -18,7 +17,7 @@ Wrapping a text to a given number of characters:
     Twig
     = <3
 
-Truncating a string:
+Обрізання рядка:
 
 .. code-block:: twig
 
@@ -28,14 +27,14 @@ Truncating a string:
     {{ 'Lorem ipsum'|u.truncate(8, '...') }}
     Lorem...
 
-The ``truncate`` method also accepts a third argument to preserve whole words:
+Метод ``truncate`` також приймає третій аргумент для збереження цілих слів:
 
 .. code-block:: twig
 
     {{ 'Lorem ipsum dolor'|u.truncate(10, '...', false) }}
     Lorem ipsum...
 
-Converting a string to *snake* case or *camelCase*:
+Перетворення рядка на регістр *snake* або *camelCase*:
 
 .. code-block:: twig
 
@@ -45,7 +44,7 @@ Converting a string to *snake* case or *camelCase*:
     {{ 'symfony_string with twig'|u.camel.title }}
     SymfonyStringWithTwig
 
-You can also chain methods:
+Ви також можете об'єднати методи в ланцюжок:
 
 .. code-block:: twig
 
@@ -56,7 +55,7 @@ You can also chain methods:
     TWIG
     = <3
 
-For large strings manipulation, use the ``apply`` tag:
+Для маніпуляцій з великими рядками використовуйте тег ``apply``:
 
 .. code-block:: twig
 
@@ -66,20 +65,20 @@ For large strings manipulation, use the ``apply`` tag:
 
 .. note::
 
-    The ``u`` filter is part of the ``StringExtension`` which is not installed
-    by default. Install it first:
+    Фільтр ``u`` є частиною ``StringExtension``, яке не встановлено
+    за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/string-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовище Twig::
 
         use Twig\Extra\String\StringExtension;
 
