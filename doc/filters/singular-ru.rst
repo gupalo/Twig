@@ -3,10 +3,10 @@
 
 .. versionadded:: 3.11
 
-    The ``singular`` filter was added in Twig 3.11.
+    Фільтр ``singular`` було представлено в Twig 3.11.
 
-The ``singular`` filter transforms a given noun in its plural form into its
-singular version:
+Фільтр ``singular`` перетворює заданий іменник у формі множини в його
+в однину:
 
 .. code-block:: twig
 
@@ -19,35 +19,35 @@ singular version:
 
 .. note::
 
-    The ``singular`` filter is part of the ``StringExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``singular`` є частиною ``StringExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/string-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\String\StringExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new StringExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale of the original string (limited to languages supported by the from Symfony `inflector`_, part of the String component)
-* ``all``: Whether to return all possible plurals as an array, default is ``false``
+* ``locale``: Локаль початкового рядка (обмежується мовами, які підтримуються `inflector`_ від Symfony, частиною компонента String)
+* ``all``: Чи повертати всі можливі множини у вигляді масиву, за замовчуванням ``false``
 
 .. note::
 
-    Internally, Twig uses the `singularize`_ method from the Symfony String component.
+    Внутрішньо  Twig використовує метод `singularize`_ з компонента Symfony String.
 
 .. _`inflector`: <https://symfony.com/doc/current/components/string.html#inflector>
 .. _`singularize`: <https://symfony.com/doc/current/components/string.html#inflector>
