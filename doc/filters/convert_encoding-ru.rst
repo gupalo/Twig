@@ -1,9 +1,8 @@
 ``convert_encoding``
 ====================
 
-The ``convert_encoding`` filter converts a string from one encoding to
-another. The first argument is the expected output charset and the second one
-is the input charset:
+Фільтр ``convert_encoding`` перетворює рядок з одного кодування на інше. Першим аргументом
+є очікуваний набір символів виведення, а другим - набір символів введення:
 
 .. code-block:: twig
 
@@ -11,12 +10,12 @@ is the input charset:
 
 .. note::
 
-    This filter relies on the `iconv`_ extension.
+    Цей фільтр покладається на розширення `iconv`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``to``:   The output charset
-* ``from``: The input charset
+* ``to``:   Набір символів виведення
+* ``from``: Набір символів введення
 
 .. _`iconv`: https://www.php.net/iconv
