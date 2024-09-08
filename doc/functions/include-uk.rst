@@ -1,41 +1,40 @@
 ``include``
 ===========
 
-The ``include`` function returns the rendered content of a template:
+Функція ``include`` повертає відображений зміст шаблону:
 
 .. code-block:: twig
 
     {{ include('template.html') }}
     {{ include(some_var) }}
 
-Included templates have access to the variables of the active context.
+Включені шаблони мають доступ до змінних активного контексту.
 
-If you are using the filesystem loader, the templates are looked for in the
-paths defined by it.
+Якщо ви використовуєте завантажувач файлової системи, шаблони шукаються у визначених ним шляхах.
 
-The context is passed by default to the template but you can also pass
-additional variables:
+За замовчуванням шаблону передається контекст, але ви також можете передати
+додаткові змінні:
 
 .. code-block:: twig
 
-    {# template.html will have access to the variables from the current context and the additional ones provided #}
+    {# template.html матиме доступ до змінних з поточного контекту та тих, що надані додатково #}
     {{ include('template.html', {foo: 'bar'}) }}
 
-You can disable access to the context by setting ``with_context`` to
+Ви можете відключити доступ до контексту, встановивши ``with_context`` у значення
 ``false``:
 
 .. code-block:: twig
 
-    {# only the foo variable will be accessible #}
+    {# буде доступною лише змінна foo #}
     {{ include('template.html', {foo: 'bar'}, with_context = false) }}
 
 .. code-block:: twig
 
-    {# no variables will be accessible #}
+    {# жодна змінна не буде доступною #}
     {{ include('template.html', with_context = false) }}
 
-And if the expression evaluates to a ``\Twig\Template`` or a
-``\Twig\TemplateWrapper`` instance, Twig will use it directly::
+І якщо вираз призводить до ``\Twig\Template`` або до екземпляра
+``\Twig\TemplateWrapper``, Twig використає його безпосередньо::
 
     // {{ include(template) }}
 
@@ -43,35 +42,35 @@ And if the expression evaluates to a ``\Twig\Template`` or a
 
     $twig->display('template.twig', ['template' => $template]);
 
-When you set the ``ignore_missing`` flag, Twig will return an empty string if
-the template does not exist:
+Якщо ви встановите прапорець ``ignore_missing``, Twig поверне порожній рядок, якщо
+шаблон не існує:
 
 .. code-block:: twig
 
     {{ include('sidebar.html', ignore_missing = true) }}
 
-You can also provide a list of templates that are checked for existence before
-inclusion. The first template that exists will be rendered:
+Ви також можете надати список шаблонів, які перевіряються на існування перед
+включенням. Буде відображено перший знайдений шаблон:
 
 .. code-block:: twig
 
     {{ include(['page_detailed.html', 'page.html']) }}
 
-If ``ignore_missing`` is set, it will fall back to rendering nothing if none
-of the templates exist, otherwise it will throw an exception.
+Якщо встановлено ``ignore_missing``, резервно буде повернено до відображення нічого, якщо не існує жодного
+з шаблонів, інакше буде викликано виключення.
 
-When including a template created by an end user, you should consider
-sandboxing it:
+При включенні шаблону, створеного кінцевим користувачем, вам слід подумати про те, щоб
+ізолювати його:
 
 .. code-block:: twig
 
     {{ include('page.html', sandboxed = true) }}
 
-Arguments
+Аргументи
 ---------
 
-* ``template``:       The template to render
-* ``variables``:      The variables to pass to the template
-* ``with_context``:   Whether to pass the current context variables or not
-* ``ignore_missing``: Whether to ignore missing templates or not
-* ``sandboxed``:      Whether to sandbox the template or not
+* ``template``:       Шаблон для відображення
+* ``variables``:      Змінні для передачі шаблону
+* ``with_context``:   Чи передавати поточні змінні контексту
+* ``ignore_missing``: Чи ігнорувати відсутні шаблони
+* ``sandboxed``:      Чи використовувати пісочницю для шаблону
