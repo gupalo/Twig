@@ -1,9 +1,9 @@
 ``verbatim``
 ============
 
-The ``verbatim`` tag marks sections as being raw text that should not be
-parsed. For example to put Twig syntax as example into a template you can use
-this snippet:
+Тег ``verbatim`` позначає розділи як необроблений текст, який не слід 
+аналізувати. Наприклад, щоб додати синтаксис Twig як приклад у шаблон, ви можете використати
+цей фрагмент:
 
 .. code-block:: html+twig
 
