@@ -1,22 +1,22 @@
 ``first``
 =========
 
-The ``first`` filter returns the first "element" of a sequence, a mapping, or
-a string:
+Фільтр ``first`` повертає перший "елемент" послідовності, відображення або
+рядка:
 
 .. code-block:: twig
 
     {{ [1, 2, 3, 4]|first }}
-    {# outputs 1 #}
+    {# виводить 1 #}
 
     {{ {a: 1, b: 2, c: 3, d: 4}|first }}
-    {# outputs 1 #}
+    {# виводить 1 #}
 
     {{ '1234'|first }}
-    {# outputs 1 #}
+    {# виводить 1 #}
 
 .. note::
 
-    It also works with objects implementing the `Traversable`_ interface.
+    Він також працює з об'єктами, що реалізують інтерфейс `Traversable`_.
 
 .. _`Traversable`: https://www.php.net/manual/en/class.traversable.php
