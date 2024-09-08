@@ -1,7 +1,7 @@
 ``data_uri``
 ============
 
-The ``data_uri`` filter generates a URL using the data scheme as defined in
+Фільтр ``data_uri`` генерує URL-адресу, використовуючи схему даних, визначену в
 `RFC 2397`_:
 
 .. code-block:: html+twig
@@ -10,31 +10,31 @@ The ``data_uri`` filter generates a URL using the data scheme as defined in
 
     {{ source('path_to_image')|data_uri }}
 
-    {# force the mime type, disable the guessing of the mime type #}
+    {# форсувати mime-тип, вимкнути вгадування mime-типу #}
     {{ image_data|data_uri(mime: "image/svg") }}
 
-    {# also works with plain text #}
+    {# також працює з простим текстом #}
     {{ '<b>foobar</b>'|data_uri(mime: "text/html") }}
 
-    {# add some extra parameters #}
+    {# додати додаткові параметри #}
     {{ '<b>foobar</b>'|data_uri(mime: "text/html", parameters: {charset: "ascii"}) }}
 
 .. note::
 
-    The ``data_uri`` filter is part of the ``HtmlExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``data_uri`` є частиною ``HtmlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/html-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно в середовищі Twig::
 
         use Twig\Extra\Html\HtmlExtension;
 
@@ -43,13 +43,13 @@ The ``data_uri`` filter generates a URL using the data scheme as defined in
 
 .. note::
 
-    The filter does not perform any length validation on purpose (limit depends
-    on the usage context), validation should be done before calling this filter.
+    Фільтр не виконує валідацію довжини навмисно (обмеження залежить
+    від контексту використання), валідацію слід виконувати перед викликом цього фільтра.
 
-Arguments
+Аргументи
 ---------
 
-* ``mime``: The mime type
-* ``parameters``: A mapping of parameters
+* ``mime``: Mime-тип
+* ``parameters``: Відображення параметрів
 
 .. _RFC 2397: https://tools.ietf.org/html/rfc2397
