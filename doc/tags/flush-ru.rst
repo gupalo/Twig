@@ -1,7 +1,7 @@
 ``flush``
 =========
 
-The ``flush`` tag tells Twig to flush the output buffer:
+Тег ``flush`` вказує Twig очистити буфер виведення:
 
 .. code-block:: twig
 
@@ -9,6 +9,6 @@ The ``flush`` tag tells Twig to flush the output buffer:
 
 .. note::
 
-    Internally, Twig uses the PHP `flush`_ function.
+    Внутрішньо Twig використовує PHP-функцію `flush`_.
 
 .. _`flush`: https://www.php.net/flush
