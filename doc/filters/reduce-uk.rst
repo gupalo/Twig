@@ -1,35 +1,35 @@
 ``reduce``
 ==========
 
-The ``reduce`` filter iteratively reduces a sequence or a mapping to a single
-value using an arrow function, so as to reduce it to a single value. The arrow
-function receives the return value of the previous iteration and the current
-value and key of the sequence or mapping:
+Фільтр ``reduce`` ітеративно зменшує послідовність або відображення до одного
+значення за допомогою функції стрілки, щоб звести його до єдиного значення. Функція стрілки
+отримує значення попередньої ітерації та поточне
+значення і ключ послідовності або відображення:
 
 .. code-block:: twig
 
     {% set numbers = [1, 2, 3] %}
 
     {{ numbers|reduce((carry, v, k) => carry + v * k) }}
-    {# output 8 #}
+    {# виведення 8 #}
 
-The ``reduce`` filter takes an ``initial`` value as a second argument:
+Фільтр ``reduce`` приймає ``початкове`` значення як другий аргумент:
 
 .. code-block:: twig
 
     {{ numbers|reduce((carry, v, k) => carry + v * k, 10) }}
-    {# output 18 #}
+    {# виведення 18 #}
 
-Note that the arrow function has access to the current context.
+Зверніть увагу, що функція стрілки має доступ до поточного контексту.
 
-Arguments
+Аргументи
 ---------
 
-* ``arrow``: The arrow function
-* ``initial``: The initial value
+* ``arrow``: Функція стрілки
+* ``initial``: Початкове значення
 
 .. note::
 
-    Internally, Twig uses the PHP `array_reduce`_ function.
+    Внутрішньо Twig використовує PHP-функцію `array_reduce`_.
 
 .. _`array_reduce`: https://www.php.net/array_reduce
