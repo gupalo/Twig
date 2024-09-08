@@ -1,14 +1,14 @@
 ``min``
 =======
 
-``min`` returns the lowest value of a sequence or a set of values:
+``min`` повертає найменше значення послідовності або набір значень:
 
 .. code-block:: twig
 
     {{ min(1, 3, 2) }}
     {{ min([1, 3, 2]) }}
 
-When called with a mapping, min ignores keys and only compares values:
+При виклику з відображенням min ігнорує ключі і лише порівнює значення:
 
 .. code-block:: twig
 
