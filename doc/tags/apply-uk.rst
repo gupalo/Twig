@@ -1,7 +1,7 @@
 ``apply``
 =========
 
-The ``apply`` tag allows you to apply Twig filters on a block of template data:
+Тег ``apply`` дозволяє застосувати фільтри Twig до блоку даних шаблону:
 
 .. code-block:: twig
 
@@ -9,7 +9,7 @@ The ``apply`` tag allows you to apply Twig filters on a block of template data:
         This text becomes uppercase
     {% endapply %}
 
-You can also chain filters and pass arguments to them:
+Ви також можете об'єднувати фільтри в ланцюжок і передавати їм аргументи:
 
 .. code-block:: html+twig
 
@@ -17,4 +17,4 @@ You can also chain filters and pass arguments to them:
         <strong>SOME TEXT</strong>
     {% endapply %}
 
-    {# outputs "&lt;strong&gt;some text&lt;/strong&gt;" #}
+    {# виводить "&lt;strong&gt;some text&lt;/strong&gt;" #}
