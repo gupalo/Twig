@@ -1,10 +1,9 @@
 ``escape``
 ==========
 
-The ``escape`` filter escapes a string using strategies that depend on the
-context.
+Фільтр ``escape`` екранує рядок за допомогою стратегій, які залежать від контексту.
 
-By default, it uses the HTML escaping strategy:
+За замовчуванням використовується стратегія екранування HTML:
 
 .. code-block:: html+twig
 
@@ -12,7 +11,7 @@ By default, it uses the HTML escaping strategy:
         {{ user.username|escape }}
     </p>
 
-For convenience, the ``e`` filter is defined as an alias:
+Для зручності фільтр ``e`` визначено як псевдонім:
 
 .. code-block:: html+twig
 
@@ -20,55 +19,53 @@ For convenience, the ``e`` filter is defined as an alias:
         {{ user.username|e }}
     </p>
 
-The ``escape`` filter can also be used in other contexts than HTML thanks to
-an optional argument which defines the escaping strategy to use:
+Фільтр ``escape`` також можна використовувати в інших контекстах, окрім HTML, завдяки
+необов'язковому аргументу, який визначає стратегію екранування для використання:
 
 .. code-block:: twig
 
     {{ user.username|e }}
-    {# is equivalent to #}
+    {# еквівалентно #}
     {{ user.username|e('html') }}
 
-And here is how to escape variables included in JavaScript code:
+А ось як екранувати змінні, включені в код JavaScript:
 
 .. code-block:: twig
 
     {{ user.username|escape('js') }}
     {{ user.username|e('js') }}
 
-The ``escape`` filter supports the following escaping strategies for HTML
-documents:
+Фільтр ``escape`` підтримує наступні стратегії екранування для HTML-документів:
 
-* ``html``: escapes a string for the **HTML body** context.
+* ``html``: екранує рядок для контексту **тіла HTML**.
 
-* ``js``: escapes a string for the **JavaScript** context.
+* ``js``: екранує рядок для контексту **JavaScript**.
 
-* ``css``: escapes a string for the **CSS** context. CSS escaping can be
-  applied to any string being inserted into CSS and escapes everything except
-  alphanumerics.
+* ``css``: екранує рядок для контексту **CSS**. Екранування CSS може бути застосовано
+  до будь-якого рядка, що вставляється   в CSS, і екранує все, крім алфавітно-цифрових
+  символів.
 
-* ``url``: escapes a string for the **URI or parameter** contexts. This should
-  not be used to escape an entire URI; only a subcomponent being inserted.
+* ``url``: екранує рядок для контекстів **URI або параметра**. Не слід
+  використовувати його для екранування цілого URI; вставляється лише підкомпонент.
 
-* ``html_attr``: escapes a string for the **HTML attribute** context.
+* ``html_attr``: екранує рядок для контексту **HTML-атрибута**.
 
-Note that doing contextual escaping in HTML documents is hard and choosing the
-right escaping strategy depends on a lot of factors. Please, read related
-documentation like `the OWASP prevention cheat sheet
-<https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.md>`_
-to learn more about this topic.
+Зауважте, що контекстне екранування в HTML-документах є складним завданням, і вибір
+правильної стратегії екранування залежить від багатьох факторів. Будь ласка, прочитайте відповідну
+документацію, наприклад, `шпаргалку із запобігання OWASP <https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.md>`_,
+щоб дізнатися більше про цю тему.
 
 .. note::
 
-    Internally, ``escape`` uses the PHP native `htmlspecialchars`_ function
-    for the HTML escaping strategy.
+    Внутрішньо ``escape`` використовує нативну PHP-фунцію `htmlspecialchars`_ для
+    стратегії екранування HTML.
 
 .. caution::
 
-    When using automatic escaping, Twig tries to not double-escape a variable
-    when the automatic escaping strategy is the same as the one applied by the
-    escape filter; but that does not work when using a variable as the
-    escaping strategy:
+    При використанні автоматичного екранування Twig намагається не допускати подвійного 
+    екранування змінної якщо стратегія автоматичного екранування збігається зі стратегією,
+    застосованою фільтром екранування; але це не працює при використанні змінної як стратегії
+    екранування:
 
     .. code-block:: twig
 
@@ -79,8 +76,8 @@ to learn more about this topic.
             {{ var|escape(strategy) }} {# will be double-escaped #}
         {% endautoescape %}
 
-    When using a variable as the escaping strategy, you should disable
-    automatic escaping:
+    При використанні змінної як стратегії екранування слід вимкнути
+    автоматичне екранування:
 
     .. code-block:: twig
 
@@ -90,28 +87,27 @@ to learn more about this topic.
             {{ var|escape(strategy)|raw }} {# won't be double-escaped #}
         {% endautoescape %}
 
-Custom Escapers
----------------
+Користувацькі екранувальники
+----------------------------
 
 .. versionadded:: 3.10
 
-    The ``EscaperRuntime`` class has been added in 3.10. On previous versions,
-    you can define custom escapers by calling the ``setEscaper()`` method on
-    the escaper extension instance. The first argument is the escaper strategy
-    (to be used in the ``escape`` call) and the second one must be a valid PHP
-    callable::
+    Клас ``EscaperRuntime`` було додано у версії 3.10. У попередніх версіях
+    ви могли визначати власні екранувальники за допомогою виклику методу ``setEscaper()`` в
+    екземплярі розширення екранувальника. Першим аргументом є стратегія екранування
+    (яку буде використано у виклику ``escape``), а другим має бути коректне PHP-викличне::
 
         use Twig\Extension\EscaperExtension;
 
         $twig = new \Twig\Environment($loader);
         $twig->getExtension(EscaperExtension::class)->setEscaper('csv', 'csv_escaper');
 
-    When called by Twig, the callable receives the Twig environment instance,
-    the string to escape, and the charset.
+    При виклику з Twig, викличне отримує екземпляр середовища Twig,
+    рядок для екранування та набір символів.
 
-You can define custom escapers by calling the ``setEscaper()`` method on the
-escaper runtime instance. It accepts two arguments: the strategy name and a PHP
-callable that accepts a string to escape and the charset::
+Ви можете визначити користувацькі екранувальники за допомогою виклику методу ``setEscaper()`` 
+в екземплярі виконання екранувальника. Він приймає два аргументи: назву стратегії та PHP,
+який приймає рядок для екранування і набір символів::
 
     use Twig\Runtime\EscaperRuntime;
 
@@ -119,18 +115,18 @@ callable that accepts a string to escape and the charset::
     $escaper = fn ($string, $charset) => $string;
     $twig->getRuntime(EscaperRuntime::class)->setEscaper('identity', $escaper);
 
-    # Usage in a template:
+    # Використання в шаблоні:
     # {{ 'foo'|escape('identity') }}
 
 .. note::
 
-    Built-in escapers cannot be overridden mainly because they should be
-    considered as the final implementation and also for better performance.
+    Вбудовані екранувальники не можна перевизначати, головним чином тому, що їх слід 
+    розглядати як остаточну реалізацію, а також для кращої продуктивності.
 
-Arguments
+Аргументи
 ---------
 
-* ``strategy``: The escaping strategy
-* ``charset``:  The string charset
+* ``strategy``: Стратегія екранування
+* ``charset``:  Набір символів рядка
 
 .. _`htmlspecialchars`: https://www.php.net/htmlspecialchars
