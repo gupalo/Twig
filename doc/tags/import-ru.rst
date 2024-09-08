@@ -1,6 +1,6 @@
 ``import``
 ==========
 
-The ``import`` tag imports :doc:`macro<../tags/macro>` names in a local
-variable. The tag is documented in detail in the documentation for the
-:doc:`macro<../tags/macro>` tag.
+Тег ``import`` імпортує :doc:`макро<../tags/macro>` імена у локальну
+змінну. Цей тег детально описано у документації до тегу
+:doc:`macro<../tags/macro>`.
