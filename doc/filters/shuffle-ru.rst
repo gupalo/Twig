@@ -3,9 +3,9 @@
 
 .. versionadded:: 3.11
 
-    The ``shuffle`` filter was added in Twig 3.11.
+    Фільтр ``shuffle`` було представлено в Twig 3.11.
 
-The ``shuffle`` filter shuffles a sequence, a mapping, or a string:
+Фільтр ``shuffle`` перемішує послідовність, відображення або рядок:
 
 .. code-block:: twig
 
@@ -15,11 +15,11 @@ The ``shuffle`` filter shuffles a sequence, a mapping, or a string:
 
 .. caution::
 
-    The shuffled array does not preserve keys. So if the input had not
-    sequential keys but indexed keys (using the user id for instance), it is
-    not the case anymore after shuffling it.
+    Перемішаний масив не зберігає ключі. Тому, якщо введення мало не послідовні
+    ключі, а індексовані (наприклад, за ідентифікатором користувача), то після 
+    перемішування це вже не так.
 
-Example 1:
+Приклад 1:
 
 .. code-block:: html+twig
 
@@ -35,7 +35,7 @@ Example 1:
         {% endfor %}
     </ul>
 
-The above example will be rendered as:
+Приклад вище буде відображено так:
 
 .. code-block:: html
 
@@ -45,10 +45,10 @@ The above example will be rendered as:
         <li>b</li>
     </ul>
 
-The result can also be: "a, b, c" or "b, a, c" or "b, c, a" or "c, a, b" or
+Результатом також може бути: "a, b, c" або "b, a, c" або "b, c, a" або "c, a, b" або
 "c, b, a".
 
-Example 2:
+Приклад 2:
 
 .. code-block:: html+twig
 
@@ -64,7 +64,7 @@ Example 2:
         {% endfor %}
     </ul>
 
-The above example will be rendered as:
+Приклад вище буде відображено так:
 
 .. code-block:: html
 
@@ -74,7 +74,7 @@ The above example will be rendered as:
         <li>2 - e</li>
     </ul>
 
-The result can also be: "d, e, f" or "e, d, f" or "e, f, d" or "f, d, e" or
+Результатом також може бути: "d, e, f" або "e, d, f" або "e, f, d" або "f, d, e" або
 "f, e, d".
 
 .. code-block:: html+twig
@@ -83,10 +83,10 @@ The result can also be: "d, e, f" or "e, d, f" or "e, f, d" or "f, d, e" or
 
     <p>{{ string|shuffle }}</p>
 
-The above example will be rendered as:
+Приклад вище буде відображено так:
 
 .. code-block:: html
 
     <p>gih</p>
 
-The result can also be: "ghi" or "hgi" or "hig" or "igh" or "ihg".
+Результатом також може бути: "ghi" або "hgi" або "hig" або "igh" або "ihg".
