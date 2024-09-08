@@ -1,7 +1,7 @@
 ``abs``
 =======
 
-The ``abs`` filter returns the absolute value.
+Фільтр ``abs`` повертає абсолютне значення.
 
 .. code-block:: twig
 
@@ -13,6 +13,6 @@ The ``abs`` filter returns the absolute value.
 
 .. note::
 
-    Internally, Twig uses the PHP `abs`_ function.
+    Внутрішньо Twig використовує PHP-функцію `abs`_.
 
 .. _`abs`: https://www.php.net/abs
