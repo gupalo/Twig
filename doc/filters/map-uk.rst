@@ -1,8 +1,8 @@
 ``map``
 =======
 
-The ``map`` filter applies an arrow function to the elements of a sequence or a
-mapping. The arrow function receives the value of the sequence or mapping:
+Фільтр ``map`` застосовує функцію стрілки до елементів послідовності або
+відображення. Функція стрілки отримує значення послідовності або відображення:
 
 .. code-block:: twig
 
@@ -12,9 +12,9 @@ mapping. The arrow function receives the value of the sequence or mapping:
     ] %}
 
     {{ people|map(p => "#{p.first} #{p.last}")|join(', ') }}
-    {# outputs Bob Smith, Alice Dupond #}
+    {# виводить Bob Smith, Alice Dupond #}
 
-The arrow function also receives the key as a second argument:
+Функція стрілки також отримує ключ в якості другого аргументу:
 
 .. code-block:: twig
 
@@ -24,11 +24,11 @@ The arrow function also receives the key as a second argument:
     } %}
 
     {{ people|map((value, key) => "#{key} #{value}")|join(', ') }}
-    {# outputs Bob Smith, Alice Dupond #}
+    {# виводить Bob Smith, Alice Dupond #}
 
-Note that the arrow function has access to the current context.
+Зверніть увагу, що функція стрілки має доступ до поточного контексту.
 
-Arguments
+Аргументи
 ---------
 
-* ``arrow``: The arrow function
+* ``arrow``: Функція стрілки
