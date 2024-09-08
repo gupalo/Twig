@@ -1,8 +1,8 @@
 ``do``
 ======
 
-The ``do`` tag works exactly like the regular variable expression (``{{ ...
-}}``) just that it doesn't print anything:
+Тег ``do`` працює так само, як і звичайний вираз змінної (``{{ ...
+}}``), за винятком того, що він нічого не виводить:
 
 .. code-block:: twig
 
