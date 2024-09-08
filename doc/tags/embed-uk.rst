@@ -1,19 +1,18 @@
 ``embed``
 =========
 
-The ``embed`` tag combines the behavior of :doc:`include<include>` and
-:doc:`extends<extends>`.
-It allows you to include another template's contents, just like ``include``
-does. But it also allows you to override any block defined inside the
-included template, like when extending a template.
+Тег ``embed`` поєднує поведінку тегів :doc:`include<include>` та
+:doc:`extends<extends>`. Він дозволяє додавати зміст іншого шаблону так само, як
+це робить тег ``include``. Але він також дозволяє перевизначити будь-який блок,
+визначений всередині доданого шаблону, як при розширенні шаблону.
 
-Think of an embedded template as a "micro layout skeleton".
+Думайте про вбудований шаблон як про "скелет мікро-макета".
 
 .. code-block:: twig
 
     {% embed "teasers_skeleton.twig" %}
-        {# These blocks are defined in "teasers_skeleton.twig" #}
-        {# and we override them right here:                    #}
+        {# Ці блоки визначені в "teasers_skeleton.twig" #}
+        {# і ми перевизначаємо їх прямо тут:                    #}
         {% block left_teaser %}
             Some content for the left teaser box
         {% endblock %}
@@ -22,15 +21,15 @@ Think of an embedded template as a "micro layout skeleton".
         {% endblock %}
     {% endembed %}
 
-The ``embed`` tag takes the idea of template inheritance to the level of
-content fragments. While template inheritance allows for "document skeletons",
-which are filled with life by child templates, the ``embed`` tag allows you to
-create "skeletons" for smaller units of content and re-use and fill them
-anywhere you like.
+Тег ``embed`` переносить ідею успадкування шаблону на рівень
+фрагментів контенту. У той час як успадкування шаблонів дозволяє створювати "скелети документів", 
+які наповнюються життям за допомогою дочірніх шаблонів, тег ``embed`` дозволяє вам
+створювати "скелети" для менших одиниць змісту і повторно використовувати та наповнювати їх
+де завгодно.
 
-Since the use case may not be obvious, let's look at a simplified example.
-Imagine a base template shared by multiple HTML pages, defining a single block
-named "content":
+Оскільки варіант використання може бути неочевидним, давайте розглянемо спрощений приклад.
+Уявіть собі базовий шаблон, спільний для декількох HTML-сторінок, який визначає один блок
+під назвою "зміст":
 
 .. code-block:: text
 
@@ -47,8 +46,8 @@ named "content":
     │                                     │
     └─────────────────────────────────────┘
 
-Some pages ("foo" and "bar") share the same content structure -
-two vertically stacked boxes:
+Деякі сторінки ("foo" і "bar") мають однакову структуру змісту -
+два вертикально розташовані поля:
 
 .. code-block:: text
 
@@ -65,8 +64,8 @@ two vertically stacked boxes:
     │                                     │
     └─────────────────────────────────────┘
 
-While other pages ("boom" and "baz") share a different content structure -
-two boxes side by side:
+У той час як інші сторінки ("boom" і "baz") мають іншу структуру контенту -
+два поля поруч:
 
 .. code-block:: text
 
@@ -83,35 +82,34 @@ two boxes side by side:
     │                                     │
     └─────────────────────────────────────┘
 
-Without the ``embed`` tag, you have two ways to design your templates:
+Без тегу ``embed`` у вас є два способи створення шаблонів:
 
-* Create two "intermediate" base templates that extend the master layout
-  template: one with vertically stacked boxes to be used by the "foo" and
-  "bar" pages and another one with side-by-side boxes for the "boom" and
-  "baz" pages.
+* Створити два "проміжні" базові шаблони, які розширюють основний макет
+  шаблону: один з вертикально розташованими полями для використання на сторінках "foo" і
+  "bar", а інший - з розташованими поруч полями для сторінок "boom" та
+  «baz».
 
-* Embed the markup for the top/bottom and left/right boxes into each page
-  template directly.
+* Вбудувати розмітку для верхнього/нижнього та лівого/правого полів безпосередньо в 
+  шаблон кожної сторінки.
 
-These two solutions do not scale well because they each have a major drawback:
+Ці два рішення не дуже добре масштабуються, оскільки кожне з них має суттєвий недолік:
 
-* The first solution may indeed work for this simplified example. But imagine
-  we add a sidebar, which may again contain different, recurring structures
-  of content. Now we would need to create intermediate base templates for
-  all occurring combinations of content structure and sidebar structure...
-  and so on.
+* Перше рішення дійсно може працювати для цього спрощеного прикладу. Але уявіть, що
+  ми додаємо бічну панель, яка знову ж таки може містити різні, повторювані структури
+  змісту. Тепер нам потрібно буде створити проміжні базові шаблони для  всіх можливих
+  комбінацій структури змісту і структури бічної панелі... і так далі.
 
-* The second solution involves duplication of common code with all its negative
-  consequences: any change involves finding and editing all affected copies
-  of the structure, correctness has to be verified for each copy, copies may
-  go out of sync by careless modifications etc.
+* Друге рішення передбачає дублювання загального коду з усіма негативними наслідками: 
+  будь-яка зміна передбачає пошук і редагування всіх зачеплених копій
+ структури, коректність має бути перевірена для кожної копії, копії можуть
+ бути розсинхронізовані через необережні модифікації тощо.
 
-In such a situation, the ``embed`` tag comes in handy. The common layout
-code can live in a single base template, and the two different content structures,
-let's call them "micro layouts" go into separate templates which are embedded
-as necessary:
+У такій ситуації в нагоді стає тег ``embed``. Загальний макет
+може жити в одному базовому шаблоні, а дві різні структури змісту,
+назвемо їх "мікро-розмітки", знаходяться в окремих шаблонах, які вбудовуються
+за необхідності:
 
-Page template ``foo.twig``:
+Шаблон сторінки ``foo.twig``:
 
 .. code-block:: twig
 
@@ -129,7 +127,7 @@ Page template ``foo.twig``:
         {% endembed %}
     {% endblock %}
 
-And here is the code for ``vertical_boxes_skeleton.twig``:
+А ось код для ``vertical_boxes_skeleton.twig``:
 
 .. code-block:: html+twig
 
@@ -145,10 +143,10 @@ And here is the code for ``vertical_boxes_skeleton.twig``:
         {% endblock %}
     </div>
 
-The goal of the ``vertical_boxes_skeleton.twig`` template being to factor
-out the HTML markup for the boxes.
+Мета шаблону ``vertical_boxes_skeleton.twig`` полягає в тому, щоб врахувати
+HTML-розмітки для блоків.
 
-The ``embed`` tag takes the exact same arguments as the ``include`` tag:
+Тег ``embed`` приймає ті самі аргументи, що й тег ``include``:
 
 .. code-block:: twig
 
@@ -166,11 +164,10 @@ The ``embed`` tag takes the exact same arguments as the ``include`` tag:
 
 .. warning::
 
-    As embedded templates do not have "names", auto-escaping strategies based
-    on the template name won't work as expected if you change the context (for
-    instance, if you embed a CSS/JavaScript template into an HTML one). In that
-    case, explicitly set the default auto-escaping strategy with the
-    ``autoescape`` tag.
+    Оскільки вбудовані шаблони не мають "імен", стратегії автоматичного екранування на основі
+    імені шаблону не працюватимуть належним чином, якщо ви зміните контекст (наприклад, якщо
+    ви вбудуєте CSS/JavaScript-шаблон в HTML-шаблон). У такому випадку явно встановіть стратегію
+    автоматичного екранування за замовчуванням за допомогою тегу ``autoescape``.
 
 .. seealso::
 
