@@ -1,8 +1,7 @@
 ``column``
 ==========
 
-The ``column`` filter returns the values from a single column in the input
-array.
+Фільтр ``column`` повертає значення з одного стовпця масиву введення.
 
 .. code-block:: twig
 
@@ -10,15 +9,15 @@ array.
 
     {% set fruits = items|column('fruit') %}
 
-    {# fruits now contains ['apple', 'orange'] #}
+    {# fruits тепер містить ['apple', 'orange'] #}
 
 .. note::
 
-    Internally, Twig uses the PHP `array_column`_ function.
+    Внутрішньо Twig використовує PHP-функцію `array_column`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``name``: The column name to extract
+* ``name``: Імʼя стовпця для вилучення
 
 .. _`array_column`: https://www.php.net/array_column
