@@ -1,8 +1,8 @@
 ``block``
 =========
 
-When a template uses inheritance and if you want to render a block multiple
-times, use the ``block`` function:
+Якщо у шаблоні використовується успадкування і ви хочете відобразити блок декілька разів,
+використовуйте функцію ``block``.
 
 .. code-block:: html+twig
 
@@ -12,15 +12,13 @@ times, use the ``block`` function:
 
     {% block body %}{% endblock %}
 
-The ``block`` function can also be used to display one block from another
-template:
+Функція ``block`` також може бути використана для відображення одного блоку з іншого шаблону:
 
 .. code-block:: twig
 
     {{ block("title", "common_blocks.twig") }}
 
-Use the ``defined`` test to check if a block exists in the context of the
-current template:
+Використовуйте тест ``defined``, щоб перевірити, чи існує блок в контексті поточного шаблону:
 
 .. code-block:: twig
 
@@ -32,11 +30,11 @@ current template:
         ...
     {% endif %}
 
-Arguments
+Аргументи
 ---------
 
-* ``name``: The block name
-* ``template``: The template where to look for the block
+* ``name``: Імʼя блоку
+* ``template``: Шаблон, де шукати блок
 
 .. seealso::
 
