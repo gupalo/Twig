@@ -3,19 +3,19 @@
 
 .. versionadded:: 3.11
 
-    The ``find`` filter was added in Twig 3.11.
+    Фільтр ``find`` було представлено в Twig 3.11.
 
-The ``find`` filter returns the first element of a sequence matching an arrow
-function. The arrow function receives the value of the sequence:
+Фільтр ``find`` повертає перший елемент послідовності, що відповідає функції стрілки. 
+Функція стрілки отримує значення послідовності:
 
 .. code-block:: twig
 
     {% set sizes = [34, 36, 38, 40, 42] %}
 
     {{ sizes|find(v => v > 38) }}
-    {# output 40 #}
+    {# виведення 40 #}
 
-It also works with mappings:
+Це також працює з відображеннями:
 
 .. code-block:: twig
 
@@ -30,17 +30,17 @@ It also works with mappings:
 
     {{ sizes|find(v => v > 38) }}
 
-    {# output 40 #}
+    {# виведення 40 #}
 
-The arrow function also receives the key as a second argument:
+Функція стрілки також отримує ключ в якості другого аргументу:
 
 .. code-block:: twig
 
     {{ sizes|find((v, k) => 's' not in k) }}
 
-    {# output 38 #}
+    {# виведення 38 #}
 
-Note that the arrow function has access to the current context:
+Зверніть увагу, що функція стрілки має доступ до поточного контексту:
 
 .. code-block:: twig
 
@@ -48,10 +48,10 @@ Note that the arrow function has access to the current context:
 
     {{ sizes|find(v => v >= my_size) }}
 
-    {# output 40 #}
+    {# виведення 40 #}
 
-Arguments
+Аргументи
 ---------
 
-* ``array``: The sequence or mapping
-* ``arrow``: The arrow function
+* ``array``: Послідовність або відображення
+* ``arrow``: Функція стрілки
