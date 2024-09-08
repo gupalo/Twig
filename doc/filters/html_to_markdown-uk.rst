@@ -1,7 +1,7 @@
 ``html_to_markdown``
 ====================
 
-The ``html_to_markdown`` filter converts a block of HTML to Markdown:
+Фільтр ``html_to_markdown`` перетворює блок HTML на Markdown:
 
 .. code-block:: html+twig
 
@@ -11,7 +11,7 @@ The ``html_to_markdown`` filter converts a block of HTML to Markdown:
         </html>
     {% endapply %}
 
-You can also use the filter on an entire template which you ``include``:
+Ви також можете використовувати фільтр для всього шаблону, який ви ``включаєте``:
 
 .. code-block:: twig
 
@@ -19,28 +19,28 @@ You can also use the filter on an entire template which you ``include``:
 
 .. note::
 
-    The ``html_to_markdown`` filter is part of the ``MarkdownExtension`` which
-    is not installed by default. Install it first:
+    Фільтр ``html_to_markdown`` є частиною ``MarkdownExtension``, яке
+    не встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/markdown-extra
 
-    On Symfony projects, you can automatically enable it by installing the
+    В проектах Symfony ви можете автоматично увімкнути його, встановивши
     ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Or add the extension explicitly on the Twig environment::
+    Або додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Markdown\MarkdownExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new MarkdownExtension());
 
-    If you are not using Symfony, you must also register the extension runtime::
+    Якщо ви не використовуєте Symfony, ви також повинні зареєструвати час виконання розширення::
 
         use Twig\Extra\Markdown\DefaultMarkdown;
         use Twig\Extra\Markdown\MarkdownRuntime;
@@ -54,15 +54,15 @@ You can also use the filter on an entire template which you ``include``:
             }
         });
 
-``html_to_markdown`` is just a frontend; the actual conversion is done by one of
-the following compatible libraries, from which you can choose:
+``html_to_markdown`` - це лише фронтенд; фактичне перетворення виконується однією з
+наведених нижче сумісних бібліотек, з яких ви можете вибрати:
 
 * `league/html-to-markdown`_
 * `michelf/php-markdown`_
 * `erusev/parsedown`_
 
-Depending on the library, you can also add some options by passing them as an argument
-to the filter. Example for ``league/html-to-markdown``:
+Залежно від бібліотеки, ви також можете додати деякі опції, передавши їх як аргумент
+до фільтру. Приклад для ``league/html-to-markdown``:
 
 .. code-block:: html+twig
 
