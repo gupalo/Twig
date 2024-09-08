@@ -1,7 +1,7 @@
 ``lower``
 =========
 
-The ``lower`` filter converts a value to lowercase:
+Фільтр ``lower`` перетворює значення на нижній регістр:
 
 .. code-block:: twig
 
@@ -11,6 +11,6 @@ The ``lower`` filter converts a value to lowercase:
 
 .. note::
 
-    Internally, Twig uses the PHP `mb_strtolower`_ function.
+    Внутрішньо Twig використовує PHP-функцію `mb_strtolower`_.
 
 .. _`mb_strtolower`: https://www.php.net/manual/fr/function.mb-strtolower.php
