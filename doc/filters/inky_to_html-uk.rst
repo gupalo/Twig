@@ -1,7 +1,7 @@
 ``inky_to_html``
 ================
 
-The ``inky_to_html`` filter processes an `inky email template
+Фільтр ``inky_to_html`` обробляє `шаблон листа inky
 <https://github.com/zurb/inky>`_:
 
 .. code-block:: html+twig
@@ -13,7 +13,7 @@ The ``inky_to_html`` filter processes an `inky email template
         </row>
     {% endapply %}
 
-You can also use the filter on an included file:
+Ви також можете використовувати фільтр для включеного файлу:
 
 .. code-block:: twig
 
@@ -21,20 +21,20 @@ You can also use the filter on an included file:
 
 .. note::
 
-    The ``inky_to_html`` filter is part of the ``InkyExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``inky_to_html`` є частиною розширення ``InkyExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/inky-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Inky\InkyExtension;
 
