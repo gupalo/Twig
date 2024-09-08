@@ -1,17 +1,17 @@
 ``timezone_name``
 =================
 
-The ``timezone_name`` filter returns the timezone name given a timezone identifier:
+Фільтр ``timezone_name`` повертає назву часового поясу за ідентифікатором часового поясу:
 
 .. code-block:: twig
 
-    {# Central European Time (Paris) #}
+    {# Центральноєвропейський час (Париж) #}
     {{ 'Europe/Paris'|timezone_name }}
 
-    {# Pacific Time (Los Angeles) #}
+    {# Тихоокеанський час (Лос-Анджелес) #}
     {{ 'America/Los_Angeles'|timezone_name }}
 
-By default, the filter uses the current locale. You can pass it explicitly:
+За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
 
 .. code-block:: twig
 
@@ -20,27 +20,27 @@ By default, the filter uses the current locale. You can pass it explicitly:
 
 .. note::
 
-    The ``timezone_name`` filter is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``timezone_name`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовище Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale
+* ``locale``: Локаль
