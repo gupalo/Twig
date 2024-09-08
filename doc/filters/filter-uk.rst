@@ -1,26 +1,25 @@
 ``filter``
 ==========
 
-The ``filter`` filter filters elements of a sequence or a mapping using an arrow
-function. The arrow function receives the value of the sequence or mapping:
+Фільтр ``filter`` фільтрує елементи послідовності або відображення за допомогою функції стрілки. Функція стрілки отримує значення послідовності або відображення:
 
 .. code-block:: twig
 
     {% set sizes = [34, 36, 38, 40, 42] %}
 
     {{ sizes|filter(v => v > 38)|join(', ') }}
-    {# output 40, 42 #}
+    {# виведення 40, 42 #}
 
-Combined with the ``for`` tag, it allows to filter the items to iterate over:
+У поєднанні з тегом ``for`` він дозволяє відфільтрувати елементи для ітерації:
 
 .. code-block:: twig
 
     {% for v in sizes|filter(v => v > 38) -%}
         {{ v }}
     {% endfor %}
-    {# output 40 42 #}
+    {# виведення 40 42 #}
 
-It also works with mappings:
+Також це працює з відображеннями:
 
 .. code-block:: twig
 
@@ -35,21 +34,21 @@ It also works with mappings:
     {% for k, v in sizes|filter(v => v > 38) -%}
         {{ k }} = {{ v }}
     {% endfor %}
-    {# output l = 40 xl = 42 #}
+    {# виведення l = 40 xl = 42 #}
 
-The arrow function also receives the key as a second argument:
+Функція стрілки також отримує ключ в якості другого аргументу:
 
 .. code-block:: twig
 
     {% for k, v in sizes|filter((v, k) => v > 38 and k != "xl") -%}
         {{ k }} = {{ v }}
     {% endfor %}
-    {# output l = 40 #}
+    {# виведення l = 40 #}
 
-Note that the arrow function has access to the current context.
+Зверніть увагу, що функція стрілки має доступ до поточного контексту.
 
-Arguments
+Аргументи
 ---------
 
-* ``array``: The sequence or mapping
-* ``arrow``: The arrow function
+* ``array``: Послідовність або відображення
+* ``arrow``: Функція стрілки
