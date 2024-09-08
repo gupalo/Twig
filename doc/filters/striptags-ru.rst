@@ -1,29 +1,29 @@
 ``striptags``
 =============
 
-The ``striptags`` filter strips SGML/XML tags and replaces adjacent whitespace characters
-by one space:
+Фільтр ``striptags`` вилучає теги SGML/XML і замінює суміжні символи пробілів
+на один пробіл:
 
 .. code-block:: twig
 
     {{ some_html|striptags }}
 
-You can also provide tags which should not be stripped:
+Ви також можете вказати теги, які не слід вилучати:
 
 .. code-block:: html+twig
 
     {{ some_html|striptags('<br><p>') }}
 
-In this example, the ``<br/>``, ``<br>``, ``<p>``, and ``</p>`` tags won't be
-removed from the string.
+У цьому прикладі теги ``<br/>``, ``<br>``, ``<p>`` та ``</p>`` не буде
+вилучено з рядка.
 
 .. note::
 
-    Internally, Twig uses the PHP `strip_tags`_ function.
+    Внутрішньо Twig використовує PHP-функцію `strip_tags`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``allowable_tags``: Tags which should not be stripped
+* ``allowable_tags``: Теги, які не слід вилучати
 
 .. _`strip_tags`: https://www.php.net/strip_tags
