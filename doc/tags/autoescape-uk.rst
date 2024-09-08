@@ -1,8 +1,7 @@
 ``autoescape``
 ==============
 
-Whether automatic escaping is enabled or not, you can mark a section of a
-template to be escaped or not by using the ``autoescape`` tag:
+Незалежно від того, увімкнено автоматичне екранування чи ні, ви можете позначити частину шаблону, яку слід екранувати чи ні, використовуючи тег ``autoescape``.
 
 .. code-block:: twig
 
@@ -25,9 +24,8 @@ template to be escaped or not by using the ``autoescape`` tag:
         Everything will be outputted as is in this block
     {% endautoescape %}
 
-When automatic escaping is enabled everything is escaped by default except for
-values explicitly marked as safe. Those can be marked in the template by using
-the :doc:`raw<../filters/raw>` filter:
+Якщо увімкнено автоматичне екранування, за замовчуванням екранується все, окрім значень, явно позначених безпечними. Їх можна позначити у шаблоні за допомогою
+фільтра :doc:`raw<../filters/raw>`:
 
 .. code-block:: twig
 
@@ -35,17 +33,16 @@ the :doc:`raw<../filters/raw>` filter:
         {{ safe_value|raw }}
     {% endautoescape %}
 
-Functions returning template data (like :doc:`macros<macro>` and
-:doc:`parent<../functions/parent>`) always return safe markup.
+Функції, що повертають дані шаблону (наприклад, :doc:`macros<macro>` і 
+:doc:`parent<../functions/parent>`) завжди повертають безпечну розмітку.
 
 .. note::
 
-    Twig is smart enough to not escape an already escaped value by the
-    :doc:`escape<../filters/escape>` filter.
+    Twig достатньо розумний, щоб не екранувати вже екрановане значення за допомогою  фільтру     :doc:`escape<../filters/escape>`.
 
 .. note::
 
-    Twig does not escape static expressions:
+    Twig не екранує статичні вирази:
 
     .. code-block:: html+twig
 
@@ -53,9 +50,9 @@ Functions returning template data (like :doc:`macros<macro>` and
         {{ hello }}
         {{ "<strong>world</strong>" }}
 
-    Will be rendered "<strong>Hello</strong> **world**".
+    Буде відображено "<strong>Hello</strong> **world**".
 
 .. note::
 
-    The chapter :doc:`Twig for Developers<../api>` gives more information
-    about when and how automatic escaping is applied.
+    У главі :doc:`Twig для розробників<../api>` надано додаткову інформацію
+    про те, коли і як застосовується автоматичне екранування.
