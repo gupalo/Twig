@@ -1,7 +1,7 @@
 ``markdown_to_html``
 ====================
 
-The ``markdown_to_html`` filter converts a block of Markdown to HTML:
+Фільтр ``markdown_to_html`` перетворює блок Markdown на HTML:
 
 .. code-block:: twig
 
@@ -12,8 +12,8 @@ The ``markdown_to_html`` filter converts a block of Markdown to HTML:
     Hello!
     {% endapply %}
 
-Note that you can indent the Markdown content as leading whitespaces will be
-removed consistently before conversion:
+Зверніть увагу, що ви можете робити відступи у змісті Markdown, оскільки початкові пробіли 
+послідовно видалятимуться перед перетворенням:
 
 .. code-block:: twig
 
@@ -24,7 +24,7 @@ removed consistently before conversion:
         Hello!
     {% endapply %}
 
-You can also use the filter on an included file or a variable:
+Ви також можете використовувати фільтр для включеного файлу або змінної:
 
 .. code-block:: twig
 
@@ -34,27 +34,27 @@ You can also use the filter on an included file or a variable:
 
 .. note::
 
-    The ``markdown_to_html`` filter is part of the ``MarkdownExtension`` which
-    is not installed by default. Install it first:
+    Фільтр ``markdown_to_html`` є частиною ``MarkdownExtension``, яке
+    не встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/markdown-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, установіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Markdown\MarkdownExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new MarkdownExtension());
 
-    If you are not using Symfony, you must also register the extension runtime::
+    Якщо ви не використовуєте Symfony, ви також повинні зареєструвати розширення виконання::
 
         use Twig\Extra\Markdown\DefaultMarkdown;
         use Twig\Extra\Markdown\MarkdownRuntime;
@@ -68,12 +68,11 @@ You can also use the filter on an included file or a variable:
             }
         });
 
-    Afterwards you need to install a markdown library of your choice. Some of them are
-    mentioned in the ``require-dev`` section of the ``twig/markdown-extra`` package.
+    Після цього вам потрібно встановити бібліотеку розмітки за вашим вибором. Деякі з них
+    згадано у розділі ``require-dev`` пакету ``twig/markdown-extra``.
 
 .. note::
 
-    If using Symfony (full-stack), ``twig/extra-bundle`` with ``league/commonmark`` as
-    your Markdown library you can configure CommonMark extensions. Register the desired
-    extension(s) as a service, then tag the service with
-    ``twig.markdown.league_extension``.
+    Якщо ви використовуєте Symfony (повний стек), з ``twig/extra-bundle`` та ``league/commonmark`` як
+    ваша бібліотека Markdown, ви можете сконфігурувати розширення CommonMark. Зареєструйте бажане(і)
+    розширення як сервіс, а потім позначте сервіс тегом ``twig.markdown.league_розширення``.
