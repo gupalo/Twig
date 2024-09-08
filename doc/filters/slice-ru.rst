@@ -1,7 +1,7 @@
 ``slice``
 ===========
 
-The ``slice`` filter extracts a slice of a sequence, a mapping, or a string:
+Фільтр ``slice`` вилучає фрагмент послідовності, відображення або рядка:
 
 .. code-block:: twig
 
@@ -11,9 +11,9 @@ The ``slice`` filter extracts a slice of a sequence, a mapping, or a string:
 
     {{ '12345'|slice(1, 2) }}
 
-    {# outputs 23 #}
+    {# виводить 23 #}
 
-You can use any valid expression for both the start and the length:
+Ви можете використовувати будь-який валідний вираз як для початку, так і для довжини:
 
 .. code-block:: twig
 
@@ -21,7 +21,7 @@ You can use any valid expression for both the start and the length:
         {# ... #}
     {% endfor %}
 
-As syntactic sugar, you can also use the ``[]`` notation:
+Як синтаксичний цукор ви також можете використовувати нотацію ``[]``:
 
 .. code-block:: twig
 
@@ -29,32 +29,30 @@ As syntactic sugar, you can also use the ``[]`` notation:
         {# ... #}
     {% endfor %}
 
-    {{ '12345'[1:2] }} {# will display "23" #}
+    {{ '12345'[1:2] }} {# відобразить "23" #}
 
-    {# you can omit the first argument -- which is the same as 0 #}
-    {{ '12345'[:2] }} {# will display "12" #}
+    {# ви можете пропустити перший аргумент - що те ж саме, що і 0 #}
+    {{ '12345'[:2] }} {# відобразить "12" #}
 
-    {# you can omit the last argument -- which will select everything till the end #}
-    {{ '12345'[2:] }} {# will display "345" #}
+    {# ви можете пропустити останній аргумент - що обере все до кінця #}
+    {{ '12345'[2:] }} {# відобразить "345" #}
 
-    {# you can use a negative value -- for example to remove characters at the end #}
-    {{ '12345'[:-2] }} {# will display "123" #}
+    {# ви можете використати відʼємне значення - наприклад, щоб видалити знаки наприкінці #}
+    {{ '12345'[:-2] }} {# відобразить "123" #}
 
-The ``slice`` filter works as the `array_slice`_ PHP function for arrays and
-`mb_substr`_ for strings with a fallback to `substr`_.
+Фільтр ``slice`` працює як PHP-функція `array_slice`_ для масивів і
+`mb_substr`_ для рядків з поверненням до резервного `ubstr`_.
 
-If the start is non-negative, the sequence will start at that start in the
-variable. If start is negative, the sequence will start that far from the end
-of the variable.
+Якщо початок невід'ємний, то послідовність починається з цього початку у змінній. 
+Якщо початок від'ємний, послідовність почнеться далеко від кінця змінної.
 
-If length is given and is positive, then the sequence will have up to that
-many elements in it. If the variable is shorter than the length, then only the
-available variable elements will be present. If length is given and is
-negative then the sequence will stop that many elements from the end of the
-variable. If it is omitted, then the sequence will have everything from offset
-up until the end of the variable.
+Якщо довжина задана і додатна, то послідовність буде мати до цієї кількості
+елементів у послідовності. Якщо змінна менша за довжину, то будуть присутні лише доступні
+елементи змінної. Якщо задано від'ємне значення довжини, то послідовність буде зупинена 
+за стільки-то елементів до кінця змінної. Якщо довжину не вказано, то у послідовності буде
+все, починаючи зі зсуву до кінця змінної.
 
-The argument ``preserve_keys`` is used to reset the index during the loop.
+Аргумент ``preserve_keys`` використовується для обнулення індексу під час циклу.
 
 .. code-block:: twig
 
@@ -71,21 +69,21 @@ The argument ``preserve_keys`` is used to reset the index during the loop.
         {{ key }} - {{ value }}
     {% endfor %}
 
-    {# output
+    {# виведення
         0 - 2
         1 - 3
     #}
 
 .. note::
 
-    It also works with objects implementing the `Traversable`_ interface.
+    Він також працює з об'єктами, що реалізують інтерфейс `Traversable`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``start``:         The start of the slice
-* ``length``:        The size of the slice
-* ``preserve_keys``: Whether to preserve key or not (when the input is an array), by default the value is ``false``.
+* ``start``:         Початок фрагменту
+* ``length``:        Розмір фрагменту
+* ``preserve_keys``: Зберігати ключ чи ні (якщо введення є масивом), за замовчуванням значенням є ``false``.
 
 .. _`Traversable`: https://www.php.net/manual/en/class.traversable.php
 .. _`array_slice`: https://www.php.net/array_slice
