@@ -3,16 +3,16 @@
 
 .. versionadded:: 3.5
 
-    The ``country_names`` function was added in Twig 3.5.
+    Функція ``country_names`` була представлена в Twig 3.5.
 
-The ``country_names`` function returns the names of the countries:
+Функція ``country_names`` повертає назви країн:
 
 .. code-block:: twig
 
     {# Afghanistan, Åland Islands, ... #}
     {{ country_names()|join(', ') }}
     
-By default, the function uses the current locale. You can pass it explicitly:
+За замовчуванням функція використовує поточну локаль. Ви можете передати її явно:
 
 .. code-block:: twig
 
@@ -21,27 +21,27 @@ By default, the function uses the current locale. You can pass it explicitly:
 
 .. note::
 
-    The ``country_names`` function is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Функція ``country_names`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``locale``: The locale
+* ``locale``: Локаль
