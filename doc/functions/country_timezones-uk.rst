@@ -1,8 +1,8 @@
 ``country_timezones``
 =====================
 
-The ``country_timezones`` function returns the names of the timezones associated
-with a given country code:
+Функція ``country_timezones`` повертає назви часових поясів, пов'язаних
+із заданим кодом країни:
 
 .. code-block:: twig
 
@@ -11,20 +11,20 @@ with a given country code:
 
 .. note::
 
-    The ``country_timezones`` function is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Функція ``country_timezones`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
