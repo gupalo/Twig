@@ -1,9 +1,8 @@
 ``batch``
 =========
 
-The ``batch`` filter "batches" items by returning a list of lists with the
-given number of items. A second parameter can be provided and used to fill in
-missing items:
+Фільтр ``batch`` "групує" елементи, повертаючи список списків із заданою кількістю елементів.
+Другий параметр може бути наданий і використаний для заповнення відсутніх елементів:
 
 .. code-block:: html+twig
 
@@ -19,7 +18,7 @@ missing items:
         {% endfor %}
     </table>
 
-The above example will be rendered as:
+Приклад вище буде відображено як:
 
 .. code-block:: html+twig
 
@@ -36,7 +35,7 @@ The above example will be rendered as:
         </tr>
     </table>
 
-If you choose to set the third parameter ``preserve_keys`` to ``false``, the keys will be reset in each loop.
+Якщо ви встановите третій параметр ``preserve_keys`` у значення ``false``, ключі обнулятимуться у кожному циклі.
 
 .. code-block:: html+twig
 
@@ -52,7 +51,7 @@ If you choose to set the third parameter ``preserve_keys`` to ``false``, the key
         {% endfor %}
     </table>
 
-The above example will be rendered as:
+Приклад вище буде відображено як:
 
 .. code-block:: html+twig
 
@@ -69,9 +68,9 @@ The above example will be rendered as:
         </tr>
     </table>
 
-Arguments
+Аргументи
 ---------
 
-* ``size``: The size of the batch; fractional numbers will be rounded up
-* ``fill``: Used to fill in missing items
-* ``preserve_keys``: Whether to preserve keys or not (defaults to ``true``)
+* ``size``: Розмір партії; дробові числа будуть округлені в більшу сторону
+* ``fill``: Використовується для заповнення відсутніх елементів
+* ``preserve_keys``: Зберігати ключі чи ні (за замовчуванням ``true``)
