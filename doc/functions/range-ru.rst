@@ -1,7 +1,7 @@
 ``range``
 =========
 
-Returns a list containing an arithmetic progression of integers:
+Повертає список, що містить арифметичну прогресію цілих чисел:
 
 .. code-block:: twig
 
@@ -11,8 +11,8 @@ Returns a list containing an arithmetic progression of integers:
 
     {# outputs 0, 1, 2, 3, #}
 
-When step is given (as the third parameter), it specifies the increment (or
-decrement for negative values):
+Якщо задано крок (як третій параметр), він визначає збільшення (або
+зменшення для від'ємних значень):
 
 .. code-block:: twig
 
@@ -20,11 +20,11 @@ decrement for negative values):
         {{ i }},
     {% endfor %}
 
-    {# outputs 0, 2, 4, 6, #}
+    {# виводить 0, 2, 4, 6, #}
 
 .. note::
 
-    Note that if the start is greater than the end, ``range`` assumes a step of
+    Зауважте, що якщо початок більший за кінець, ``range`` передбачає крок
     ``-1``:
 
     .. code-block:: twig
@@ -33,10 +33,10 @@ decrement for negative values):
             {{ i }},
         {% endfor %}
 
-        {# outputs 3, 2, 1, 0, #}
+        {# виводить 3, 2, 1, 0, #}
 
-The Twig built-in ``..`` operator is just syntactic sugar for the ``range``
-function (with a step of ``1``, or ``-1`` if the start is greater than the end):
+Вбудований у Twig оператор ``..`` є синтаксичним цукром для функції ``range``
+(з кроком ``1`` або ``-1``, якщо початок більший за кінець):
 
 .. code-block:: twig
 
@@ -46,13 +46,13 @@ function (with a step of ``1``, or ``-1`` if the start is greater than the end):
 
 .. tip::
 
-    The ``range`` function works as the native PHP `range`_ function.
+    Функція ``range`` працює як нативна PHP-функція ``range`_.
 
-Arguments
+Аргументи
 ---------
 
-* ``low``:  The first value of the sequence.
-* ``high``: The highest possible value of the sequence.
-* ``step``: The increment between elements of the sequence.
+* ``low``:  Перше значення послідовності.
+* ``high``: Найбільше можливе значення послідовності.
+* ``step``: Збільшення між елементами послідовності.
 
 .. _`range`: https://www.php.net/range
