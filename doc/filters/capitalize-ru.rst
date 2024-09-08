@@ -1,11 +1,11 @@
 ``capitalize``
 ==============
 
-The ``capitalize`` filter capitalizes a value. The first character will be
-uppercase, all others lowercase:
+Фільтр ``capitalize`` переводить значення у великі літери. Перший символ буде у
+у верхньому регістрі, всі інші - у нижньому:
 
 .. code-block:: twig
 
     {{ 'my first car'|capitalize }}
 
-    {# outputs 'My first car' #}
+    {# виводить 'My first car' #}
