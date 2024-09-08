@@ -1,8 +1,7 @@
 ``attribute``
 =============
 
-The ``attribute`` function can be used to access a "dynamic" attribute of a
-variable:
+Функція ``attribute`` може бути використана для доступу до "динамічного" атрибуту змінної:
 
 .. code-block:: twig
 
@@ -10,8 +9,7 @@ variable:
     {{ attribute(object, method, arguments) }}
     {{ attribute(array, item) }}
 
-In addition, the ``defined`` test can check for the existence of a dynamic
-attribute:
+Крім того, тест ``defined`` може перевіряти наявність динамічного атрибуту:
 
 .. code-block:: twig
 
@@ -19,12 +17,12 @@ attribute:
 
 .. note::
 
-    The resolution algorithm is the same as the one used for the ``.``
-    notation, except that the item can be any valid expression.
+    Алгоритм розвʼязання такий самий, як і для нотації ``.``за винятком того, що 
+    елементом може бути будь-який валідний вираз.
 
-Arguments
+Аргументи
 ---------
 
-* ``variable``: The variable
-* ``attribute``: The attribute name
-* ``arguments``: An array of arguments to pass to the call
+* ``variable``: Змінна
+* ``attribute``: Імʼя атрибут
+* ``arguments``: Масив аргументів для передачі виразу
