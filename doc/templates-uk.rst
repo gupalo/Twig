@@ -1,22 +1,21 @@
-Twig for Template Designers
-===========================
+Twig для дизайнерів шаблонів
+============================
 
-This document describes the syntax and semantics of the template engine and
-will be most useful as reference to those creating Twig templates.
+Цей документ описує синтаксис та семантику движка шаблонів і
+буде найбільш корисним як довідник для тих, хто створює шаблони для Twig.
 
-Synopsis
---------
+Короткий зміст
+--------------
 
-A template is a regular text file. It can generate any text-based format (HTML,
-XML, CSV, LaTeX, etc.). It doesn't have a specific extension, ``.html`` or
-``.xml`` are just fine.
+Шаблон - це звичайний текстовий файл. Він може генерувати будь-який текстовий формат (HTML,
+XML, CSV, LaTeX тощо). Він не має спеціального розширення, ``.html`` або
+або ``.xml`` підійдуть.
 
-A template contains **variables** or **expressions**, which get replaced with
-values when the template is evaluated, and **tags**, which control the
-template's logic.
+Шаблон містить **змінні** або **вирази**, які замінюються на
+значення, коли шаблон обчислюється, і **теги**, які керують логікою шаблону.
 
-Below is a minimal template that illustrates a few basics. We will cover further
-details later on:
+Нижче наведено мінімальний шаблон, який ілюструє деякі основи. Подальші
+деталі ми розглянемо пізніше:
 
 .. code-block:: html+twig
 
@@ -37,48 +36,47 @@ details later on:
         </body>
     </html>
 
-There are two kinds of delimiters: ``{% ... %}`` and ``{{ ... }}``. The first
-one is used to execute statements such as for-loops, the latter outputs the
-result of an expression.
+Існує два види роздільників: ``{% ... %}`` і ``{{ ... }}``. Перший
+використовується для виконання тверджень, таких як for-цикли, другий - для виведення
+результату виразу.
 
-IDEs Integration
-----------------
+Інтеграція IDE
+--------------
 
-Many IDEs support syntax highlighting and auto-completion for Twig:
+Багато IDE підтримують виділення синтаксису та автозаповнення для Twig:
 
-* *Textmate* via the `Twig bundle`_
-* *Vim* via the `vim-twig plugin`_
-* *Netbeans* (native as of 7.2)
-* *PhpStorm* (native as of 2.1)
-* *Eclipse* via the `Twig plugin`_
-* *Sublime Text* via the `Twig bundle`_
-* *GtkSourceView* via the `Twig language definition`_ (used by gedit and other projects)
-* *Coda* and *SubEthaEdit* via the `Twig syntax mode`_
-* *Coda 2* via the `other Twig syntax mode`_
-* *Komodo* and *Komodo Edit* via the Twig highlight/syntax check mode
-* *Notepad++* via the `Notepad++ Twig Highlighter`_
-* *Emacs* via `web-mode.el`_
-* *Atom* via the `PHP-twig for atom`_
-* *Visual Studio Code* via the `Twig pack`_, `Modern Twig`_ or `Twiggy`_
+* *Textmate* через `пакет Twig`_
+* *Vim* через `плагін vim-twig`_
+* *Netbeans* (нативна, починаючи з 7.2)
+* *PhpStorm* (нативна, починаючи з 2.1)
+* *Eclipse* через `плагін Twig`_
+* *Sublime Text* через `пакет Twig`_
+* *GtkSourceView* через `визначення мови Twig`_ (використовується gedit та іншими проєктами)
+* *Coda* та *SubEthaEdit* через `режим синтаксису Twig`_
+* *Coda 2* через `інший режим синтаксису Twig`_
+* *Komodo* та *Komodo Edit* через режим перевірки підсвічування/синтаксису
+* *Notepad++* через `Notepad++ Twig Highlighter`_
+* *Emacs* через `web-mode.el`_
+* *Atom* через `PHP-twig для atom`_
+* *Visual Studio Code* через `Twig pack`_, `Modern Twig`_ або `Twiggy`_
 
-You might also be interested in:
+Вас також можуть зацікавити:
 
-* `TwigFiddle`_: an online service that allows you to execute Twig templates
-  from a browser; it supports all versions of Twig
+* `TwigFiddle`_: онлайн-сервіс, який дозволяє виконувати шаблони Twig
+  з браузера; він підтримує всі версії Twig
 
-* `Twig Language Server`_: provides some language features like syntax
-  highlighting, diagnostics, auto complete, ...
+* `Сервер мови Twig`_: надає деякі можливості мови, такі як синтаксис
+  підсвічування, діагностика, автозаповнення, ...
 
-Variables
----------
+Змінні
+------
 
-The application passes variables to the templates for manipulation in the
-template. Variables may have attributes or elements you can access, too. The
-visual representation of a variable depends heavily on the application providing
-it.
+Додаток передає змінні шаблонам для маніпуляцій у шаблоні. 
+Змінні можуть мати атрибути або елементи, до яких ви також можете отримати доступ.
+Візуальне представлення змінної значною мірою залежить від додатку, який її надає.
 
-Use a dot (``.``) to access attributes of a variable (methods or properties of a
-PHP object, or items of a PHP array):
+Використовуйте крапку (``.``) для доступу до атрибутів змінної (методів або властивостей
+PHP-об'єкта або елементів PHP-масиву):
 
 .. code-block:: twig
 
@@ -86,67 +84,64 @@ PHP object, or items of a PHP array):
 
 .. note::
 
-    It's important to know that the curly braces are *not* part of the
-    variable but the print statement. When accessing variables inside tags,
-    don't put the braces around them.
+    Важливо знати, що фігурні дужки *не* є частиною змінної, 
+    а є частиною твердження print. При доступі до змінних всередині тегів
+    не використовуйте фігурні дужки.
 
-If a variable or attribute does not exist, the behavior depends on the
-``strict_variables`` option value (see :ref:`environment options
-<environment_options_strict_variables>`):
+Якщо змінна або атрибут не існують, поведінка залежить від значення опції
+``strict_variables`` (див. :ref:`опції середовища <environment_options_strict_variables>`):
 
-* When ``false``, it returns ``null``;
-* When ``true``, it throws an exception.
+* Якщо ``false``, повертає ``null``;
+* Якщо ``true``, викликає виключення.
 
-.. sidebar:: Implementation
+.. sidebar:: Реалізація
 
-    For convenience's sake ``foo.bar`` does the following things on the PHP
-    layer:
+    Для зручності ``foo.bar`` виконує наступні дії на рівні PHP:
 
-    * check if ``foo`` is a sequence or a mapping and ``bar`` a valid element;
-    * if not, and if ``foo`` is an object, check that ``bar`` is a valid property;
-    * if not, and if ``foo`` is an object, check that ``bar`` is a valid method
-      (even if ``bar`` is the constructor - use ``__construct()`` instead);
-    * if not, and if ``foo`` is an object, check that ``getBar`` is a valid method;
-    * if not, and if ``foo`` is an object, check that ``isBar`` is a valid method;
-    * if not, and if ``foo`` is an object, check that ``hasBar`` is a valid method;
-    * if not, and if ``strict_variables`` is ``false``, return ``null``;
-    * if not, throw an exception.
+    * перевірити, чи є ``foo`` послідовністю або відображенням, а ``bar`` - валідним;
+    * якщо ні, і якщо ``foo`` є об'єктом, перевірити, чи є ``bar`` є валідною властивістю;
+    * якщо ні, і якщо ``foo`` є об'єктом, перевірити, чи є ``bar`` валідним методом
+    (навіть якщо ``bar`` є конструктором - використовуйте ``__construct()`` замість нього);
+    * якщо ні, і якщо ``foo`` є об'єктом, перевірити, чи є ``getBar`` валідним методом;
+    * якщо ні, і якщо ``foo`` є об'єктом, перевірити, чи є ``isBar`` валідним методом;
+    * якщо ні, і якщо ``foo`` є об'єктом, перевірити, чи є ``hasBar`` є валідним  методом;
+    * якщо ні, і якщо ``strict_variables`` має значення ``false``, повернути ``null``;
+    * якщо ні, то викликати виключення.
 
-    Twig also supports a specific syntax for accessing items on PHP arrays,
+    Twig також підтримує особливий синтаксис для доступу до елементів PHP-масивів,
     ``foo['bar']``:
 
-    * check if ``foo`` is a sequence or a mapping and ``bar`` a valid element;
-    * if not, and if ``strict_variables`` is ``false``, return ``null``;
-    * if not, throw an exception.
+    * перевірити, чи є ``foo`` послідовністю або відображенням, а ``bar`` - валідним елементом;
+    * якщо ні, і якщо ``strict_variables`` має значення ``false``, повернути ``null``;
+    * якщо ні, то викликати виключення.
 
 .. note::
 
-    If you want to access a dynamic attribute of a variable, use the
-    :doc:`attribute<functions/attribute>` function instead.
+    Якщо ви хочете отримати доступ до динамічного атрибуту змінної, використовуйте функцію
+    :doc:`attribute<functions/attribute>` замість цього.
 
-    The ``attribute`` function is also useful when the attribute contains
-    special characters (like ``-`` that would be interpreted as the minus
-    operator):
+    Функція ``attribute`` також корисна, коли атрибут містить
+    спеціальні символи (наприклад, ``-``, які інтерпретуються як оператор мінус):
 
     .. code-block:: twig
 
-        {# equivalent to the non-working foo.data-foo #}
+        {# еквівалентно непрацюючому foo.data-foo #}
         {{ attribute(foo, 'data-foo') }}
 
-Global Variables
+Глобальні змінні
 ~~~~~~~~~~~~~~~~
 
-The following variables are always available in templates:
+Наступні змінні завжди доступні у шаблонахs:
 
-* ``_self``: references the current template name;
-* ``_context``: references the current context;
-* ``_charset``: references the current charset.
+* ``_self``: посилається на поточне імʼя шаблону;
+* ``_context``: посилається на поточний контекст;
+* ``_charset``: посилається на поточний набір символів.
 
-Setting Variables
-~~~~~~~~~~~~~~~~~
+Встановлення змінних
+~~~~~~~~~~~~~~~~~~~~
 
-You can assign values to variables inside code blocks. Assignments use the
-:doc:`set<tags/set>` tag:
+Ви можете присвоювати значення змінним всередині блоків коду. Для присвоєння використовується тег
+:doc:`set<tags/set>`:
 
 .. code-block:: twig
 
@@ -154,29 +149,28 @@ You can assign values to variables inside code blocks. Assignments use the
     {% set foo = [1, 2] %}
     {% set foo = {'foo': 'bar'} %}
 
-Filters
+Фільтри
 -------
 
-Variables can be modified by **filters**. Filters are separated from the
-variable by a pipe symbol (``|``). Multiple filters can be chained. The output
-of one filter is applied to the next.
+Змінні можна змінювати за допомогою **фільтрів**. Фільтри відокремлюються від змінної
+символом труби (``|``). Кілька фільтрів можна з'єднати у ланцюжок. Виведення
+одного фільтра застосовується до наступного.
 
-The following example removes all HTML tags from the ``name`` and title-cases
-it:
+У наступному прикладі вилучаються всі HTML-теги з ``name`` і випадків заголовків:
 
 .. code-block:: twig
 
     {{ name|striptags|title }}
 
-Filters that accept arguments have parentheses around the arguments. This
-example joins the elements of a list by commas:
+Фільтри, які приймають аргументи, мають круглі дужки навколо аргументів. У цьому прикладі
+елементи списку з'єднуються комами:
 
 .. code-block:: twig
 
     {{ list|join(', ') }}
 
-To apply a filter on a section of code, wrap it with the
-:doc:`apply<tags/apply>` tag:
+Щоб застосувати фільтр до фрагмента коду, обгорніть його тегом
+:doc:`apply<tags/apply>`:
 
 .. code-block:: twig
 
@@ -184,17 +178,16 @@ To apply a filter on a section of code, wrap it with the
         This text becomes uppercase
     {% endapply %}
 
-Go to the :doc:`filters<filters/index>` page to learn more about built-in
-filters.
+Перейдіть на сторінку :doc:`filters<filters/index>`, щоб дізнатися більше про вбудовані
+фільтри.
 
-Functions
----------
+Функції
+-------
 
-Functions can be called to generate content. Functions are called by their
-name followed by parentheses (``()``) and may have arguments.
+Для створення змісту можна викликати функції. Функції викликаються за їхнім ім'ям, 
+яке супроводжується круглими дужками (``()``) і може мати аргументи.
 
-For instance, the ``range`` function returns a list containing an arithmetic
-progression of integers:
+Наприклад, функція ``range`` повертає список, що містить арифметичну прогресію цілих чисел:
 
 .. code-block:: twig
 
@@ -202,20 +195,20 @@ progression of integers:
         {{ i }},
     {% endfor %}
 
-Go to the :doc:`functions<functions/index>` page to learn more about the
-built-in functions.
+Перейдіть на сторінку :doc:`функції<functions/index>`, щоб дізнатися більше про
+вбудовані функції.
 
-.. _named-arguments:
+.. _named-arguments-uk:
 
-Named Arguments
----------------
+Іменовані аргументи
+-------------------
 
-Named arguments are supported in functions, filters, and tests.
+Іменовані аргументи підтримуються у функціях, фільтрах та тестах.
 
 .. versionadded:: 3.12
 
-    Twig supports both ``=`` and ``:`` as separators between argument names and
-    values, but support for ``:`` was introduced in Twig 3.12.
+    Twig підтримує як ``=``, так і ``:`` в якості роздільників між іменами аргументів та
+    значеннями, але підтримка ``:`` була представлена в Twig 3.12.
 
 .. code-block:: twig
 
@@ -223,8 +216,8 @@ Named arguments are supported in functions, filters, and tests.
         {{ i }},
     {% endfor %}
 
-Using named arguments makes your templates more explicit about the meaning of
-the values you pass as arguments:
+Використання іменованих аргументів робить ваші шаблони більш зрозумілими щодо 
+значень, які ви передаєте як аргументи:
 
 .. code-block:: twig
 
@@ -234,19 +227,19 @@ the values you pass as arguments:
 
     {{ data|convert_encoding(from: 'iso-2022-jp', to: 'UTF-8') }}
 
-Named arguments also allow you to skip some arguments for which you don't want
-to change the default value:
+Іменовані аргументи також дозволяють вам пропустити деякі аргументи, для яких ви не хочете 
+змінювати значення за замовчуванням:
 
 .. code-block:: twig
 
-    {# the first argument is the date format, which defaults to the global date format if null is passed #}
+    {# перший аргумент - це формат дати, який за замовчуванням має значення глобального формату даних, якщо передано null #}
     {{ "now"|date(null, "Europe/Paris") }}
 
-    {# or skip the format value by using a named argument for the time zone #}
+    {# або пропустити значення формату, використавши іменований аргумент для часового поясу #}
     {{ "now"|date(timezone: "Europe/Paris") }}
 
-You can also use both positional and named arguments in one call, in which
-case positional arguments must always come before named arguments:
+Ви також можете використовувати як позиційні, так і іменовані аргументи в одному виклику. У цьому випадку
+позиційні аргументи завжди мають бути перед іменованими:
 
 .. code-block:: twig
 
@@ -254,19 +247,17 @@ case positional arguments must always come before named arguments:
 
 .. tip::
 
-    Each function, filter, and test documentation page has a section where the
-    names of all supported arguments are listed.
+    Кожна сторінка документації функції, фільтра і тесту має розділ, де перелічено назви
+    всіх підтримуваних аргументів.
 
-Control Structure
------------------
+Структура управління
+--------------------
 
-A control structure refers to all those things that control the flow of a
-program - conditionals (i.e. ``if``/``elseif``/``else``), ``for``-loops, as
-well as things like blocks. Control structures appear inside ``{% ... %}``
-blocks.
+Структура управління - це все те, що контролює хід виконання програми - умовні оператори (тобто ``if``/``elseif``/``else``), цикли ``for``, а також а також такі речі, як блоки. Структури
+управління з'являються всередині блоків ``{% ... %}``.
 
-For example, to display a list of users provided in a variable called
-``users``, use the :doc:`for<tags/for>` tag:
+Наприклад, щоб відобразити список користувачів, що міститься у змінній з назвою
+``users``, використовуйте тег :doc:`for<tags/for>`:
 
 .. code-block:: html+twig
 
@@ -277,7 +268,7 @@ For example, to display a list of users provided in a variable called
         {% endfor %}
     </ul>
 
-The :doc:`if<tags/if>` tag can be used to test an expression:
+Тег :doc:`if<tags/if>` може бути використаний для тестування виразу:
 
 .. code-block:: html+twig
 
@@ -289,36 +280,36 @@ The :doc:`if<tags/if>` tag can be used to test an expression:
         </ul>
     {% endif %}
 
-Go to the :doc:`tags<tags/index>` page to learn more about the built-in tags.
+Перейдіть на сторінку :doc:`теги<tags/index>`, щоб дізнатися більше про вбудовані теги.
 
-Comments
---------
+Коментарі
+---------
 
-To comment-out part of a line in a template, use the comment syntax ``{# ...
-#}``. This is useful for debugging or to add information for other template
-designers or yourself:
+Щоб прокоментувати частину рядка у шаблоні, використовуйте синтаксис коментарів ``{# ...
+#}``. Це корисно для налагодження або для додавання інформації для інших дизайнерів шаблону
+або для вас самих:
 
 .. code-block:: twig
 
-    {# note: disabled template because we no longer use this
+    {# примітка: відключений шаблон, оскільки ми більше не використовуємо це
         {% for user in users %}
             ...
         {% endfor %}
     #}
 
-Including other Templates
--------------------------
+Додавання інших шаблонів
+------------------------
 
-The :doc:`include<functions/include>` function is useful to include a template
-and return the rendered content of that template into the current one:
+Функція :doc:`include<functions/include>` корисна для додавання шаблону
+і повернення відображеного змісту цього шаблону у поточний шаблон:
 
 .. code-block:: twig
 
     {{ include('sidebar.html') }}
 
-By default, included templates have access to the same context as the template
-which includes them. This means that any variable defined in the main template
-will be available in the included template too:
+За замовчуванням, додані шаблони мають доступ до того ж контексту, що і шаблон
+який їх включає. Це означає, що будь-яка змінна, визначена у головному шаблоні,
+буде доступна і у доданому шаблоні:
 
 .. code-block:: twig
 
@@ -326,30 +317,30 @@ will be available in the included template too:
         {{ include('render_box.html') }}
     {% endfor %}
 
-The included template ``render_box.html`` is able to access the ``box`` variable.
+Доданий шаблон ``render_box.html`` має доступ до змінної ``box``.
 
-The name of the template depends on the template loader. For instance, the
-``\Twig\Loader\FilesystemLoader`` allows you to access other templates by giving the
-filename. You can access templates in subdirectories with a slash:
+Ім'я шаблону залежить від завантажувача шаблонів. Наприклад, шаблон
+``\Twig\Loader\FilesystemLoader`` дозволяє отримати доступ до інших шаблонів,
+вказавши ім'я файлу. Ви можете отримати доступ до шаблонів у підкаталогах за допомогою слешу:
 
 .. code-block:: twig
 
     {{ include('sections/articles/sidebar.html') }}
 
-This behavior depends on the application embedding Twig.
+Ця поведінка залежить від додатку, який вбудовує Twig.
 
-Template Inheritance
+Успадкування шаблону
 --------------------
 
-The most powerful part of Twig is template inheritance. Template inheritance
-allows you to build a base "skeleton" template that contains all the common
-elements of your site and defines **blocks** that child templates can
-override.
+Найпотужніша частина Twig - це успадкування шаблонів. Спадкування шаблонів
+дозволяє вам створити базовий "скелет" шаблону, який містить всі загальні
+елементи вашого сайту і визначає **блоки**, які дочірні шаблони можуть
+перевизначати.
 
-It's easier to understand the concept by starting with an example.
+Простіше зрозуміти концепцію, почавши з прикладу.
 
-Let's define a base template, ``base.html``, which defines an HTML skeleton
-document that might be used for a two-column page:
+Давайте визначимо базовий шаблон ``base.html``, який визначає скелет HTML-документа,
+який може бути використаний для сторінки з двома колонками:
 
 .. code-block:: html+twig
 
@@ -371,12 +362,11 @@ document that might be used for a two-column page:
         </body>
     </html>
 
-In this example, the :doc:`block<tags/block>` tags define four blocks that
-child templates can fill in. All the ``block`` tag does is to tell the
-template engine that a child template may override those portions of the
-template.
+У цьому прикладі теги :doc:`block<tags/block>` визначають чотири блоки, які
+дочірні шаблони можуть заповнювати. Все, що робить тег ``block`` - повідомляє
+движку шаблонів, що дочірній шаблон може перевизначити ці частини шаблону.
 
-A child template might look like this:
+Дочірній шаблон може мати такий вигляд:
 
 .. code-block:: html+twig
 
@@ -396,17 +386,15 @@ A child template might look like this:
         </p>
     {% endblock %}
 
-The :doc:`extends<tags/extends>` tag is the key here. It tells the template
-engine that this template "extends" another template. When the template system
-evaluates this template, first it locates the parent. The extends tag should
-be the first tag in the template.
+Ключовим тут є тег :doc:`extends<tags/extends>`. Він повідомляє движку шаблонів,
+що цей шаблон «розширює» інший шаблон. Коли система шаблонів оцінює цей шаблон,
+спочатку вона знаходить батьківський шаблон. Тег extends повинен бути першим тегом у шаблоні.
 
-Note that since the child template doesn't define the ``footer`` block, the
-value from the parent template is used instead.
+Зауважте, що оскільки дочірній шаблон не визначає блок ``footer``, 
+замість нього використовується значення з батьківського шаблону.
 
-It's possible to render the contents of the parent block by using the
-:doc:`parent<functions/parent>` function. This gives back the results of the
-parent block:
+Ви можете відобразити зміст батьківського блоку за допомогою функції
+:doc:`parent<functions/parent>`. Вона повертає результати батьківського блоку:
 
 .. code-block:: html+twig
 
@@ -418,42 +406,41 @@ parent block:
 
 .. tip::
 
-    The documentation page for the :doc:`extends<tags/extends>` tag describes
-    more advanced features like block nesting, scope, dynamic inheritance, and
-    conditional inheritance.
+    Сторінка документації для тегу :doc:`extends<tags/extends>` описує
+    більш розширені можливості, такі як вкладення блоків, область видимості,
+    динамічне успадкування та умовне успадкування.
 
 .. note::
 
-    Twig also supports multiple inheritance via "horizontal reuse" with the help
-    of the :doc:`use<tags/use>` tag.
+    Twig також підтримує множинне успадкування через «горизонтальне повторне
+    використання» за допомогою тегу :doc:`use<tags/use>`.
 
-HTML Escaping
--------------
+Екранування HTML
+----------------
 
-When generating HTML from templates, there's always a risk that a variable
-will include characters that affect the resulting HTML. There are two
-approaches: manually escaping each variable or automatically escaping
-everything by default.
+При генеруванні HTML на основі шаблонів завжди існує ризик того, що змінна
+міститиме символи, які вплинуть на результуючий HTML. Існує два підходи: вручну
+екранувати кожну змінну або автоматично екранувати все за замовчуванням.
 
-Twig supports both, automatic escaping is enabled by default.
+Twig підтримує обидва підходи, автоматичне екранування увімкнено за замовчуванням.
 
-The automatic escaping strategy can be configured via the
-:ref:`autoescape<environment_options>` option and defaults to ``html``.
+Стратегію автоматичного екранування можна налаштувати за допомогою опції 
+:ref:`autoescape<environment_options>` і за замовчуванням вона дорівнює ``html``.
 
-Working with Manual Escaping
+Робота з екрануванням вручну
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If manual escaping is enabled, it is **your** responsibility to escape variables
-if needed. What to escape? Any variable that comes from an untrusted source.
+Якщо увімкнено ручне екранування, ви несете відповідальність за екранування змінних,
+якщо це необхідно. Що екранувати? Будь-яку змінну, отриману з ненадійного джерела.
 
-Escaping works by using the :doc:`escape<filters/escape>` or ``e`` filter:
+Екранування працює за допомогою :doc:`escape<фільтри/екранування>` або фільтра ``e``:
 
 .. code-block:: twig
 
     {{ user.username|e }}
 
-By default, the ``escape`` filter uses the ``html`` strategy, but depending on
-the escaping context, you might want to explicitly use another strategy:
+За замовчуванням фільтр ``escape`` використовує стратегію ``html``, але залежно від
+контексту екранування, ви можете явно використовувати іншу стратегію:
 
 .. code-block:: twig
 
@@ -462,128 +449,123 @@ the escaping context, you might want to explicitly use another strategy:
     {{ user.username|e('url') }}
     {{ user.username|e('html_attr') }}
 
-Working with Automatic Escaping
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Робота з автоматичним екрануванням
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Whether automatic escaping is enabled or not, you can mark a section of a
-template to be escaped or not by using the :doc:`autoescape<tags/autoescape>`
-tag:
+Незалежно від того, увімкнено автоматичне екранування чи ні, ви можете позначити
+чи треба екранувати розділ шаблону, чи ні, за допомогою тегу :doc:`autoescape<tags/autoescape>`:
 
 .. code-block:: twig
 
     {% autoescape %}
-        Everything will be automatically escaped in this block (using the HTML strategy)
+        В цьому блоці все буде автоматично екрановано (використовуючи стратегію HTML)
     {% endautoescape %}
 
-By default, auto-escaping uses the ``html`` escaping strategy. If you output
-variables in other contexts, you need to explicitly escape them with the
-appropriate escaping strategy:
+За замовчуванням для автоматичного екранування використовується стратегія екранування
+``html``. Якщо ви виводите змінні в інших контекстах, вам слід явно екранувати їх за допомогою
+відповідної стратегії екранування:
 
 .. code-block:: twig
 
     {% autoescape 'js' %}
-        Everything will be automatically escaped in this block (using the JS strategy)
+        В цьому блоці все буде автоматично екрановано (використовуючи стратегію JS)
     {% endautoescape %}
 
-Escaping
---------
+Екранування
+-----------
 
-It is sometimes desirable or even necessary to have Twig ignore parts it would
-otherwise handle as variables or blocks. For example if the default syntax is
-used and you want to use ``{{`` as raw string in the template and not start a
-variable you have to use a trick.
+Іноді бажано або навіть необхідно, щоб Twig ігнорував частини, які інакше оброблялися
+б як змінні або блоки. Наприклад, якщо використовується синтаксис за замовчуванням, і 
+ви хочете використати ``{{`` як сирий рядок у шаблоні, а не створювати змінну, вам 
+доведеться вдатися до хитрощів.
 
-The easiest way is to output the variable delimiter (``{{``) by using a variable
-expression:
+Найпростіший спосіб - вивести роздільник змінної (``{{``) за допомогою змінної виразу:
 
 .. code-block:: twig
 
     {{ '{{' }}
 
-For bigger sections it makes sense to mark a block
-:doc:`verbatim<tags/verbatim>`.
+Для великих розділів має сенс позначити блок :doc:`verbatim<tags/verbatim>`.
 
-Macros
+Макрос
 ------
 
-Macros are comparable with functions in regular programming languages. They are
-useful to reuse HTML fragments to not repeat yourself. They are described in the
-:doc:`macro<tags/macro>` tag documentation.
+Макроси можна порівняти з функціями у звичайних мовах програмування. Вони є
+корисними для повторного використання фрагментів HTML, щоб не повторюватися. Вони 
+описані в документації тегу :doc:`macro<tags/macro>`.
 
-.. _twig-expressions:
+.. _twig-expressions-uk:
 
-Expressions
------------
+Вирази
+------
 
-Twig allows expressions everywhere.
+Twig дозволяє вирази всюди.
 
-Literals
+Літерали
 ~~~~~~~~
 
-The simplest form of expressions are literals. Literals are representations
-for PHP types such as strings, numbers, and arrays. The following literals
-exist:
+Найпростішою формою виразів є літерали. Літерали - це представлення
+таких типів PHP, як рядки, числа та масиви. Існують наступні літерали:
 
-* ``"Hello World"``: Everything between two double or single quotes is a
-  string. They are useful whenever you need a string in the template (for
-  example as arguments to function calls, filters or just to extend or include
-  a template).
+  * ``«Hello World»``: Все, що знаходиться між двома подвійними або одинарними лапками, є
+  рядком. Вони корисні, коли вам потрібен рядок у шаблоні (наприклад, як аргументи викликів
+  функцій, фільтрів або просто для розширення або додавання шаблону).
 
-  Note that certain characters require escaping:
-   * ``\f``: Form feed
-   * ``\n``: New line
-   * ``\r``: Carriage return
-   * ``\t``: Horizontal tab
-   * ``\v``: Vertical tab
-   * ``\x``: Hexadecimal escape sequence
-   * ``\0`` to ``\377``: Octal escape sequences representing characters
-   * ``\``: Backslash
+  Зауважте, що певні символи вимагають екранування:
+   * ``\f``: Подача форми
+   * ``\n``: Новий рядок
+   * ``\r``: Повернення каретки
+   * ``\t``: Горизонтальна вкладка
+   * ``\v``: Вертикальна вкладка
+   * ``\x``: Шістнадцяткова послідовність екранування
+   * ``\0`` до ``\377``: Вісімкові екрановані послідовності, що представляють символи
+   * ``\``: Зворотний слеш
   
-   When using single-quoted strings, the single quote character (``'``) needs to be escaped with a backslash (``\'``).
-   When using double-quoted strings, the double quote character (``"``) needs to be escaped with a backslash (``\"``).
+  При використанні рядків в одинарних лапках, символ одинарних лапок (``'``) слід екранувати зворотним слешем (``\'``).
+  При використанні рядків у подвійних лапках символ подвійних лапок (``"``) слід екранувати зворотним слешем (``\"``).
 
-   For example, a single quoted string can contain a delimiter if it is preceded by a
-   backslash (``\``) -- like in ``'It\'s good'``. If the string contains a
-   backslash (e.g. ``'c:\Program Files'``) escape it by doubling it
-   (e.g. ``'c:\\Program Files'``).
+  Наприклад, рядок в одинарних лапках може містити роздільник, якщо перед ним стоїть
+  зворотний слеш (``\``) - як у рядку ``'It\'s good'``. Якщо рядок містить символ
+  зворотного слешу (наприклад, ``'c:\Program Files'``), екрануйте його, шляхом подвоєння
+  (наприклад, ``'c:\\Program Files'``).
 
-* ``42`` / ``42.23``: Integers and floating point numbers are created by
-  writing the number down. If a dot is present the number is a float,
-  otherwise an integer.
+  * ``42`` / ``42.23``: Цілі числа та числа з плаваючою комою створюються шляхом
+  запису числа. Якщо присутня крапка, то число є числом з плаваючою комою,
+  інакше - цілим числом.
 
-* ``["foo", "bar"]``: Sequences are defined by a sequence of expressions
-  separated by a comma (``,``) and wrapped with squared brackets (``[]``).
+  * ``["foo", "bar"]``: Послідовності визначаються послідовністю виразів,
+  розділених комою (``,``) і обгорнутих у квадратні дужки (``[]``).
 
-* ``{"foo": "bar"}``: Mappings are defined by a list of keys and values
-  separated by a comma (``,``) and wrapped with curly braces (``{}``):
+  * ``{"foo": "bar"}``: Відображення визначаються списком ключів та значень,
+  розділених комою (``,``) і обгорнутих у фігурні дужки (``{}``):
 
   .. code-block:: twig
 
-    {# keys as string #}
+    {# ключі як рядки #}
     {'foo': 'foo', 'bar': 'bar'}
 
-    {# keys as names (equivalent to the previous mapping) #}
+    {# ключі як імена (еквівалентно попередньому відображенню) #}
     {foo: 'foo', bar: 'bar'}
 
-    {# keys as integer #}
+    {# ключі як цілі числа #}
     {2: 'foo', 4: 'bar'}
 
-    {# keys can be omitted if it is the same as the variable name #}
+    {# ключ можна опустити, якщо він такий самий як імʼя змінної #}
     {foo}
-    {# is equivalent to the following #}
+    {# еквівалентно наступному #}
     {'foo': foo}
 
-    {# keys as expressions (the expression must be enclosed into parentheses) #}
+    {# ключі як вирази (вираз має бути обгорнутий в круглі дужки) #}
     {% set foo = 'foo' %}
     {(foo): 'foo', (1 + 1): 'bar', (foo ~ 'b'): 'baz'}
 
-* ``true`` / ``false``: ``true`` represents the true value, ``false``
-  represents the false value.
+* ``true`` / ``false``: ``true`` представляє правильне значення, ``false`` представляє
+  хибне значення.
 
-* ``null``: ``null`` represents no specific value. This is the value returned
-  when a variable does not exist. ``none`` is an alias for ``null``.
+* ``null``: ``null`` не представляє конкретного значення. Це значення, що повертається, якщо
+  змінна не існує. ``none`` є псевдонімом ``null``.
 
-Sequences and mappings can be nested:
+Послідовності та відображення можуть бути вкладені:
 
 .. code-block:: twig
 
@@ -591,18 +573,18 @@ Sequences and mappings can be nested:
 
 .. tip::
 
-    Using double-quoted or single-quoted strings has no impact on performance
-    but :ref:`string interpolation <templates-string-interpolation>` is only
-    supported in double-quoted strings.
+    Використання рядків у подвійних або одинарних лапках не впливає на продуктивність,
+    але :ref:`інтерполяція рядків <templates-string-interpolation>` підтримується лише
+    у рядках у подвійних лапках.
 
-.. _templates-string-interpolation:
+.. _templates-string-interpolation-uk:
 
-String Interpolation
-~~~~~~~~~~~~~~~~~~~~
+Інтерполяція рядків
+~~~~~~~~~~~~~~~~~~~
 
-String interpolation (``#{expression}``) allows any valid expression to appear
-within a *double-quoted string*. The result of evaluating that expression is
-inserted into the string:
+Інтерполяція рядка (``#{expression}``) дозволяє виводити будь-який валідний вираз
+всередині *рядка у подвійних лапках*. Результат обчислення цього виразу
+вставляється у рядок:
 
 .. code-block:: twig
 
@@ -611,71 +593,70 @@ inserted into the string:
 
 .. tip::
 
-    String interpolations can be ignored by escaping them with a backslash
+    Інтерполяцію рядків можна ігнорувати, екрануючи їх зворотним слешем
     (``\``):
 
     .. code-block:: twig
 
-        {# outputs foo #{1 + 2} baz #}
+        {# виводить foo #{1 + 2} baz #}
         {{ "foo \#{1 + 2} baz" }}
 
-Math
-~~~~
+Математика
+~~~~~~~~~~
 
-Twig allows you to do math in templates; the following operators are supported:
+Twig дозволяє вам виконувати математичні дії у шаблонах; підтримуються наступні оператори:
 
-* ``+``: Adds two numbers together (the operands are casted to numbers). ``{{
-  1 + 1 }}`` is ``2``.
+* ``+``: Додає два числа разом (операнди перетворюються на числа). ``{{
+  1 + 1 }}`` буде ``2``.
 
-* ``-``: Subtracts the second number from the first one. ``{{ 3 - 2 }}`` is
+* ``-``: Віднімає друге число від першого. ``{{ 3 - 2 }}`` буде
   ``1``.
 
-* ``/``: Divides two numbers. The returned value will be a floating point
-  number. ``{{ 1 / 2 }}`` is ``{{ 0.5 }}``.
+* ``/``: Ділить два числа. Значення, що повертається, буде числом з плаваючою комою. 
+  ``{{ 1 / 2 }}`` буде ``{{ 0.5 }}``.
 
-* ``%``: Calculates the remainder of an integer division. ``{{ 11 % 7 }}`` is
+* ``%``: Обчислює остачу від цілочисельного ділення. ``{{ 11 % 7 }}`` буде
   ``4``.
 
-* ``//``: Divides two numbers and returns the floored integer result. ``{{ 20
-  // 7 }}`` is ``2``, ``{{ -20  // 7 }}`` is ``-3`` (this is just syntactic
-  sugar for the :doc:`round<filters/round>` filter).
+* ``//``: Ділить два числа і повертає результат у вигляді цілого числа з плаваючою комою. ``{{ 20
+  // 7 }}`` буде ``2``, ``{{ -20 // 7 }}`` буде ``-3`` (це лише синтаксичний цукор
+  для фільтра :doc:`round<filters/round>`).
 
-* ``*``: Multiplies the left operand with the right one. ``{{ 2 * 2 }}`` would
-  return ``4``.
+* ``*``: Множить лівий операнд на правий. ``{{ 2 * 2 }}`` 
+  поверне ``4``.
 
-* ``**``: Raises the left operand to the power of the right operand. ``{{ 2 **
-  3 }}`` would return ``8``.
+* ``**``: Підносить лівий операнд до ступеня правого операнда. ``{{ 2 ** 3 }}`` поверне ``8``.
 
-.. _template_logic:
+.. _template_logic-uk:
 
-Logic
-~~~~~
+Логіка
+~~~~~~
 
-You can combine multiple expressions with the following operators:
+Ви можете об'єднати декілька виразів за допомогою наступних операторів:
 
-* ``and``: Returns true if the left and the right operands are both true.
+* ``and``: Повертає true, якщо лівий і правий операнди є істинними.
 
-* ``or``: Returns true if the left or the right operand is true.
+* ``or``: Повертає true, якщо лівий або правий операнд є істинними.
 
-* ``not``: Negates a statement.
+* ``not``: Заперечує оператор.
 
-* ``(expr)``: Groups an expression.
-
-.. note::
-
-    Twig also supports bitwise operators (``b-and``, ``b-xor``, and ``b-or``).
+* ``(expr)``: Групує вираз.
 
 .. note::
 
-    Operators are case sensitive.
+    Twig також підтримує побітові оператори (``b-and``, ``b-xor``, та ``b-or``).
 
-Comparisons
-~~~~~~~~~~~
+.. note::
 
-The following comparison operators are supported in any expression: ``==``,
-``!=``, ``<``, ``>``, ``>=``, and ``<=``.
+    Оператори чутливі до регістру.
 
-Check if a string ``starts with`` or ``ends with`` another string:
+Порівняння
+~~~~~~~~~~
+
+У будь-якому виразі підтримуються наступні оператори порівняння: ``==``,
+``!=``, ``<``, ``>``, ``>=`` і ``<=``.
+
+Перевірити, чи рядок ``starts with`` або ``ends with`` з іншим рядком:
 
 .. code-block:: twig
 
@@ -685,22 +666,22 @@ Check if a string ``starts with`` or ``ends with`` another string:
     {% if 'Fabien' ends with 'n' %}
     {% endif %}
 
-Check that a string contains another string via the containment operator (see
-next section).
+Перевірити, чи містить рядок інший рядок, можна за допомогою оператора охоплення (див.
+наступний розділ).
 
 .. note::
 
-    For complex string comparisons, the ``matches`` operator allows you to use
-    `regular expressions`_:
+    Для складних порівнянь рядків оператор ``matches`` дозволяє використовувати
+    ``регулярні вирази`_:
 
     .. code-block:: twig
 
         {% if phone matches '/^[\\d\\.]+$/' %}
         {% endif %}
 
-Check that a sequence or a mapping ``has every`` or ``has some`` of its
-elements return ``true`` using an arrow function. The arrow function receives
-the value of the sequence or mapping:
+Перевірити, що послідовність або відображення ``has every`` або ``has some`` зі своїх елементів і 
+повернути ``true``, використовуючи функцію стрілки. Функція стрілки отримує
+значення послідовності або відображення:
 
 .. code-block:: twig
 
@@ -712,11 +693,11 @@ the value of the sequence or mapping:
     {% set hasOver38 = sizes has some v => v > 38 %}
     {# hasOver38 is true #}
 
-Containment Operator
-~~~~~~~~~~~~~~~~~~~~
+Оператор охоплення
+~~~~~~~~~~~~~~~~~~
 
-The ``in`` operator performs containment test. It returns ``true`` if the left
-operand is contained in the right:
+Оператор ``in`` виконує перевірку на охоплення. Він повертає значення ``true``, якщо лівий
+операнд міститься в правому:
 
 .. code-block:: twig
 
@@ -728,148 +709,146 @@ operand is contained in the right:
 
 .. tip::
 
-    You can use this filter to perform a containment test on strings,
-    sequences, mappings, or objects implementing the ``Traversable`` interface.
+    Ви можете використовувати цей фільтр для виконання тесту на охоплення для рядків,
+    послідовностей, відображень або об'єктів, що реалізують інтерфейс ``Traversable``.
 
-To perform a negative test, use the ``not in`` operator:
+Щоб виконати негативний тест, використовуйте оператор ``not in``:
 
 .. code-block:: twig
 
     {% if 1 not in [1, 2, 3] %}
 
-    {# is equivalent to #}
+    {# еквівалентно #}
     {% if not (1 in [1, 2, 3]) %}
 
-Test Operator
-~~~~~~~~~~~~~
+Оператор тестування
+~~~~~~~~~~~~~~~~~~~
 
-The ``is`` operator performs tests. Tests can be used to test a variable against
-a common expression. The right operand is name of the test:
+Оператор ``is`` виконує тести. Тести можна використовувати для перевірки змінної на відповідність
+загальному виразу. Правий операнд є ім'ям тесту:
 
 .. code-block:: twig
 
-    {# find out if a variable is odd #}
+    {# з'ясувати, чи є змінна непарною #}
 
     {{ name is odd }}
 
-Tests can accept arguments too:
+Тести можуть також приймати аргументи:
 
 .. code-block:: twig
 
     {% if post.status is constant('Post::PUBLISHED') %}
 
-Tests can be negated by using the ``is not`` operator:
+Тести можна заперечувати за допомогою оператора ``is not``:
 
 .. code-block:: twig
 
     {% if post.status is not constant('Post::PUBLISHED') %}
 
-    {# is equivalent to #}
+    {# еквівалентно #}
     {% if not (post.status is constant('Post::PUBLISHED')) %}
 
-Go to the :doc:`tests<tests/index>` page to learn more about the built-in
-tests.
+Перейдіть на сторінку :doc:`тести<tests/index>`, щоб дізнатися більше про вбудовані
+тести.
 
-Other Operators
-~~~~~~~~~~~~~~~
+Інші оператори
+~~~~~~~~~~~~~~
 
-The following operators don't fit into any of the other categories:
+Наступні оператори не підпадають під жодну з інших категорій:
 
-* ``|``: Applies a filter.
+* ``|``: Застосовує фільтр.
 
-* ``..``: Creates a sequence based on the operand before and after the operator
-  (this is syntactic sugar for the :doc:`range<functions/range>` function):
+* ``..``: Створює послідовність на основі операнда до і після оператора
+  (це синтаксичний цукор для фукнції :doc:`range<functions/range>`):
 
   .. code-block:: twig
 
       {% for i in 1..5 %}{{ i }}{% endfor %}
 
-      {# is equivalent to #}
+      {# еквівалентно #}
       {% for i in range(1, 5) %}{{ i }}{% endfor %}
 
-  Note that you must use parentheses when combining it with the filter operator
-  due to the :ref:`operator precedence rules <twig-expressions>`:
+  Зверніть увагу, що ви повинні використовувати круглі дужки при поєднанні його з оператором фільтру
+  через :ref:`правила пріоритету оператора <twig-expressions>`:
 
   .. code-block:: twig
 
       (1..5)|join(', ')
 
-* ``~``: Converts all operands into strings and concatenates them. ``{{ "Hello
-  " ~ name ~ "!" }}`` would return (assuming ``name`` is ``'John'``) ``Hello
-  John!``.
+* ``~``: Перетворює всі операнди у рядки та об'єднує їх у конкатенацію. ``{{ "Hello
+  " ~ name ~ "!" }}`` поверне (якщо припустити, що ``name`` - це ``'John``) ``Hello
+  John!
 
-* ``.``, ``[]``: Gets an attribute of a variable.
+* ``.``, ``[]``: Отримує атрибут змінної.
 
-* ``?:``: The ternary operator:
+* ``?:``: Тернарний оператор:
 
   .. code-block:: twig
 
       {{ foo ? 'yes' : 'no' }}
-      {{ foo ?: 'no' }} is the same as {{ foo ? foo : 'no' }}
-      {{ foo ? 'yes' }} is the same as {{ foo ? 'yes' : '' }}
+      {{ foo ?: 'no' }} те ж саме, що і {{ foo ? foo : 'no' }}
+      {{ foo ? 'yes' }} те ж саме, що і {{ foo ? 'yes' : '' }}
 
-* ``??``: The null-coalescing operator:
+* ``??``: Оператор нульової коалесценції:
 
   .. code-block:: twig
 
-      {# returns the value of foo if it is defined and not null, 'no' otherwise #}
+      {# повертає значення foo, якщо воно не визначено і не є null, в іншому випадку - 'no' #}
       {{ foo ?? 'no' }}
 
-* ``...``: The spread operator can be used to expand sequences or mappings (it
-  cannot be used to expand the arguments of a function call):
+* ``...``: Оператор поширення можна використовувати для розкриття послідовностей або відображень (його не можна   використовувати для розкриття аргументів виклику функції).
 
   .. code-block:: twig
 
       {% set numbers = [1, 2, ...moreNumbers] %}
       {% set ratings = {'foo': 10, 'bar': 5, ...moreRatings} %}
 
-Operators
+Оператори
 ~~~~~~~~~
 
-Twig uses operators to perform various operations within templates.
-Understanding the precedence of these operators is crucial for writing correct
-and efficient Twig templates.
+Twig використовує оператори для виконання різних операцій у шаблонах. Розуміння пріоритету
+цих операторів має вирішальне значення для написання правильних та ефективних шаблонів Twig.
 
-The operator precedence rules are as follows, with the lowest-precedence
-operators listed first:
+Правила пріоритету операторів наступні, опреатори з найнижчим пріоритетом перераховуються першими:
+
 
 =============================  =================================== =====================================================
-Operator                       Score of precedence                 Description
+Оператор                       Оцінка пріоритету                   Опис
 =============================  =================================== =====================================================
-``?:``                         0                                   Ternary operator, conditional statement
-``or``                         10                                  Logical OR operation between two boolean expressions
-``and``                        15                                  Logical AND operation between two boolean expressions
-``b-or``                       16                                  Bitwise OR operation on integers
-``b-xor``                      17                                  Bitwise XOR operation on integers
-``b-and``                      18                                  Bitwise AND operation on integers
-``==``, ``!=``, ``<=>``,       20                                  Comparison operators
+``?:``                         0                                   Тернарний оператор, умовне твердження
+``or``                         10                                  Логічна операція OR між двома булевими виразами
+``and``                        15                                  Логічна операція AND між двома булевими виразами  
+``b-or``                       16                                  Побітова операція OR з цілими числами
+``b-xor``                      17                                  Побітова операція XOR з цілими числами
+``b-and``                      18                                  Побітова операція AND з цілими числами
+``==``, ``!=``, ``<=>``,       20                                  Оператори порівняння
 ``<``, ``>``, ``>=``,
 ``<=``, ``not in``, ``in``,
 ``matches``, ``starts with``,
 ``ends with``, ``has some``,
 ``has every``
-``..``                         25                                  Range of values
-``+``, ``-``                   30                                  Addition and subtraction on numbers
-``~``                          40                                  String concatenation
-``not``                        50                                  Negates a statement
-``*``, ``/``, ``//``, ``%``    60                                  Arithmetic operations on numbers
-``is``, ``is not``             100                                 Tests
-``**``                         200                                 Raises a number to the power of another
-``??``                         300                                 Default value when a variable is null
-``+``, ``-``                   500                                 Unary operations on numbers
-``|``,``[]``,``.``             -                                   Filters, sequence, mapping, and attribute access
+``..``                         25                                  Діапазон значень
+``+``, ``-``                   30                                  Додавання та віднімання з числами
+``~``                          40                                  Конкатенація рядків
+``not``                        50                                  Заперечує твердження
+``*``, ``/``, ``//``, ``%``    60                                  Арифметичні операції з числами
+``is``, ``is not``             100                                 Темти
+``**``                         200                                 Підносить число до ступеня іншого числа
+``??``                         300                                 Значення за замовчуванням коли змінна є null
+``+``, ``-``                   500                                 Унарні операції з числами
+``|``,``[]``,``.``             -                                   Доступ до фільтрів, послідовностей, відображень та                                                                         атрибутів
 =============================  =================================== =====================================================
 
-Without using any parentheses, the operator precedence rules are used to
-determine how to convert the code to PHP:
+Без використання круглих дужок, правила пріоритету операторів використовуються для того, щоб
+визначити, як перетворити код на PHP:
 
 .. code-block:: twig
 
     {{ 6 b-and 2 or 6 b-and 16 }}
 
-    {# it is converted to the following PHP code: (6 & 2) || (6 & 16) #}
+    {# перетворюється на наступний код PHP: (6 & 2) || (6 & 16) #}
 
-Change the default precedence by explicitly grouping expressions with parentheses:
+Змініть пріоритет за замовчуванням, явно згрупувавши вирази за допомогою круглих дужок:
 
 .. code-block:: twig
 
@@ -878,38 +857,37 @@ Change the default precedence by explicitly grouping expressions with parenthese
 
     {{ greeting ~ name|lower }}   {# Hello fabien #}
 
-    {# use parenthesis to change precedence #}
+    {# використовувати круглі дужки для зміни пріоритету #}
     {{ (greeting ~ name)|lower }} {# hello fabien #}
 
-.. _templates-whitespace-control:
+.. _templates-whitespace-control-uk:
 
-Whitespace Control
-------------------
+Управління пробілами
+--------------------
 
-The first newline after a template tag is removed automatically (like in PHP).
-Whitespace is not further modified by the template engine, so each whitespace
-(spaces, tabs, newlines etc.) is returned unchanged.
+Перший новий рядок після тегу шаблону видаляється автоматично (як в PHP).
+Пробіли не модифікуються движком шаблону, тому кожен пробіл (пробіл, табуляція, 
+новий рядок тощо) повертається без змін.
 
-You can also control whitespace on a per tag level. By using the whitespace
-control modifiers on your tags, you can trim leading and or trailing whitespace.
+Ви також можете управляти пробілами на рівні тегів. Використовуючи модифікатори управління пробілами
+ви можете обрізати пробіли на початку та в кінці тегів.
 
-Twig supports two modifiers:
+Twig підтримує два модифікатори:
 
-* *Whitespace trimming* via the ``-`` modifier: Removes all whitespace
-  (including newlines);
+* *Обрізання пробілів* за допомогою модифікатора ``-``: Видаляє всі пробіли
+  (включно з новими рядками); 
+* *Видалення пробілів в рядку* через модифікатор ``-``: Видаляє всі пробіли
+  (за винятком нових рядків). Використання цього модифікатора праворуч вимикає стандартне
+  видалення першого нового рядка, успадкованого від PHP.
 
-* *Line whitespace trimming* via the ``~`` modifier: Removes all whitespace
-  (excluding newlines). Using this modifier on the right disables the default
-  removal of the first newline inherited from PHP.
-
-The modifiers can be used on either side of the tags like in ``{%-`` or ``-%}``
-and they consume all whitespace for that side of the tag. It is possible to use
-the modifiers on one side of a tag or on both sides:
+Модифікатори можна використовувати з обох боків тегів, як у ``{%-`` або ``-%}``
+і вони поглинають усі пробіли з цього боку тегу. Можна використовувати
+модифікатори з одного боку тегу або з обох боків:
 
 .. code-block:: html+twig
 
     {% set value = 'no spaces' %}
-    {#- No leading/trailing whitespace -#}
+    {#- Без пробілів на початку та в кінці -#}
     {%- if true -%}
         {{- value -}}
     {%- endif -%}
@@ -917,20 +895,20 @@ the modifiers on one side of a tag or on both sides:
 
     <li>
         {{ value }}    </li>
-    {# outputs '<li>\n    no spaces    </li>' #}
+    {# виводить '<li>\n    no spaces    </li>' #}
 
     <li>
         {{- value }}    </li>
-    {# outputs '<li>no spaces    </li>' #}
+    {# виводить '<li>no spaces    </li>' #}
 
     <li>
         {{~ value }}    </li>
-    {# outputs '<li>\nno spaces    </li>' #}
+    {# виводить '<li>\nno spaces    </li>' #}
 
 .. tip::
 
-    In addition to the whitespace modifiers, Twig also has a ``spaceless`` filter
-    that removes whitespace **between HTML tags**:
+    На додаток до модифікаторів пробілів, Twig також має фільтр ``spaceless``, 
+    який видаляє пробіли **між тегами HTML**:
 
     .. code-block:: html+twig
 
@@ -942,24 +920,24 @@ the modifiers on one side of a tag or on both sides:
 
         {# output will be <div><strong>foo bar</strong></div> #}
 
-Extensions
+Розширення
 ----------
 
-Twig can be extended. If you want to create your own extensions, read the
-:ref:`Creating an Extension <creating_extensions>` chapter.
+Twig можна розширювати. Якщо ви бажаєте створити власні розширення, прочитайте розділ
+:ref:`Створення розширення <creating_extensions>`.
 
-.. _`Twig bundle`:                https://github.com/uhnomoli/PHP-Twig.tmbundle
-.. _`vim-twig plugin`:            https://github.com/lumiliet/vim-twig
-.. _`Twig plugin`:                https://github.com/pulse00/Twig-Eclipse-Plugin
-.. _`Twig language definition`:   https://github.com/gabrielcorpse/gedit-twig-template-language
-.. _`Twig syntax mode`:           https://github.com/bobthecow/Twig-HTML.mode
-.. _`other Twig syntax mode`:     https://github.com/muxx/Twig-HTML.mode
-.. _`Notepad++ Twig Highlighter`: https://github.com/Banane9/notepadplusplus-twig
-.. _`web-mode.el`:                https://web-mode.org/
-.. _`regular expressions`:        https://www.php.net/manual/en/pcre.pattern.php
-.. _`PHP-twig for atom`:          https://github.com/reesef/php-twig
-.. _`TwigFiddle`:                 https://twigfiddle.com/
-.. _`Twig pack`:                  https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-twig-pack
-.. _`Modern Twig`:                https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-twig
-.. _`Twig Language Server`:       https://github.com/kaermorchen/twig-language-server/tree/master/packages/language-server
-.. _`Twiggy`:                     https://marketplace.visualstudio.com/items?itemName=moetelo.twiggy
+.. _`пакет Twig`:                      https://github.com/uhnomoli/PHP-Twig.tmbundle
+.. _`плагін vim-twig`:                 https://github.com/lumiliet/vim-twig
+.. _`плагін Twig`:                     https://github.com/pulse00/Twig-Eclipse-Plugin
+.. _`визначення мови Twig`:            https://github.com/gabrielcorpse/gedit-twig-template-language
+.. _`режим синтаксису Twig`:           https://github.com/bobthecow/Twig-HTML.mode
+.. _`інший режим синтаксису Twig`:     https://github.com/muxx/Twig-HTML.mode
+.. _`Notepad++ Twig Highlighter`:      https://github.com/Banane9/notepadplusplus-twig
+.. _`web-mode.el`:                     https://web-mode.org/
+.. _`регулярні вирази`:                https://www.php.net/manual/en/pcre.pattern.php
+.. _`PHP-twig для atom`:               https://github.com/reesef/php-twig
+.. _`TwigFiddle`:                      https://twigfiddle.com/
+.. _`Twig pack`:                       https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-twig-pack
+.. _`Modern Twig`:                     https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-twig
+.. _`сервера мови Twigr`:              https://github.com/kaermorchen/twig-language-server/tree/master/packages/language-server
+.. _`Twiggy`:                          https://marketplace.visualstudio.com/items?itemName=moetelo.twiggy
