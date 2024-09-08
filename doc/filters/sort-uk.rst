@@ -1,7 +1,7 @@
 ``sort``
 ========
 
-The ``sort`` filter sorts sequences and mappings:
+Фільтр ``sort`` сортує послідовності та відображення:
 
 .. code-block:: twig
 
@@ -11,11 +11,10 @@ The ``sort`` filter sorts sequences and mappings:
 
 .. note::
 
-    Internally, Twig uses the PHP `asort`_ function to maintain index
-    association. It supports Traversable objects by transforming
-    those to arrays.
+    Внутрішньо Twig використовує PHP-функцію `asort`_ для обслуговування асоціації 
+    індексів. Вона підтримує об'єкти Traversable, перетворюючи їх на масиви.
 
-You can pass an arrow function to configure the sorting:
+Ви можете передати функцію стрілки, щоб сконфігурувати сортування:
 
 .. code-block:: html+twig
 
@@ -29,14 +28,14 @@ You can pass an arrow function to configure the sorting:
         {{ fruit }}
     {% endfor %}
 
-    {# output in this order: Oranges, Grapes, Apples #}
+    {# виведення в такому порядку: Oranges, Grapes, Apples #}
 
-Note the usage of the `spaceship`_ operator to simplify the comparison.
+Зверніть увагу на використання оператора `spaceship`_ для спрощення порівняння.
 
-Arguments
+Аргументи
 ---------
 
-* ``arrow``: An arrow function
+* ``arrow``: Функція стрілки
 
 .. _`asort`: https://www.php.net/asort
 .. _`spaceship`: https://www.php.net/manual/en/language.operators.comparison.php
