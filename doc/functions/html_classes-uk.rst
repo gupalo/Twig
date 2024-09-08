@@ -1,8 +1,7 @@
 ``html_classes``
 ================
 
-The ``html_classes`` function returns a string by conditionally joining class
-names together:
+Функція ``html_classes`` повертає рядок, умовно об'єднуючи імена класів разом:
 
 .. code-block:: html+twig
 
@@ -14,20 +13,20 @@ names together:
 
 .. note::
 
-    The ``html_classes`` function is part of the ``HtmlExtension`` which is not
-    installed by default. Install it first:
+    Функція ``html_classes`` є частиною ``HtmlExtension``, яке не встановлена за 
+    замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/html-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Html\HtmlExtension;
 
