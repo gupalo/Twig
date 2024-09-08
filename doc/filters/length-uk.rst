@@ -1,18 +1,19 @@
 ``length``
 ==========
 
-The ``length`` filter returns the number of items of a sequence or mapping, or
-the length of a string.
+Фільтр ``length`` повертає кількість елементів послідовності чи відображення, або
+довжину рядка.
 
-For objects that implement the ``Countable`` interface, ``length`` will use the
-return value of the ``count()`` method.
+Для об'єктів, що реалізують інтерфейс ``Countable``, ``length`` буде використовувати значення,
+що повертається методом ``count()``.
 
-For objects that implement the ``__toString()`` magic method (and not ``Countable``),
-it will return the length of the string provided by that method.
+Для об'єктів, що реалізують магічний метод ``__toString()`` (а не ``Countable``),
+він поверне довжину рядка, наданого цим методом.
 
-For objects that implement the ``Traversable`` interface, ``length`` will use the return value of the ``iterator_count()`` method.
+Для об'єктів, що реалізують інтерфейс ``Traversable``, ``length`` використовуватиме значення,
+що повертається методом ``iterator_count()``.
 
-For strings, `mb_strlen()`_ is used.
+Для рядків використовується `mb_strlen()`_.
 
 .. code-block:: twig
 
