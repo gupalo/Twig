@@ -1,7 +1,7 @@
 ``inline_css``
 ==============
 
-The ``inline_css`` filter inline CSS styles in HTML documents:
+Фільтр ``inline_css`` фільтрує вбудовані CSS-стилі в HTML-документах:
 
 .. code-block:: html+twig
 
@@ -18,7 +18,7 @@ The ``inline_css`` filter inline CSS styles in HTML documents:
         </html>
     {% endapply %}
 
-You can also add some stylesheets by passing them as arguments to the filter:
+Ви також можете додати деякі таблиці стилів, передавши їх як аргументи до фільтра:
 
 .. code-block:: html+twig
 
@@ -30,10 +30,10 @@ You can also add some stylesheets by passing them as arguments to the filter:
         </html>
     {% endapply %}
 
-Styles loaded via the filter override the styles defined in the ``<style>`` tag
-of the HTML document.
+Стилі, завантажені через фільтр, перевизначають стилі, визначені в тегу ``<style>``
+HTML-документа.
 
-You can also use the filter on an included file:
+Ви також можете використовувати фільтр у включеному файлі:
 
 .. code-block:: twig
 
@@ -41,24 +41,24 @@ You can also use the filter on an included file:
 
     {{ include('some_template.html.twig')|inline_css(source("some_styles.css")) }}
 
-Note that the CSS inliner works on an entire HTML document, not a fragment.
+Зверніть увагу, що CSS-інлайнер працює з цілим HTML-документом, а не з його фрагментом.
 
 .. note::
 
-    The ``inline_css`` filter is part of the ``CssInlinerExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``inline_css`` є частиною розширення ``CssInlinerExtension``, яке не
+    встановлений за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/cssinliner-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\CssInliner\CssInlinerExtension;
 
