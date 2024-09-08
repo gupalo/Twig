@@ -1,8 +1,7 @@
 ``with``
 ========
 
-Use the ``with`` tag to create a new inner scope. Variables set within this
-scope are not visible outside of the scope:
+Використовуйте тег ``with`` для створення нової внутрішньої області видимості. Змінні, визначені у цій області видимості невидимі за її межами:
 
 .. code-block:: twig
 
@@ -12,9 +11,9 @@ scope are not visible outside of the scope:
     {% endwith %}
     foo is not visible here any longer
 
-Instead of defining variables at the beginning of the scope, you can pass a
-mapping of variables you want to define in the ``with`` tag; the previous
-example is equivalent to the following one:
+Замість визначення змінних на початку області видимості, ви можете передати
+відображення змінних, які ви хочете визначити, у тег ``with``; попередній приклад
+еквівалентний наступному:
 
 .. code-block:: twig
 
@@ -23,19 +22,19 @@ example is equivalent to the following one:
     {% endwith %}
     foo is not visible here any longer
 
-    {# it works with any expression that resolves to a mapping #}
+    {# працює з будь-яким виразом, який призводить до відображення #}
     {% set vars = {foo: 42} %}
     {% with vars %}
         ...
     {% endwith %}
 
-By default, the inner scope has access to the outer scope context; you can
-disable this behavior by appending the ``only`` keyword:
+За замовчуванням, внутрішня область видимості має доступ до контексту зовнішньої області видимості; ви можете
+вимкнути цю поведінку, додавши ключове слово ``only``:
 
 .. code-block:: twig
 
     {% set bar = 'bar' %}
     {% with {foo: 42} only %}
-        {# only foo is defined #}
-        {# bar is not defined #}
+        {# визначено тільки foo #}
+        {# bar не визначено #}
     {% endwith %}
