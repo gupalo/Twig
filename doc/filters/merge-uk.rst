@@ -1,9 +1,9 @@
 ``merge``
 =========
 
-The ``merge`` filter merges sequences and mappings:
+Фільтр ``merge`` об'єднує послідовності та відображення:
 
-For sequences, new values are added at the end of the existing ones:
+Для послідовностей нові значення додаються в кінці існуючих:
 
 .. code-block:: twig
 
@@ -11,11 +11,10 @@ For sequences, new values are added at the end of the existing ones:
 
     {% set values = values|merge(['apple', 'orange']) %}
 
-    {# values now contains [1, 2, 'apple', 'orange'] #}
+    {# значення тепер містять [1, 2, 'apple', 'orange'] #}
 
-For mappings, the merging process occurs on the keys; if the key does not
-already exist, it is added but if the key already exists, its value is
-overridden:
+Для відображень процес злиття відбувається по ключах; якщо ключ ще не існує, він 
+додається, але якщо ключ вже існує, його значення перевизначається:
 
 .. code-block:: twig
 
@@ -23,12 +22,12 @@ overridden:
 
     {% set items = items|merge({ 'peugeot': 'car', 'renault': 'car' }) %}
 
-    {# items now contains {'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car', 'renault': 'car'} #}
+    {# елементи тепер містять {'apple': 'fruit', 'orange': 'fruit', 'peugeot': 'car', 'renault': 'car'} #}
 
 .. tip::
 
-    If you want to ensure that some values are defined in a mapping (by given
-    default values), reverse the two elements in the call:
+    Якщо ви хочете гарантувати, що деякі значення будуть визначені у відображенні 
+    (за заданими значеннями за замовчуванням), поміняйте місцями два елементи у виклику:
 
     .. code-block:: twig
 
@@ -36,11 +35,11 @@ overridden:
 
         {% set items = {'apple': 'unknown'}|merge(items) %}
 
-        {# items now contains {'apple': 'fruit', 'orange': 'fruit'} #}
+        {# елементи тепер містять {'apple': 'fruit', 'orange': 'fruit'} #}
 
 .. note::
 
-    Internally, Twig uses the PHP `array_merge`_ function. It supports
-    Traversable objects by transforming those to arrays.
+    Внутрішньо Twig використовує PHP-функцію `array_merge`_. Вона підтримує
+    об'єкти Traversable, перетворюючи їх на масиви.
 
 .. _`array_merge`: https://www.php.net/array_merge
