@@ -1,14 +1,14 @@
 ``format_currency``
 ===================
 
-The ``format_currency`` filter formats a number as a currency:
+Фільтр ``format_currency`` форматує число у валюту:
 
 .. code-block:: twig
 
     {# €1,000,000.00 #}
     {{ '1000000'|format_currency('EUR') }}
 
-You can pass attributes to tweak the output:
+Ви можете передати атрибути, щоб налаштувати виведення:
 
 .. code-block:: twig
 
@@ -18,7 +18,7 @@ You can pass attributes to tweak the output:
     {# €1,000,000.0000 #}
     {{ '1000000'|format_currency('EUR', {fraction_digit: 4}) }}
 
-The list of supported options:
+Список підтримуваних опцій:
 
 * ``grouping_used``;
 * ``decimal_always_shown``;
@@ -40,7 +40,7 @@ The list of supported options:
 * ``max_significant_digits_used``;
 * ``lenient_parse``.
 
-By default, the filter uses the current locale. You can pass it explicitly:
+За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
 
 .. code-block:: twig
 
@@ -49,29 +49,29 @@ By default, the filter uses the current locale. You can pass it explicitly:
 
 .. note::
 
-    The ``format_currency`` filter is part of the ``IntlExtension`` which is not
-    installed by default. Install it first:
+    Фільтр ``format_currency`` є частиною ``IntlExtension``, яке не
+    встановлено за замовчуванням. Спочатку встановіть його:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Then, on Symfony projects, install the ``twig/extra-bundle``:
+    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Otherwise, add the extension explicitly on the Twig environment::
+    В інших випадках, додайте розширення явно у середовищі Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Arguments
+Аргументи
 ---------
 
-* ``currency``: The currency
-* ``attrs``: A map of attributes
-* ``locale``: The locale
+* ``currency``: Валюта
+* ``attrs``: Мапа атрибутів
+* ``locale``: Локаль
