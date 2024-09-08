@@ -3,9 +3,9 @@
 
 .. versionadded:: 3.12
 
-    The ``enum_cases`` function was added in Twig 3.12.
+    Функція ``enum_cases`` була представлена в Twig 3.12.
 
-``enum_cases`` returns the list of cases for a given enum:
+``enum_cases`` повертає список випадків для заданого зчислення:
 
 .. code-block:: twig
 
@@ -13,9 +13,9 @@
         {{ case.value }}
     {% endfor %}
 
-When using a string literal for the ``enum`` argument, it will be validated during compile time to be a valid enum name.
+Якщо ви використовуєте рядковий літерал для аргументу ``enum``, то під час компіляції він буде перевірений як валідне ім'я зчислення.
 
-Arguments
+Аргументи
 ---------
 
-* ``enum``: The FQCN of the enum
+* ``enum``: FQCN зчислення
