@@ -1,8 +1,8 @@
 ``constant``
 ============
 
-``constant`` checks if a variable has the exact same value as a constant. You
-can use either global constants or class constants:
+``constant`` перевіряє, чи змінна має точно таке ж значення, як і константа. Ви
+можете використовувати як глобальні константи, так і константи класу:
 
 .. code-block:: twig
 
@@ -10,7 +10,7 @@ can use either global constants or class constants:
         the status attribute is exactly the same as Post::PUBLISHED
     {% endif %}
 
-You can test constants from object instances as well:
+Ви також можете тестувати константи з екземплярів об'єктів:
 
 .. code-block:: twig
 
