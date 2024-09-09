@@ -1,9 +1,9 @@
 ``if``
 ======
 
-The ``if`` statement in Twig is comparable with the if statements of PHP.
+Твердження ``if`` у Twig можна порівняти з твердженнями if у PHP.
 
-In the simplest form you can use it to test if an expression evaluates to
+У найпростішій формі ви можете використовувати його для перевірки того, чи вираз обчислюється як
 ``true``:
 
 .. code-block:: html+twig
@@ -12,7 +12,7 @@ In the simplest form you can use it to test if an expression evaluates to
         <p>Our website is in maintenance mode. Please, come back later.</p>
     {% endif %}
 
-You can also test if a sequence or a mapping is not empty:
+Ви також можете протестувати, чи послідовність або відображення не є порожніми:
 
 .. code-block:: html+twig
 
@@ -26,9 +26,9 @@ You can also test if a sequence or a mapping is not empty:
 
 .. note::
 
-    If you want to test if the variable is defined, use ``if users is defined`` instead.
+   Якщо ви хочете протестувати, чи визначено змінну, використовуйте ``if users is defined`` замість цього.
 
-You can also use ``not`` to check for values that evaluate to ``false``:
+Ви також можете використовувати ``not`` для перевірки значень, які мають значення ``false``:
 
 .. code-block:: html+twig
 
@@ -36,7 +36,7 @@ You can also use ``not`` to check for values that evaluate to ``false``:
         <p>You are not subscribed to our mailing list.</p>
     {% endif %}
 
-For multiple conditions, ``and`` and ``or`` can be used:
+Для декількох умов можна використовувати ``and`` та ``or``:
 
 .. code-block:: html+twig
 
@@ -44,8 +44,8 @@ For multiple conditions, ``and`` and ``or`` can be used:
         <p>It's a nice day for a walk in the park.</p>
     {% endif %}
 
-For multiple branches ``elseif`` and ``else`` can be used like in PHP. You can
-use more complex ``expressions`` there too:
+Для декількох гілок можна використовувати ``elseif`` та ``else``, як у PHP. Ви також можете
+використовувати більш складні ``expressions``:
 
 .. code-block:: twig
 
@@ -59,22 +59,22 @@ use more complex ``expressions`` there too:
 
 .. note::
 
-    The rules to determine if an expression is ``true`` or ``false`` are the
-    same as in PHP; here are the edge cases rules:
+    Правила визначення того, чи є вираз ``true`` або ``false`` такі ж, як і в
+    PHP; тут наведено правила для межевих випадків:
 
-    ====================== ====================
-    Value                  Boolean evaluation
-    ====================== ====================
-    empty string           false
-    numeric zero           false
-    NAN (Not A Number)     true
-    INF (Infinity)         true
-    whitespace-only string true
-    string "0" or '0'      false
-    empty sequence         false
-    empty mapping          false
-    null                   false
-    non-empty sequence     true
-    non-empty mapping      true
-    object                 true
-    ====================== ====================
+    ======================== ====================
+    Значення                 Булева оцінка
+    ======================== ====================
+    порожній рядок           false
+    числовий нуль            false
+    NAN (не число)           true
+    INF (безкінечність)      true
+    рядок тільки з пробілами true
+    рядок "0" або '0'        false
+    порожня послідовність    false
+    порожнє відображення     false
+    null                     false
+    непорожня послідовність  true
+    непорожнє відображення   true
+    обʼєкт                   true
+    ======================== ====================
