@@ -3,13 +3,13 @@
 
 .. versionadded:: 3.13
 
-    The ``types`` tag was added in Twig 3.13. This tag is **experimental** and can change based on usage and feedback.
+    Тег ``types`` було представлено в Twig 3.13. Цей тег є **експериментальним** і може змінюватися залежно від  використання та відгуків.
 
-The ``types`` tag declares the types of template variables.
+Тег ``types`` оголошує типи змінних шаблону.
 
-To do this, specify a :ref:`mapping <twig-expressions>` of names to their types as strings.
+Для цього потрібно вказати :ref:`відображення <twig-expressions>` імен на їхні типи у вигляді рядків.
 
-Here is how to declare that ``foo`` is a boolean, while ``bar`` is an integer (see note below):
+Ось як оголосити, що ``foo`` є булевим, а ``bar`` - цілим числом (див. примітку нижче):
 
 .. code-block:: twig
 
@@ -18,7 +18,7 @@ Here is how to declare that ``foo`` is a boolean, while ``bar`` is an integer (s
         bar: 'int',
     } %}
 
-You can declare variables as optional by adding the ``?`` suffix:
+Ви можете оголосити змінні необов'язковими, додавши суфікс ``?``:
 
 .. code-block:: twig
 
@@ -27,15 +27,15 @@ You can declare variables as optional by adding the ``?`` suffix:
         bar?: 'int',
     } %}
 
-By default, this tag does not affect the template compilation or runtime behavior.
+За замовчуванням цей тег не впливає на компіляцію шаблону або поведінку під час виконання.
 
-Its purpose is to enable designers and developers to document and specify the context's available
-and/or required variables. While Twig itself does not validate variables or their types, this tag enables extensions
-to do this.
+Його мета - дати можливість дизайнерам та розробникам документувати і вказувати доступні
+та/або необхідні змінні контексту. Хоча сам Twig не перевіряє змінні або їхні типи, цей тег
+дозволяє розширенням робити це.
 
-Additionally, :ref:`Twig extensions <creating_extensions>` can analyze these tags to perform compile-time and
-runtime analysis of templates.
+Крім того, :ref:`розширення Twig <creating_extensions>` може аналізувати ці теги для 
+виконання аналізу шаблонів під час компіляції та виконання.
 
 .. note::
 
-    The syntax for and contents of type strings are intentionally left out of scope.
+    Синтаксис та зміст рядків типів навмисно винесено за область дії.
