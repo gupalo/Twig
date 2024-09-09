@@ -1,14 +1,14 @@
 ``empty``
 =========
 
-``empty`` checks if a variable is an empty string, an empty sequence, an empty
-mapping, exactly ``false``, or exactly ``null``.
+``empty`` перевіряє, чи є змінна порожнім рядком, порожньою послідовністю, порожнім відображенням,
+рівно ``false`` або рівно ``null``.
 
-For objects that implement the ``Countable`` interface, ``empty`` will check the
-return value of the ``count()`` method.
+Для об'єктів, що реалізують інтерфейс ``Countable``, ``empty`` перевірить
+значення, що повертається, методом ``count()``.
 
-For objects that implement the ``__toString()`` magic method (and not ``Countable``),
-it will check if an empty string is returned.
+Для об'єктів, що реалізують магічний метод ``__toString()`` (а не ``Countable``),
+він перевірить, чи повертається порожній рядок.
 
 .. code-block:: twig
 
