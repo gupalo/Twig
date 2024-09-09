@@ -1,8 +1,8 @@
 ``for``
 =======
 
-Loop over each item in a sequence or a mapping. For example, to display a list
-of users provided in a variable called ``users``:
+Циклічно переглядайте кожен елемент у послідовності або відображенні. Наприклад, щоб
+відобразити список користувачів, наданий у змінній з назвою ``users``:
 
 .. code-block:: html+twig
 
@@ -15,11 +15,10 @@ of users provided in a variable called ``users``:
 
 .. note::
 
-    A sequence or a mapping can be either an array or an object implementing
-    the ``Traversable`` interface.
+    Послідовність або відображення може бути як масивом, так і об'єктом, що реалізує
+    інтерфейс ``Traversable``.
 
-If you do need to iterate over a sequence of numbers, you can use the ``..``
-operator:
+Якщо вам потрібно виконати ітерацію над послідовністю чисел, ви можете використати оператор ``..``:
 
 .. code-block:: twig
 
@@ -27,9 +26,9 @@ operator:
         * {{ i }}
     {% endfor %}
 
-The above snippet of code would print all numbers from 0 to 10.
+Наведений вище фрагмент коду виведе всі числа від 0 до 10.
 
-It can be also useful with letters:
+Це також може бути корисним для літер:
 
 .. code-block:: twig
 
@@ -37,7 +36,7 @@ It can be also useful with letters:
         * {{ letter }}
     {% endfor %}
 
-The ``..`` operator can take any expression at both sides:
+Оператор ``..`` може приймати будь-який вираз з обох сторін:
 
 .. code-block:: twig
 
@@ -47,25 +46,25 @@ The ``..`` operator can take any expression at both sides:
 
 .. tip::
 
-    If you need a step different from 1, you can use the ``range`` function
-    instead.
+    Якщо вам потрібен крок, відмінний від 1, ви можете використати функцію ``range``
+    замість цього.
 
-The ``loop`` variable
----------------------
+Змінна ``loop``
+---------------
 
-Inside of a ``for`` loop block you can access some special variables:
+Усередині блоку циклу ``for`` ви можете отримати доступ до деяких спеціальних змінних:
 
 ===================== =============================================================
-Variable              Description
+Змінна                Опис
 ===================== =============================================================
-``loop.index``        The current iteration of the loop. (1 indexed)
-``loop.index0``       The current iteration of the loop. (0 indexed)
-``loop.revindex``     The number of iterations from the end of the loop (1 indexed)
-``loop.revindex0``    The number of iterations from the end of the loop (0 indexed)
-``loop.first``        True if first iteration
-``loop.last``         True if last iteration
-``loop.length``       The number of items in the sequence
-``loop.parent``       The parent context
+``loop.index``        Поточна ітерація циклу (індексується 1)
+``loop.index0``       Поточна ітерація циклу (індексується 0)
+``loop.revindex``     Кількість ітерацій від кінця циклу (індексується 1)
+``loop.revindex0``    Кількість ітерацій від кінця циклу (індексується 0)
+``loop.first``        True, якщо це перша ітерація
+``loop.last``         True, якщо це остання ітерація
+``loop.length``       Кількість елементів у послідовності
+``loop.parent``       Батьківський контекст
 ===================== =============================================================
 
 .. code-block:: twig
