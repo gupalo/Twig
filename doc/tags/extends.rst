@@ -1,16 +1,16 @@
 ``extends``
 ===========
 
-The ``extends`` tag can be used to extend a template from another one.
+Тег ``extends`` можна використовувати для розширення шаблону з іншого шаблону.
 
 .. note::
 
-    Like PHP, Twig does not support multiple inheritance. So you can only have
-    one extends tag called per rendering. However, Twig supports horizontal
-    :doc:`reuse<use>`.
+    Як і PHP, Twig не підтримує множинну спадковість. Отже, ви можете мати лише
+    один тег extends, який викликається для кожного відображення. Однак, Twig
+    підтримує горизонтальне :doc:`повторне використання<use>`.
 
-Let's define a base template, ``base.html``, which defines a simple HTML
-skeleton document:
+Давайте визначимо базовий шаблон ``base.html``, який визначає простий 
+скелет HTML-документа:
 
 .. code-block:: html+twig
 
@@ -32,16 +32,16 @@ skeleton document:
         </body>
     </html>
 
-In this example, the :doc:`block<block>` tags define four blocks that child
-templates can fill in.
+У цьому прикладі теги :doc:`block<block>` визначають чотири блоки, які можуть заповнювати
+дочірні шаблони.
 
-All the ``block`` tag does is to tell the template engine that a child
-template may override those portions of the template.
+Тег ``block`` вказує движку шаблонів, що дочірній шаблон може перевизначити ці частини
+шаблону.
 
-Child Template
---------------
+Дочірній шаблон
+---------------
 
-A child template might look like this:
+Дочірній шаблон може виглядати так:
 
 .. code-block:: html+twig
 
@@ -61,23 +61,21 @@ A child template might look like this:
         </p>
     {% endblock %}
 
-The ``extends`` tag is the key here. It tells the template engine that this
-template "extends" another template. When the template system evaluates this
-template, first it locates the parent. The extends tag should be the first tag
-in the template.
+Ключовим тут є тег ``extends``. Він повідомляє движку шаблонів, що цей
+шаблон "розширює" інший шаблон. Коли система шаблонів оцінює цей
+шаблон, спочатку вона знаходить батьківський. Тег extends повинен бути першим тегом
+у шаблоні.
 
-Note that since the child template doesn't define the ``footer`` block, the
-value from the parent template is used instead.
+Зауважте, що оскільки дочірній шаблон не визначає блок ``footer``, 
+замість нього використовується значення з батьківського шаблону.
 
-You can't define multiple ``block`` tags with the same name in the same
-template. This limitation exists because a block tag works in "both"
-directions. That is, a block tag doesn't just provide a hole to fill - it also
-defines the content that fills the hole in the *parent*. If there were two
-similarly-named ``block`` tags in a template, that template's parent wouldn't
-know which one of the blocks' content to use.
+Ви не можете визначити декілька тегів ``block`` з однаковими іменами в одному
+шаблоні. Це обмеження існує тому, що блок-тег працює в "обох" напрямках. 
+Тобто, тег блоку не просто надає прогалину для заповнення - він також
+визначає зміст, який заповнює прогалину в *батькові*. Якби у шаблоні існувало два
+однойменних теги ``block``, батько шаблону не знатиме, зміст якого з блоків використовувати.
 
-If you want to print a block multiple times you can however use the
-``block`` function:
+Якщо ви хочете вивести блок декілька разів, ви можете використати функцію ``block``:
 
 .. code-block:: html+twig
 
@@ -85,12 +83,12 @@ If you want to print a block multiple times you can however use the
     <h1>{{ block('title') }}</h1>
     {% block body %}{% endblock %}
 
-Parent Blocks
--------------
+Батьківські блоки
+-----------------
 
-It's possible to render the contents of the parent block by using the
-:doc:`parent<../functions/parent>` function. This gives back the results of
-the parent block:
+Відобразити зміст батьківського блоку можна за допомогою функції
+:doc:`parent<../functions/parent>`. Вона повертає результати 
+батьківського блоку:
 
 .. code-block:: html+twig
 
@@ -100,11 +98,11 @@ the parent block:
         {{ parent() }}
     {% endblock %}
 
-Named Block End-Tags
---------------------
+Іменовані кінцеві теги блоків
+-----------------------------
 
-Twig allows you to put the name of the block after the end tag for better
-readability (the name after the ``endblock`` word must match the block name):
+Twig дозволяє розміщувати ім'я блоку після кінцевого тегу для кращої
+читабельності ( ім'я після слова ``endblock`` має збігатися з ім'ям блоку):
 
 .. code-block:: twig
 
@@ -114,11 +112,11 @@ readability (the name after the ``endblock`` word must match the block name):
         {% endblock inner_sidebar %}
     {% endblock sidebar %}
 
-Block Nesting and Scope
------------------------
+Вкладеність та область дії блоку
+--------------------------------
 
-Blocks can be nested for more complex layouts. Per default, blocks have access
-to variables from outer scopes:
+Блоки можна вкладати для більш складних макетів. За замовчуванням блоки мають доступ
+до змінних із зовнішніх областей видимості:
 
 .. code-block:: html+twig
 
@@ -126,11 +124,11 @@ to variables from outer scopes:
         <li>{% block loop_item %}{{ item }}{% endblock %}</li>
     {% endfor %}
 
-Block Shortcuts
----------------
+Скорочення блоків
+-----------------
 
-For blocks with little content, it's possible to use a shortcut syntax. The
-following constructs do the same thing:
+Для блоків з невеликим змістом можна використовувати синтаксис скороченого коду. 
+Наступні конструкції роблять одне і те ж саме:
 
 .. code-block:: twig
 
@@ -142,17 +140,17 @@ following constructs do the same thing:
 
     {% block title page_title|title %}
 
-Dynamic Inheritance
--------------------
+Динамічне успадкування
+----------------------
 
-Twig supports dynamic inheritance by using a variable as the base template:
+Twig підтримує динамічне успадкування, використовуючи змінну як базовий шаблон:
 
 .. code-block:: twig
 
     {% extends some_var %}
 
-If the variable evaluates to a ``\Twig\Template`` or a ``\Twig\TemplateWrapper``
-instance, Twig will use it as the parent template::
+Якщо змінна призводиться до ``\Twig\Template`` або ``\Twig\TemplateWrapper``,
+то Twig буде використовувати її як батьківський шаблон::
 
     // {% extends layout %}
 
@@ -160,35 +158,34 @@ instance, Twig will use it as the parent template::
 
     $twig->display('template.twig', ['layout' => $layout]);
 
-You can also provide a list of templates that are checked for existence. The
-first template that exists will be used as a parent:
+Ви також можете вказати список шаблонів, які перевіряються на існування. Перший 
+знайдений шаблон буде використано як батьківський:
 
 .. code-block:: twig
 
     {% extends ['layout.html', 'base_layout.html'] %}
 
-Conditional Inheritance
------------------------
+Умовне успадкування
+-------------------
 
-As the template name for the parent can be any valid Twig expression, it's
-possible to make the inheritance mechanism conditional:
+Оскільки ім'я шаблону для батька може бути будь-яким валідним виразом Twig, то
+можна зробити механізм успадкування умовним:
 
 .. code-block:: twig
 
     {% extends standalone ? "minimum.html" : "base.html" %}
 
-In this example, the template will extend the "minimum.html" layout template
-if the ``standalone`` variable evaluates to ``true``, and "base.html"
-otherwise.
+У цьому прикладі шаблон розширить шаблон макета "minimum.html",
+якщо змінна ``standalone`` має значення ``true``, і «base.html» - в іншому випадку.
 
-How do blocks work?
--------------------
+Як працюють блоки?
+------------------
 
-A block provides a way to change how a certain part of a template is rendered
-but it does not interfere in any way with the logic around it.
+Блок надає можливість змінити спосіб відображення певної частини шаблону, 
+але він ніяк не втручається в логіку роботи шаблону.
 
-Let's take the following example to illustrate how a block works and more
-importantly, how it does not work:
+Розглянемо наступний приклад, щоб проілюструвати, як працює блок і, що важливіше,
+як він не працює:
 
 .. code-block:: html+twig
 
@@ -200,9 +197,9 @@ importantly, how it does not work:
         {% endblock %}
     {% endfor %}
 
-If you render this template, the result would be exactly the same with or
-without the ``block`` tag. The ``block`` inside the ``for`` loop is just a way
-to make it overridable by a child template:
+Якщо ви відобразите цей шаблон, результат буде абсолютно однаковим як з тегом ``lock``,
+так і без нього. Тег ``block`` всередині циклу ``for`` - це лише спосіб зробити його
+перевизначуваним для дочірнього шаблону:
 
 .. code-block:: html+twig
 
@@ -216,9 +213,9 @@ to make it overridable by a child template:
         </article>
     {% endblock %}
 
-Now, when rendering the child template, the loop is going to use the block
-defined in the child template instead of the one defined in the base one; the
-executed template is then equivalent to the following one:
+Тепер при відображенні дочірнього шаблону цикл буде використовувати блок, визначений
+у дочірньому шаблоні, замість визначеного у базовому; виконаний шаблон буде еквівалентний
+наступному:
 
 .. code-block:: html+twig
 
@@ -229,7 +226,7 @@ executed template is then equivalent to the following one:
         </article>
     {% endfor %}
 
-Let's take another example: a block included within an ``if`` statement:
+Розглянемо інший приклад: блок, включений в твердження ``if``:
 
 .. code-block:: html+twig
 
@@ -241,12 +238,12 @@ Let's take another example: a block included within an ``if`` statement:
         {% endblock head %}
     {% endif %}
 
-Contrary to what you might think, this template does not define a block
-conditionally; it just makes overridable by a child template the output of
-what will be rendered when the condition is ``true``.
+На відміну від того, що ви можете подумати, цей шаблон не визначає блок
+умовно; він просто робить так, щоб дочірній шаблон міг перевизначити виведення,
+коли умова буде ``true``.
 
-If you want the output to be displayed conditionally, use the following
-instead:
+Якщо ви хочете, щоб виведення відображалося умовно, використовуйте наступне
+замість цього:
 
 .. code-block:: html+twig
 
