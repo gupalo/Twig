@@ -1,17 +1,17 @@
 ``defined``
 ===========
 
-``defined`` checks if a variable is defined in the current context. This is very
-useful if you use the ``strict_variables`` option:
+``defined`` перевіряє, чи визначено змінну у поточному контексті. Це дуже
+корисно, якщо ви використовуєте опцію ``strict_variables``:
 
 .. code-block:: twig
 
-    {# defined works with variable names #}
+    {# defined працює з іменами змінних #}
     {% if foo is defined %}
         ...
     {% endif %}
 
-    {# and attributes on variables names #}
+    {# та атрибутами в іменах змінних #}
     {% if foo.bar is defined %}
         ...
     {% endif %}
@@ -20,8 +20,8 @@ useful if you use the ``strict_variables`` option:
         ...
     {% endif %}
 
-When using the ``defined`` test on an expression that uses variables in some
-method calls, be sure that they are all defined first:
+При використанні тесту ``defined`` для виразу, який використовує змінні у деяких викликах методів
+методах, переконайтеся, що всі вони попередньо визначені:
 
 .. code-block:: twig
 
