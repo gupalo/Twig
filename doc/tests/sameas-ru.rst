@@ -1,8 +1,8 @@
 ``same as``
 ===========
 
-``same as`` checks if a variable is the same as another variable.
-This is equivalent to ``===`` in PHP:
+``same as`` перевіряє, чи є змінна такою самою, як інша змінна.
+Це еквівалентно ``===`` у PHP:
 
 .. code-block:: twig
 
