@@ -1,24 +1,24 @@
 ``set``
 =======
 
-Inside code blocks you can also assign values to variables. Assignments use
-the ``set`` tag and can have multiple targets.
+Всередині блоків коду ви також можете присвоювати значення змінним. Присвоєння використовують
+тег ``set`` і можуть мати декілька цілей.
 
-Here is how you can assign the ``bar`` value to the ``foo`` variable:
+Ось як можна присвоїти значення ``bar`` змінній ``foo``:
 
 .. code-block:: twig
 
     {% set foo = 'bar' %}
 
-After the ``set`` call, the ``foo`` variable is available in the template like
-any other ones:
+Після виклику ``set`` змінна ``foo`` доступна у шаблоні, як і
+будь-які інші:
 
 .. code-block:: twig
 
     {# displays bar #}
     {{ foo }}
 
-The assigned value can be any valid :ref:`Twig expression
+Значенням, що присвоюється, може бути будь-який валідний :ref:`вираз Twig
 <twig-expressions>`:
 
 .. code-block:: twig
@@ -27,18 +27,18 @@ The assigned value can be any valid :ref:`Twig expression
     {% set foo = {'foo': 'bar'} %}
     {% set foo = 'foo' ~ 'bar' %}
 
-Several variables can be assigned in one block:
+В одному блоці можна присвоювати декілька змінних:
 
 .. code-block:: twig
 
     {% set foo, bar = 'foo', 'bar' %}
 
-    {# is equivalent to #}
+    {# еквівалентно #}
 
     {% set foo = 'foo' %}
     {% set bar = 'bar' %}
 
-The ``set`` tag can also be used to 'capture' chunks of text:
+Тег ``set`` також можна використовувати для 'захоплення' фрагментів тексту:
 
 .. code-block:: html+twig
 
@@ -50,13 +50,13 @@ The ``set`` tag can also be used to 'capture' chunks of text:
 
 .. caution::
 
-    If you enable automatic output escaping, Twig will only consider the
-    content to be safe when capturing chunks of text.
+    Якщо ви увімкнете автоматичне екранування виведення, Twig вважатиме зміст
+    безпечним лише при захопленні фрагментів тексту.
 
 .. note::
 
-    Note that loops are scoped in Twig; therefore a variable declared inside a
-    ``for`` loop is not accessible outside the loop itself:
+    Зауважте, що у Twig цикли мають область видимості, тому змінна, оголошена
+    всередині циклу ``for`` недоступна за межами самого циклу:
 
     .. code-block:: twig
 
@@ -64,9 +64,9 @@ The ``set`` tag can also be used to 'capture' chunks of text:
             {% set foo = item %}
         {% endfor %}
 
-        {# foo is NOT available #}
+        {# foo НЕ є доступною #}
 
-    If you want to access the variable, just declare it before the loop:
+    Якщо ви хочете отримати доступ до змінної, просто оголосіть її перед циклом:
 
     .. code-block:: twig
 
@@ -75,4 +75,4 @@ The ``set`` tag can also be used to 'capture' chunks of text:
             {% set foo = item %}
         {% endfor %}
 
-        {# foo is available #}
+        {# foo є доступною #}
