@@ -1,13 +1,13 @@
 ``macro``
 =========
 
-Macros are comparable with functions in regular programming languages. They
-are useful to reuse template fragments to not repeat yourself.
+Макроси можна порівняти з функціями у звичайних мовах програмування. Вони
+корисні для повторного використання фрагментів шаблонів, щоб не повторюватися.
 
-Macros are defined in regular templates.
+Макроси визначаються у звичайних шаблонах.
 
-Imagine having a generic helper template that define how to render HTML forms
-via macros (called ``forms.twig``):
+Уявіть, що у вас є загальний допоміжний шаблон, який визначає, як відображати HTML-форми
+за допомогою макросів (який називається ``forms.twig``):
 
 .. code-block:: html+twig
 
@@ -19,51 +19,48 @@ via macros (called ``forms.twig``):
         <textarea name="{{ name }}" rows="{{ rows }}" cols="{{ cols }}">{{ value|e }}</textarea>
     {% endmacro %}
 
-Each macro argument can have a default value (here ``text`` is the default value
-for ``type`` if not provided in the call).
+Кожен аргумент макросу може мати значення за замовчуванням (тут ``text`` є значенням за замовчуванням
+для ``type``, якщо його не надано у виклику).
 
-Macros differ from native PHP functions in a few ways:
+Макроси відрізняються від нативних функцій PHP кількома способами:
 
-* Arguments of a macro are always optional.
+* Аргументи макросу завжди необов'язкові.
 
-* If extra positional arguments are passed to a macro, they end up in the
-  special ``varargs`` variable as a list of values.
+* Якщо у макрос передаються додаткові позиційні аргументи, вони потрапляють
+  у спеціальну змінну ``varargs`` у вигляді списку значень.
 
-But as with PHP functions, macros don't have access to the current template
-variables.
+Але, як і у випадку з функціями PHP, макроси не мають доступу до змінних поточного шаблону.
 
 .. tip::
 
-    You can pass the whole context as an argument by using the special
-    ``_context`` variable.
+Ви можете передати весь контекст як аргумент, використовуючи спеціальну змінну змінну ``_context``.
 
-Importing Macros
-----------------
+Імпорт макросів
+---------------
 
-There are two ways to import macros. You can import the complete template
-containing the macros into a local variable (via the ``import`` tag) or only
-import specific macros from the template (via the ``from`` tag).
+Існує два способи імпорту макросів. Ви можете імпортувати весь шаблон,
+що містить макроси, у локальну змінну (за допомогою тегу ``import``) або 
+імпортувати тільки певні макроси з шаблону (за допомогою тегу ``from``).
 
-To import all macros from a template into a local variable, use the ``import``
-tag:
+Щоб імпортувати усі макроси з шаблону до локальної змінної, використовуйте тег ``import``:
 
 .. code-block:: twig
 
     {% import "forms.twig" as forms %}
 
-The above ``import`` call imports the ``forms.twig`` file (which can contain
-only macros, or a template and some macros), and import the macros as items of
-the ``forms`` local variable.
+Вищенаведений виклик ``import`` імпортує файл ``forms.twig`` (який може містити
+тільки макроси або шаблон і деякі макроси), і імпортує макроси як елементи
+локальної змінної ``forms``.
 
-The macros can then be called at will in the *current* template:
+Потім, за бажанням, макроси можна викликати у *поточному* шаблоні:
 
 .. code-block:: html+twig
 
     <p>{{ forms.input('username') }}</p>
     <p>{{ forms.input('password', null, 'password') }}</p>
 
-Alternatively you can import names from the template into the current namespace
-via the ``from`` tag:
+Альтернативно ви можете імпортувати імена з шаблону до поточного простору імен
+за допомогою тегу ``from``:
 
 .. code-block:: html+twig
 
@@ -74,21 +71,21 @@ via the ``from`` tag:
 
 .. caution::
 
-    As macros imported via ``from`` are called like functions, be careful that
-    they shadow existing functions:
+    Оскільки макроси, імпортовані за допомогою ``from``, викликаються як функції, 
+    будьте обережні, щоб вони не перекривали існуючі функції:
 
     .. code-block:: twig
 
         {% from 'forms.twig' import input as include %}
 
-        {# include refers to the macro and not to the built-in "include" function #}
+        {# включення посилається на макрос, а не на вбудовану функцію "include" #}
         {{ include() }}
 
 .. tip::
 
-    When macro usages and definitions are in the same template, you don't need to
-    import the macros as they are automatically available under the special
-    ``_self`` variable:
+    Коли макроси та їх визначення знаходяться в одному шаблоні, вам не потрібно
+    імпортувати макроси, оскільки вони автоматично доступні у спеціальній змінній
+    ``_self``:
 
     .. code-block:: html+twig
 
@@ -98,28 +95,28 @@ via the ``from`` tag:
             <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}" size="{{ size }}"/>
         {% endmacro %}
 
-Macros Scoping
---------------
+Область дії макросів
+--------------------
 
-The scoping rules are the same whether you imported macros via ``import`` or
-``from``.
+Правила визначення області дії однакові, незалежно від того, чи ви імпортували макроси
+за допомогою ``import`` або ``from``.
 
-Imported macros are always **local** to the current template. It means that
-macros are available in all blocks and other macros defined in the current
-template, but they are not available in included templates or child templates;
-you need to explicitly re-import macros in each template.
+Імпортовані макроси завжди є **локальними** для поточного шаблону. Це означає, що
+макроси доступні у всіх блоках та інших макросах, визначених у поточному
+шаблоні, але вони недоступні у включених шаблонах або дочірніх шаблонах;
+вам потрібно явно повторно імпортувати макроси в кожному шаблоні.
 
-Imported macros are not available in the body of ``embed`` tags, you need
-to explicitly re-import macros inside the tag.
+Імпортовані макроси недоступні в тілі тегів ``embed``, вам потрібно
+явно повторно імпортувати макроси всередині тегу.
 
-When calling ``import`` or ``from`` from a ``block`` tag, the imported macros
-are only defined in the current block and they shadow macros defined at the
-template level with the same names.
+При виклику ``import`` або ``from`` з тегу ``block`` імпортовані макроси
+визначено лише у поточному блоці, і вони перекривають макроси, визначені на рівні 
+шаблону з тими самими іменами.
 
-Checking if a Macro is defined
+Перевірка, чи визначено макрос
 ------------------------------
 
-You can check if a macro is defined via the ``defined`` test:
+Перевірити, чи визначено макрос, можна за допомогою тесту ``defined``:
 
 .. code-block:: twig
 
@@ -135,11 +132,11 @@ You can check if a macro is defined via the ``defined`` test:
         OK
     {% endif %}
 
-Named Macro End-Tags
---------------------
+Іменовані кінцеві теги макросів
+-------------------------------
 
-Twig allows you to put the name of the macro after the end tag for better
-readability (the name after the ``endmacro`` word must match the macro name):
+Twig дозволяє вам розміщувати ім'я макросу після кінцевого тегу для кращої
+читабельності ( ім'я після слова ``endmacro`` має збігатися з ім'ям макросу):
 
 .. code-block:: twig
 
