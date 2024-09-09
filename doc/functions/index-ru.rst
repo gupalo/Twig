@@ -1,5 +1,5 @@
-Functions
-=========
+Функции
+=======
 
 .. toctree::
     :maxdepth: 1
