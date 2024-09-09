@@ -1,8 +1,8 @@
 ``include``
 ===========
 
-The ``include`` statement includes a template and outputs the rendered content
-of that file:
+Твердження ``include`` включає шаблон і виводить відображений зміст
+цього файлу:
 
 .. code-block:: twig
 
@@ -12,76 +12,75 @@ of that file:
 
 .. note::
 
-    It is recommended to use the :doc:`include<../functions/include>` function
-    instead as it provides the same features with a bit more flexibility:
+    Рекомендується використовувати функцію :doc:`include<../functions/include>` натомість,
+    оскільки вона надає ті самі можливості з трохи більшою гнучкістю:
 
-    * The ``include`` function is semantically more "correct" (including a
-      template outputs its rendered contents in the current scope; a tag should
-      not display anything);
+    * Функція ``include`` є семантично більш "правильною" ( включення шаблону виводить його відображений зміст у        поточній області видимості; тег не повинен
+      нічого не виводити);
 
-    * The ``include`` function is more "composable":
+    * Функція ``include`` є більш "композиційною":
 
       .. code-block:: twig
 
-          {# Store a rendered template in a variable #}
+          {# Зберегти відображений шаблон у змінній #}
           {% set content %}
               {% include 'template.html' %}
           {% endset %}
           {# vs #}
           {% set content = include('template.html') %}
 
-          {# Apply filter on a rendered template #}
+          {# Застосувати фільтр до відображеного шаблону #}
           {% apply upper %}
               {% include 'template.html' %}
           {% endapply %}
           {# vs #}
           {{ include('template.html')|upper }}
 
-    * The ``include`` function does not impose any specific order for
-      arguments thanks to :ref:`named arguments <named-arguments>`.
+    * Функція ``include`` не накладає ніякого певного порядку для
+      аргументів завдяки :ref:`іменованим аргументам <named-arguments>`.
 
-Included templates have access to the variables of the active context.
+Включені шаблони мають доступ до змінних активного контексту.
 
-If you are using the filesystem loader, the templates are looked for in the
-paths defined by it.
+Якщо ви використовуєте завантажувач файлової системи, шаблони шукаються у
+визначених ним шляхах.
 
-You can add additional variables by passing them after the ``with`` keyword:
+Ви можете додати додаткові змінні, передавши їх після ключового слова ``with``:
 
 .. code-block:: twig
 
-    {# template.html will have access to the variables from the current context and the additional ones provided #}
+    {# template.html матиме доступ до змінних з поточного контексту та наданих додатково #}
     {% include 'template.html' with {'foo': 'bar'} %}
 
     {% set vars = {'foo': 'bar'} %}
     {% include 'template.html' with vars %}
 
-You can disable access to the context by appending the ``only`` keyword:
+Ви можете відключити доступ до контексту, додавши ключове слово ``only``:
 
 .. code-block:: twig
 
-    {# only the foo variable will be accessible #}
+    {# доступною буде тільки змінна foo #}
     {% include 'template.html' with {'foo': 'bar'} only %}
 
 .. code-block:: twig
 
-    {# no variables will be accessible #}
+    {# жодна змінна не буде доступною #}
     {% include 'template.html' only %}
 
 .. tip::
 
-    When including a template created by an end user, you should consider
-    sandboxing it. More information in the :doc:`Twig for Developers<../api>`
-    chapter and in the :doc:`sandbox<../tags/sandbox>` tag documentation.
+    При включенні шаблону, створеного кінцевим користувачем, слід подумати про те,
+    щоб пропустити його через пісочницю. Більше інформації у розділі 
+    :doc:`Twig для розробників<../api>` та у документації до тегу :doc:`sandbox<../tags/sandbox>`.
 
-The template name can be any valid Twig expression:
+Ім'я шаблону може бути будь-яким валідним виразом Twig:
 
 .. code-block:: twig
 
     {% include some_var %}
     {% include ajax ? 'ajax.html' : 'not_ajax.html' %}
 
-And if the expression evaluates to a ``\Twig\Template`` or a
-``\Twig\TemplateWrapper`` instance, Twig will use it directly::
+І якщо вираз призводить до ``\Twig\Template`` або до екземпляра
+``\Twig\TemplateWrapper``, Twig використає його напряму::
 
     // {% include template %}
 
@@ -89,9 +88,9 @@ And if the expression evaluates to a ``\Twig\Template`` or a
 
     $twig->display('template.twig', ['template' => $template]);
 
-You can mark an include with ``ignore missing`` in which case Twig will ignore
-the statement if the template to be included does not exist. It has to be
-placed just after the template name. Here some valid examples:
+Ви можете позначити включення за допомогою ``ignore missing``, у цьому випадку Twig проігнорує
+твердження, якщо шаблон, який потрібно включити, не існує. Це має бути вказано
+одразу після назви шаблону. Ось кілька валідних прикладів:
 
 .. code-block:: twig
 
@@ -99,12 +98,12 @@ placed just after the template name. Here some valid examples:
     {% include 'sidebar.html' ignore missing with {'foo': 'bar'} %}
     {% include 'sidebar.html' ignore missing only %}
 
-You can also provide a list of templates that are checked for existence before
-inclusion. The first template that exists will be included:
+Ви також можете надати список шаблонів, які перевіряються на існування перед
+включенням. Перший шаблон, який існує, буде включено:
 
 .. code-block:: twig
 
     {% include ['page_detailed.html', 'page.html'] %}
 
-If ``ignore missing`` is given, it will fall back to rendering nothing if none
-of the templates exist, otherwise it will throw an exception.
+Якщо надано``ignore missing``, в якості резерву буде повернено до відображення, 
+якщо не існує жодного, інакше буде викликано виключення.
