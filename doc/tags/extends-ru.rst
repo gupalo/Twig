@@ -1,7 +1,7 @@
 ``extends``
 ===========
 
-The ``extends`` tag can be used to extend a template from another one.
+Тег ``extends`` может быть использован для расширения шаблона из другого шаблона.
 
 .. note::
 
