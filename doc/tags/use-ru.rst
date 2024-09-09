@@ -3,14 +3,13 @@
 
 .. note::
 
-    Horizontal reuse is an advanced Twig feature that is hardly ever needed in
-    regular templates. It is mainly used by projects that need to make
-    template blocks reusable without using inheritance.
+    Горизонтальне повторне використання - це просунута функція Twig, яка майже ніколи не потрібна у
+    у звичайних шаблонах. В основному вона використовується у проектах, де потрібно зробити блоки шаблонів            багаторазовими без використання успадкування.
 
-Template inheritance is one of the most powerful features of Twig but it is
-limited to single inheritance; a template can only extend one other template.
-This limitation makes template inheritance simple to understand and easy to
-debug:
+Успадкування шаблонів - одна з найпотужніших можливостей Twig, але вона
+обмежена одним успадкуванням; шаблон може розширювати лише один інший шаблон.
+Це обмеження робить успадкування шаблонів простим для розуміння і легким для
+налагодження:
 
 .. code-block:: twig
 
@@ -19,8 +18,8 @@ debug:
     {% block title %}{% endblock %}
     {% block content %}{% endblock %}
 
-Horizontal reuse is a way to achieve the same goal as multiple inheritance,
-but without the associated complexity:
+Горизонтальне повторне використання - це спосіб досягти тієї ж мети, що і множинне успадкування,
+але без пов'язаних з цим складнощів:
 
 .. code-block:: twig
 
@@ -31,8 +30,8 @@ but without the associated complexity:
     {% block title %}{% endblock %}
     {% block content %}{% endblock %}
 
-The ``use`` statement tells Twig to import the blocks defined in
-``blocks.html`` into the current template (it's like macros, but for blocks):
+Твердження ``use`` вказує Twig імпортувати блоки, визначені у файлі
+``blocks.html`` до поточного шаблону (це як макроси, але для блоків):
 
 .. code-block:: twig
 
@@ -40,9 +39,9 @@ The ``use`` statement tells Twig to import the blocks defined in
     
     {% block sidebar %}{% endblock %}
 
-In this example, the ``use`` statement imports the ``sidebar`` block into the
-main template. The code is mostly equivalent to the following one (the
-imported blocks are not outputted automatically):
+У цьому прикладі твердження ``use`` імпортує блок ``sidebar`` до 
+основного шаблону. Код в основному еквівалентний наступному (імпортовані блоки
+не виводяться автоматично):
 
 .. code-block:: twig
 
@@ -54,18 +53,18 @@ imported blocks are not outputted automatically):
 
 .. note::
 
-    The ``use`` tag only imports a template if it does not extend another
-    template, if it does not define macros, and if the body is empty. But it
-    can *use* other templates.
+    Тег ``use`` імпортує шаблон лише у тому випадку, якщо він не розширює інший 
+    шаблон, якщо він не визначає макроси і якщо тіло шаблону порожнє. Але він
+    може *використовувати* інші шаблони.
 
 .. note::
 
-    Because ``use`` statements are resolved independently of the context
-    passed to the template, the template reference cannot be an expression.
+    Оскільки твердження ``use`` вирішується незалежно від контексту, 
+    переданого до шаблону, посилання на шаблон не може бути виразом.
 
-The main template can also override any imported block. If the template
-already defines the ``sidebar`` block, then the one defined in ``blocks.html``
-is ignored. To avoid name conflicts, you can rename imported blocks:
+Основний шаблон також може перевизначати будь-який імпортований блок. Якщо шаблон
+вже визначає блок ``sidebar``, то блок, визначений у файлі ``blocks.html``
+ігнорується. Щоб уникнути конфліктів імен, ви можете перейменовувати імпортовані блоки:
 
 .. code-block:: twig
 
@@ -77,9 +76,8 @@ is ignored. To avoid name conflicts, you can rename imported blocks:
     {% block title %}{% endblock %}
     {% block content %}{% endblock %}
 
-The ``parent()`` function automatically determines the correct inheritance
-tree, so it can be used when overriding a block defined in an imported
-template:
+Функція ``parent()`` автоматично визначає коректне дерево успадкування, тому її можна
+використовувати при перевизначенні блоку, визначеного в імпортованому шаблоні:
 
 .. code-block:: twig
 
@@ -94,12 +92,12 @@ template:
     {% block title %}{% endblock %}
     {% block content %}{% endblock %}
 
-In this example, ``parent()`` will correctly call the ``sidebar`` block from
-the ``blocks.html`` template.
+У цьому прикладі ``parent()`` коректно викличе блок ``sidebar`` з
+шаблону ``blocks.html``.
 
 .. tip::
 
-    Renaming allows you to simulate inheritance by calling the "parent" block:
+    Перейменування дозволяє імітувати успадкування шляхом виклику "батьківського" блоку:
 
     .. code-block:: twig
 
@@ -113,5 +111,5 @@ the ``blocks.html`` template.
 
 .. note::
 
-    You can use as many ``use`` statements as you want in any given template.
-    If two imported templates define the same block, the latest one wins.
+    Ви можете використовувати скільки завгодно тверджень ``use`` у будь-якому наданому шаблоні.
+    Якщо два імпортовані шаблони визначають один і той самий блок, виграє останній.
