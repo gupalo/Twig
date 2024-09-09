@@ -75,15 +75,15 @@
 
 .. note::
 
-    The ``loop.length``, ``loop.revindex``, ``loop.revindex0``, and
-    ``loop.last`` variables are only available for PHP arrays, or objects that
-    implement the ``Countable`` interface.
+    Змінні ``loop.length``, ``loop.revindex``, ``loop.revindex0`` і
+    ``loop.last`` доступні лише для масивів PHP або об'єктів, які
+    реалізують інтерфейс ``Countable``.
 
-The ``else`` Clause
--------------------
+Пункт ``else``
+--------------
 
-If no iteration took place because the sequence was empty, you can render a
-replacement block by using ``else``:
+Якщо ітерація не відбулася через те, що послідовність була порожньою, ви можете 
+відобразити блок заміни за допомогою ``else``:
 
 .. code-block:: html+twig
 
@@ -95,11 +95,11 @@ replacement block by using ``else``:
         {% endfor %}
     </ul>
 
-Iterating over Keys
+Ітерація за ключами
 -------------------
 
-By default, a loop iterates over the values of the sequence. You can iterate
-on keys by using the ``keys`` filter:
+За замовчуванням цикл ітераційно перебирає значення послідовності. Ви можете ітерувати
+за ключами, використовуючи фільтр ``keys``:
 
 .. code-block:: html+twig
 
@@ -110,10 +110,10 @@ on keys by using the ``keys`` filter:
         {% endfor %}
     </ul>
 
-Iterating over Keys and Values
-------------------------------
+Ітерація за ключами та значеннями
+---------------------------------
 
-You can also access both keys and values:
+Ви також можете отримати доступ як до ключів, так і до значень:
 
 .. code-block:: html+twig
 
@@ -124,11 +124,11 @@ You can also access both keys and values:
         {% endfor %}
     </ul>
 
-Iterating over a Subset
+Ітерація за підмножиною
 -----------------------
 
-You might want to iterate over a subset of values. This can be achieved using
-the :doc:`slice <../filters/slice>` filter:
+Можливо, ви захочете ітераційно переглянути підмножину значень. Цього можна досягти за допомогою
+фільтра :doc:slice <../filters/slice>`:
 
 .. code-block:: html+twig
 
@@ -139,11 +139,11 @@ the :doc:`slice <../filters/slice>` filter:
         {% endfor %}
     </ul>
 
-Iterating over a String
------------------------
+Ітерація за рядком
+------------------
 
-To iterate over the characters of a string, use the
-:doc:`split <../filters/split>` filter:
+Для ітераційного перебору символів рядка використовуйте фільтр
+:doc:`split <../filters/split>`:
 
 .. code-block:: html+twig
 
