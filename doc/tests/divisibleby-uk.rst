@@ -1,7 +1,7 @@
 ``divisible by``
 ================
 
-``divisible by`` checks if a variable is divisible by a number:
+``divisible by`` перевіряє, чи ділиться змінна на число:
 
 .. code-block:: twig
 
