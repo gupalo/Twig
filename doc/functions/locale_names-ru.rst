@@ -3,16 +3,16 @@
 
 .. versionadded:: 3.5
 
-    Функція ``locale_names`` була представлена в Twig 3.5.
+    Функция ``locale_names`` была представлена в Twig 3.5.
 
-Функція ``locale_names`` повертає назви локалей:
+Функция ``locale_names`` возвращает названия локалей:
 
 .. code-block:: twig
 
     {# Afrikaans, Afrikaans (Namibia), ... #}
     {{ locale_names()|join(', ') }}
-    
-За замовчуванням функція використовує поточну локаль. Ви можете передати її явно:
+
+По умолчанию функция использует текущую локаль. Вы можете передать ее явно:
 
 .. code-block:: twig
 
@@ -21,27 +21,27 @@
 
 .. note::
 
-    Функція ``locale_names`` є частиною ``IntlExtension``, яке не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Функция ``locale_names`` является частью ``IntlExtension``, которое не
+    установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Потім, у проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно у середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Аргументи
+Аргументы
 ---------
 
 * ``locale``: Локаль
