@@ -1,16 +1,16 @@
 ``lower``
 =========
 
-Фільтр ``lower`` перетворює значення на нижній регістр:
+Фильтр ``lower`` преобразует значение в нижний регистр:
 
 .. code-block:: twig
 
     {{ 'WELCOME'|lower }}
 
-    {# outputs 'welcome' #}
+    {# выводит 'welcome' #}
 
 .. note::
 
-    Внутрішньо Twig використовує PHP-функцію `mb_strtolower`_.
+    Внутренне Twig использует PHP-функцию `mb_strtolower`_.
 
 .. _`mb_strtolower`: https://www.php.net/manual/fr/function.mb-strtolower.php
