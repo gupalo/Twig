@@ -1,14 +1,14 @@
 ``country_name``
 ================
 
-Фільтр ``country_name`` повертає назву країни за її  двобуквеним кодом ISO-3166:
+Фильтр ``country_name`` возвращает название страны по ее двухбуквенному коду ISO-3166:
 
 .. code-block:: twig
 
     {# France #}
     {{ 'FR'|country_name }}
 
-За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
+По умолчанию фильтр использует текущую локаль. Вы можете указать ее явно:
 
 .. code-block:: twig
 
@@ -17,27 +17,27 @@
 
 .. note::
 
-    Фільтр ``country_name`` є частиною ``IntlExtension``, який не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``country_name`` является частью ``IntlExtension``, которое не
+    установлен по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно в середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Аргументи
+Аргументы
 ---------
 
 * ``locale``: Локаль
