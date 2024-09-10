@@ -6,7 +6,7 @@
 .. code-block:: html+twig
 
     {{ "I like Twig.\nYou will like it too."|nl2br }}
-    {# outputs
+    {# виводить
 
         I like Twig.<br />
         You will like it too.
