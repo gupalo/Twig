@@ -1,7 +1,7 @@
 ``json_encode``
 ===============
 
-Фільтр ``json_encode`` повертає JSON-представлення значення:
+Фильтр ``json_encode`` возвращает JSON-представление значения:
 
 .. code-block:: twig
 
@@ -9,14 +9,14 @@
 
 .. note::
 
-    Внутрішньо Twig використовує PHP-функцію `json_encode`_.
+    Внутренне Twig использует PHP-функцию `json_encode`_.
 
-Аргументи
+Аргументы
 ---------
 
-* ``options``: Біт-маска для `json_encode options`_: ``{{
+* ``options``: Бит-маска для `json_encode options`_: ``{{
   data|json_encode(constant('JSON_PRETTY_PRINT')) }}``.
-  Обʼєднайте константи, використовуючи :ref:`побітові оператори<template_logic>`:
+  Объедините константы, используя :ref:`побитовые операторы<template_logic>`:
   ``{{ data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_HEX_QUOT')) }}``
 
 .. _`json_encode`: https://www.php.net/json_encode
