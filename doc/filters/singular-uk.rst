@@ -10,7 +10,7 @@
 
 .. code-block:: twig
 
-    {# English (en) rules are used by default #}
+    {# за замовчуванням використовуються правила англійської мови (en) #}
     {{ 'partitions'|singular() }}
     partition
 
@@ -47,7 +47,7 @@
 
 .. note::
 
-    Внутрішньо  Twig використовує метод `singularize`_ з компонента Symfony String.
+    Внутрішньо Twig використовує метод `singularize`_ з компонента Symfony String.
 
 .. _`inflector`: <https://symfony.com/doc/current/components/string.html#inflector>
 .. _`singularize`: <https://symfony.com/doc/current/components/string.html#inflector>
