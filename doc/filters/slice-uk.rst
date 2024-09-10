@@ -6,7 +6,7 @@
 .. code-block:: twig
 
     {% for i in [1, 2, 3, 4, 5]|slice(1, 2) %}
-        {# will iterate over 2 and 3 #}
+        {# ітеруватиме по 2 та 3 #}
     {% endfor %}
 
     {{ '12345'|slice(1, 2) }}
