@@ -3,14 +3,14 @@
 
 .. versionadded:: 3.11
 
-    Фільтр ``singular`` було представлено в Twig 3.11.
+    Фильтр ``singular`` был представлен в Twig 3.11.
 
-Фільтр ``singular`` перетворює заданий іменник у формі множини в його
-в однину:
+Фильтр ``singular`` превращает заданное существительное в форме множественного числа в его
+в единственное число:
 
 .. code-block:: twig
 
-    {# English (en) rules are used by default #}
+    {# Правила английского языка (en) используются по умолчанию #}
     {{ 'partitions'|singular() }}
     partition
 
@@ -19,35 +19,35 @@
 
 .. note::
 
-    Фільтр ``singular`` є частиною ``StringExtension``, яке не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``singular`` является частью ``StringExtension``, которое не
+    установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/string-extra
 
-    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно у середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\String\StringExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new StringExtension());
 
-Аргументи
+Аргументы
 ---------
 
-* ``locale``: Локаль початкового рядка (обмежується мовами, які підтримуються `inflector`_ від Symfony, частиною компонента String)
-* ``all``: Чи повертати всі можливі множини у вигляді масиву, за замовчуванням ``false``
+* ``locale``: Локаль начальной строки (ограничивается языками, которые поддерживаются `inflector`_ от Symfony, частью компонента String)
+* ``all``: Возвращать ли все возможные множества в виде массива, по умолчанию ``false``
 
 .. note::
 
-    Внутрішньо  Twig використовує метод `singularize`_ з компонента Symfony String.
+    Внутренне Twig использует метод `singularize`_ из компонента Symfony String.
 
 .. _`inflector`: <https://symfony.com/doc/current/components/string.html#inflector>
 .. _`singularize`: <https://symfony.com/doc/current/components/string.html#inflector>
