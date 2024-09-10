@@ -9,7 +9,7 @@
 
     {{ number|abs }}
 
-    {# outputs 5 #}
+    {# виводить 5 #}
 
 .. note::
 
