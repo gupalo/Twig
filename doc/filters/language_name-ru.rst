@@ -1,14 +1,14 @@
 ``language_name``
 =================
 
-Фільтр ``language_name`` повертає назву мови за її двобуквеним кодом:
+Фильтр ``language_name`` возвращает название языка по его двухбуквенному коду:
 
 .. code-block:: twig
 
     {# German #}
     {{ 'de'|language_name }}
 
-За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
+По умолчанию фильтр использует текущую локаль. Вы можете указать ее явно:
 
 .. code-block:: twig
 
@@ -20,27 +20,27 @@
 
 .. note::
 
-    Фільтр ``language_name`` є частиною ``IntlExtension``, яке не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``language_name`` является частью ``IntlExtension``, которое не
+    установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно у середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Аргументи
+Аргументы
 ---------
 
 * ``locale``: Локаль
