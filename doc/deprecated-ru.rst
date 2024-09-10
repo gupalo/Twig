@@ -1,83 +1,82 @@
-Застарілі функції
-=================
+Устаревшие функции
+==================
 
-У цьому документі перелічено застарілі функції у Twig 3.x. Застарілі функції зберігаються 
-для забезпечення зворотної сумісності і будуть вилучені у наступному старшому випуску 
-(функція, яка була оголошена застарілою у Twig 3.x, буде видалена у наступному випуску).
+В этом документе перечислены устаревшие функции в Twig 3.x. Устаревшие функции сохраняются для обеспечения обратной совместимости и будут удалены в следующем старшем выпуске 
+(функция, которая была объявлена устаревшей в Twig 3.x, будет удалена в следующем выпуске).
 
-Функції
+Функции
 -------
 
- * Функція ``twig_test_iterable`` застаріла; натомість використовуйте нативну
-  функцію PHP ``is_iterable``.
+ * Функция ``twig_test_iterable`` устарела; вместо этого используйте нативную
+  функцию PHP ``is_iterable``.
 
-Розширення
+Расширения
 ----------
 
-* Усі функції, визначені у розширеннях Twig, позначено як внутрішні, починаючи з Twig 3.9.0, і будуть видалені у Twig 4.0. 
-  Їх було замінено на внутрішні
-  методи у відповідних класах розширень.
+* Все функции, определенные в расширениях Twig, обозначены как внутренние, начиная с 
+  Twig 3.9.0, и будут удалены в Twig 4.0. Они были заменены на внутренние методы в 
+  соответствующих классах расширений.
 
-  Якщо ви використовували функцію ``twig_escape_filter()`` у вашому коді, використовуйте
-  ``$env->getRuntime(EscaperRuntime::class)->escape()`` замість неї.
+  Если вы использовали функцию ``twig_escape_filter()`` в вашем коде, используйте
+  ``$env->getRuntime(EscaperRuntime::class)->escape()`` вместо нее.
 
-* Наступні методи з ``Twig\Extension\EscaperExtension`` застаріли:
+* Следующие методы из ``Twig\Extension\EscaperExtension`` устарели:
   ``setEscaper()``, ``getEscapers()``, ``setSafeClasses``,
-  ``addSafeClasses()``. Використовуйте такі ж методи у класі
-  ``Twig\Runtime\EscaperRuntime`` замість цього:
+  ``addSafeClasses()``. Используйте такие же методы в классе
+  ``Twig\Runtime\EscaperRuntime`` вместо этого:
   
   До:
   ``$twig->getExtension(EscaperExtension::class)->METHOD();``
   
-  Після:
+  После:
   ``$twig->getRuntime(EscaperRuntime::class)->METHOD();``
 
-Вузли
------
+Узлы
+----
 
-* Параметр конструктора "tag" класу ``Twig\Node\Node`` застарів, починаючи з Twig 3.12,
-  оскільки тег тепер автоматично встановлюється парсером, коли це потрібно.
+* Параметр конструктора "tag" класса ``Twig\Node\Node`` устарел, начиная с Twig 3.12,
+  поскольку тег теперь автоматически устанавливается парсером, когда это требуется.
 
-* Передача другого аргументу в "ExpressionParser::parseFilterExpressionRaw()"
-  застаріла, починаючи з Twig 3.12.
+* Передача второго аргумента в "ExpressionParser::parseFilterExpressionRaw()"
+  устарела, начиная с Twig 3.12.
 
-* Наступні методи ``Twig\Node\Node`` прийматимуть рядок або ціле число (замість просто
-  рядка) у Twig 4.0 як аргумент "name": ``getNode()``, ``hasNode()``, ``setNode()``, 
-  ``removeNode()`` та ``deprecateNode()``.
+* Следующие методы ``Twig\Node\Node`` будут принимать строку или целое число (вместо просто
+  строки) в Twig 4.0 в качестве аргумента "name": ``getNode()``, ``hasNode()``, ``setNode()``, 
+  ``removeNode()`` и ``deprecateNode()``.
 
-* Не передавати екземпляр ``BodyNode`` як тіло ``ModuleNode`` або
-  ``MacroNode`` застаріло, починаючи з Twig 3.12.
+* Не передавать экземпляр ``BodyNode`` как тело ``ModuleNode`` или
+  ``MacroNode`` устарело, начиная с Twig 3.12.
 
-* Повернення ``null`` з ``TokenParserInterface::parse()`` застаріло, починаючи з
-  Twig 3.12 (оскільки це заборонено інтерфейсом).
+* Возвращение ``null`` из ``TokenParserInterface::parse()`` устарело, начиная с
+  Twig 3.12 (поскольку это запрещено интерфейсом).
 
-* Другий аргумент методу ``Twig\Node\Expression\CallExpression::compileArguments()`` є застарілим.
+* Второй аргумент метода ``Twig\Node\Expression\CallExpression::compileArguments()`` устарел.
 
-* Методи ``Twig\Node\Expression\NameExpression::isSimple()`` та
-  ``Twig\Node\Expression\NameExpression::isSpecial()`` є застарілими, починаючи з Twig 
-  3.11 і будуть видалені в Twig 4.0.
+* Методы ``Twig\Node\Expression\NameExpression::isSimple()`` м
+  ``Twig\Node\Expression\NameExpression::isSpecial()`` являются устарелыми, начиная с Twig 
+  3.11 и будут удалены в Twig 4.0.
 
-* Вузол ``filter`` у ``Twig\Node\Expression\FilterExpression`` є застарілим, починаючи
-  з Twig 3.12 і буде видалений у версії 4.0. Замість нього використовуйте атрибут ``filter``
-  для отримання фільтра:
+* Узел ``filter`` в ``Twig\Node\Expression\FilterExpression`` является устаревшим, начиная
+  с Twig 3.12 и будет удален в версии 4.0. Вместо него используйте атрибут ``filter``
+  для получения фильтра:
 
   До:
   ``$node->getNode('filter')->getAttribute('value')``
 
-  Після:
+  После:
   ``$node->getAttribute('twig_callable')->getName()``
 
-* Передача імені ``Twig\Node\Expression\FunctionExpression``,
-  ``Twig\Node\Expression\FilterExpression`` та
-  ``Twig\Node\Expression\TestExpression`` застаріла, починаючи з Twig 3.12.
-  Починаючи з Twig 4.0, вам потрібно натомість передавати ``TwigFunction``, ``TwigFilter``,
-  або ``TestFilter``.
+* Передача имени ``Twig\Node\Expression\FunctionExpression``,
+  ``Twig\Node\Expression\FilterExpression`` и
+  ``Twig\Node\Expression\TestExpression`` устарела, начиная з Twig 3.12.
+  Начиная с Twig 4.0, вам нужно вместо этого передавать ``TwigFunction``, ``TwigFilter``,
+  или ``TestFilter``.
 
-  Візьмемо для прикладу ``FunctionExpression``.
+  Возьмем к примеру ``FunctionExpression``.
 
-  Якщо у вас є вузол, який розширює ``FunctionExpression``, і якщо ви не перевизначаєте
-  конструктор, вам не потрібно нічого робити. Але якщо ви перевизначаєте конструктор, то
-  вам потрібно змінити підказку типу імені та позначити конструктор атрибутом   ``Twig\Attribute\FirstClassTwigCallableReady``.
+  Если у вас есть узел, который расширяет ``FunctionExpression``, и если вы не переопределяете
+  конструктор, вам не нужно ничего делать. Но если вы переопределяете конструктор, то
+  вам нужно изменить подсказку типа имени и пометить конструктор атрибутом   ``Twig\Attribute\FirstClassTwigCallableReady``.
 
   До::
 
@@ -105,7 +104,7 @@
           }
       }
 
-  Після::
+  После::
 
       class ReadyFunctionExpression extends FunctionExpression
       {
@@ -134,83 +133,84 @@
           }
       }
 
-* Наступні атрибути ``Twig\Node\Expression\FunctionExpression`` застаріли, починаючи
-  з Twig 3.12: ``needs_charset``,  ``needs_environment``,
+* Следующие атрибуты ``Twig\Node\Expression\FunctionExpression`` устарели, начиная
+  с Twig 3.12: ``needs_charset``, ``needs_environment``,
+  ``needs_context``, ``arguments``, ``callable``, ``is_variadic``,
+  и ``dynamic_name``.
+
+* Следующие атрибуты ``Twig\Node\Expression\FilterExpression`` устарели, начиная
+  с 3.12: ``needs_charset``,  ``needs_environment``,
   ``needs_context``,  ``arguments``,  ``callable``,  ``is_variadic``,
-  та ``dynamic_name``.
+  и ``dynamic_name``.
 
-* Наступні атрибути ``Twig\Node\Expression\FilterExpression`` застаріли, починаючи
-  з 3.12: ``needs_charset``,  ``needs_environment``,
-  ``needs_context``,  ``arguments``,  ``callable``,  ``is_variadic``,
-  та ``dynamic_name``.
+* Следующие атрибуты ``Twig\Node\Expression\TestExpression`` устарели, начиная с
+  3.12: ``arguments``,  ``callable``,  ``is_variadic``, и ``dynamic_name``.
 
-* Наступні атрибути ``Twig\Node\Expression\TestExpression`` застаріли, починаючи з
-  3.12: ``arguments``,  ``callable``,  ``is_variadic``, та ``dynamic_name``.
+Посетители узлов
+----------------
 
-Відвідувачі вузлів
-------------------
-
-* Клас ``Twig\NodeVisitor\AbstractNodeVisitor`` застарів, натомість реалізуйте інтерфейс
+* Класс ``Twig\NodeVisitor\AbstractNodeVisitor`` устарел, вместо этого реализуйте интерфейс
   ``Twig\NodeVisitor\NodeVisitorInterface``.
 
-* Опції ``Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_RAW_FILTER`` та
-  ``Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_TEXT_NODES`` застаріли, починаючи
-  з Twig 3.12, і будуть видалені в Twig 4.0; вони більше нічого не роблять.
+* Опции ``Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_RAW_FILTER`` и
+  ``Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_TEXT_NODES`` устарели, начиная с
+  Twig 3.12, и будут удалены в Twig 4.0; они больше ничего не делают.
 
 Парсер
 ------
 
-* Наступні методи з ``Twig\Parser`` застаріли, починаючи з Twig 3.12:
+* Следующие методы из ``Twig\Parser`` устарели, начиная с Twig 3.12:
   ``getBlockStack()``, ``hasBlock()``, ``getBlock()``, ``hasMacro()``,
   ``hasTraits()``, ``getParent()``.
 
-* Метод ``Twig\ExpressionParser::parseHashExpression()`` застарів, натомість
-  використовуйте ``Twig\ExpressionParser::parseMappingExpression()``.
+* Метод ``Twig\ExpressionParser::parseHashExpression()`` устарел, вместо этого
+  используйте ``Twig\ExpressionParser::parseMappingExpression()``.
 
-* Метод ``Twig\ExpressionParser::parseArrayExpression()`` застарів, натомість
-  використовуйте ``Twig\ExpressionParser::parseSequenceExpression()``.
+* Метод ``Twig\ExpressionParser::parseArrayExpression()`` устарел, вместо этого
+  используйте ``Twig\ExpressionParser::parseSequenceExpression()``.
 
-* Передача ``null`` до ``Twig\Parser::setParent()`` застаріла, починаючи з Twig
+* Передача ``null`` к ``Twig\Parser::setParent()`` устарела, начиная с Twig
   3.12.
 
-Шаблони
+Шаблоны
 -------
 
-* Передача екземплярів ``Twig\Template`` до публічного API Twig застаріла (як в
-  ``Environment::resolveTemplate()``, ``Environment::load()`` та
-  ``Template::loadTemplate()``); натомість передайте екземпляри ``Twig\TemplateWrapper``.
+* Передача экземпляром ``Twig\Template`` к публичному API Twig устарела (как в
+  ``Environment::resolveTemplate()``, ``Environment::load()`` и
+  ``Template::loadTemplate()``); вместо этого передайте экземпляры ``Twig\TemplateWrapper``.
 
-Фільтри
+Фильтры
 -------
 
-* Фільтр ``spaceless`` застарів, починаючи з Twig 3.12 і буде видалений в
+* Фильтр ``spaceless`` устарел, начиная с Twig 3.12 и будет удален в
   Twig 4.0.
 
-Пісочниця
+Песочница
 ---------
 
-* Наявність тегів ``extends`` та ``use``, дозволених за замовчуванням в пісочниці, застарілa,
-  починаючи з  Twig 3.12. Вам потрібно буде явно дозволити їх за необхідності в версії 4.0.
+* Наличие тегов ``extends`` и ``use``, разрешенных по умолчанию в песочнице, устарело,
+  начиная с Twig 3.12. Вам нужно будет явно разрешить их, при необходимости, в версии 4.0.
 
-Тестування утиліт
------------------
+Тестирование утилит
+-------------------
 
-* Реалізація методу постачальника даних ``Twig\Test\NodeTestCase::getTests()``
-  є застарілою, починаючи з Twig 3.13. Натомість, реалізуйте статичний постачальник даних
+* Реализация метода поставщика данных ``Twig\Test\NodeTestCase::getTests()``
+  является устаревшей, начиная с Twig 3.13. Вместо этого, реализуйте статический поставщик данных
   ``provideTests()``.
 
-* Для того, щоб зробити їх функціональність доступною для статичних постачальників даних, методи-помічники   ``getVariableGetter()`` та ``getAttributeGetter()`` у
-  ``Twig\Test\NodeTestCase`` були оголошені застарілими. Викличте нові методи
-  ``createVariableGetter()`` та ``createAttributeGetter()`` замість них.
+* Для того, чтобы сделать их функциональность доступной для статических поставщиков данных,
+  методы-помощники ``getVariableGetter()`` и ``getAttributeGetter()`` в
+  ``Twig\Test\NodeTestCase`` были объявлены устарелыми. Вызовите новые методы
+  ``createVariableGetter()`` и ``createAttributeGetter()`` вместо них.
 
-* Метод ``Twig\Test\NodeTestCase::getEnvironment()`` вважається фінальним, починаючи з
-  Twig 3.13. Якщо ви хочете перевизначити, як конструюється середовище Twig, натомість
-  перевизначіть ``createEnvironment()``.
+* Метод ``Twig\Test\NodeTestCase::getEnvironment()`` считается окончательным, начиная с
+  Twig 3.13. Если вы хотите переопределить, как конструируется окружение Twig, вместо этого
+  переопределите ``createEnvironment()``.
 
-* Метод ``getFixturesDir()`` у ``Twig\Test\IntegrationTestCase`` застарів, натомість
-  реалізуйте новий статичний метод ``getFixturesDirectory()``, який буде абстрактним
+* Метод ``getFixturesDir()`` в ``Twig\Test\IntegrationTestCase`` устарел, вместо этого
+  реализуйте новый статический метод ``getFixturesDirectory()``, который будет абстрактным
   в 4.0.
 
-* Постачальники даних ``getTests()`` та ``getLegacyTests()`` в
-  ``Twig\Test\IntegrationTestCase`` вважаються фінальними альтернативами, починаючи
-  з Twig 3.13.
+* Поставщики данных ``getTests()`` и ``getLegacyTests()`` в
+  ``Twig\Test\IntegrationTestCase`` считаются финальными альтернативами, начиная
+  с Twig 3.13.
