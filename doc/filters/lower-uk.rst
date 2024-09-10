@@ -7,7 +7,7 @@
 
     {{ 'WELCOME'|lower }}
 
-    {# outputs 'welcome' #}
+    {# виводить 'welcome' #}
 
 .. note::
 
