@@ -1,7 +1,7 @@
 ``html_to_markdown``
 ====================
 
-Фільтр ``html_to_markdown`` перетворює блок HTML на Markdown:
+Фильтр ``html_to_markdown`` превращает блок HTML в Markdown:
 
 .. code-block:: html+twig
 
@@ -11,7 +11,7 @@
         </html>
     {% endapply %}
 
-Ви також можете використовувати фільтр для всього шаблону, який ви ``включаєте``:
+Вы также можете использовать фильтр для всего шаблона, который вы ``включаете``:
 
 .. code-block:: twig
 
@@ -19,28 +19,28 @@
 
 .. note::
 
-    Фільтр ``html_to_markdown`` є частиною ``MarkdownExtension``, яке
-    не встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``html_to_markdown`` является частью ``MarkdownExtension``, которое
+    не установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/markdown-extra
 
-    В проектах Symfony ви можете автоматично увімкнути його, встановивши
+    В проектах Symfony вы можете автоматически включить его, установив
     ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    Або додайте розширення явно у середовищі Twig::
+    Или добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Markdown\MarkdownExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new MarkdownExtension());
 
-    Якщо ви не використовуєте Symfony, ви також повинні зареєструвати час виконання розширення::
+    Если вы не используете Symfony, вы также должны зарегистрировать время выполнения расширения::
 
         use Twig\Extra\Markdown\DefaultMarkdown;
         use Twig\Extra\Markdown\MarkdownRuntime;
@@ -54,15 +54,15 @@
             }
         });
 
-``html_to_markdown`` - це лише фронтенд; фактичне перетворення виконується однією з
-наведених нижче сумісних бібліотек, з яких ви можете вибрати:
+``html_to_markdown`` - это только фронтенд; фактическое преобразование выполняется одной из
+приведенных ниже совместимых библиотек, из которых вы можете выбирать:
 
-* `league/html-to-markdown`_
+* `league/html-to-markdown`
 * `michelf/php-markdown`_
 * `erusev/parsedown`_
 
-Залежно від бібліотеки, ви також можете додати деякі опції, передавши їх як аргумент
-до фільтру. Приклад для ``league/html-to-markdown``:
+В зависимости от библиотеки, вы также можете добавить некоторые опции, передав их в качестве аргумента
+к фильтру. Пример для ``league/html-to-markdown``:
 
 .. code-block:: html+twig
 
