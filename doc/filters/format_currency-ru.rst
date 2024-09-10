@@ -1,14 +1,14 @@
 ``format_currency``
 ===================
 
-Фільтр ``format_currency`` форматує число у валюту:
+Фильтр ``format_currency`` форматирует число в валюту:
 
 .. code-block:: twig
 
     {# €1,000,000.00 #}
     {{ '1000000'|format_currency('EUR') }}
 
-Ви можете передати атрибути, щоб налаштувати виведення:
+Вы можете передать атрибуты, чтобы настроить вывод:
 
 .. code-block:: twig
 
@@ -18,7 +18,7 @@
     {# €1,000,000.0000 #}
     {{ '1000000'|format_currency('EUR', {fraction_digit: 4}) }}
 
-Список підтримуваних опцій:
+Список поддерживаемых опций:
 
 * ``grouping_used``;
 * ``decimal_always_shown``;
@@ -40,7 +40,7 @@
 * ``max_significant_digits_used``;
 * ``lenient_parse``.
 
-За замовчуванням фільтр використовує поточну локаль. Ви можете вказати її явно:
+По умолчанию фильтр использует текущую локаль. Вы можете указать ее явно:
 
 .. code-block:: twig
 
@@ -49,29 +49,29 @@
 
 .. note::
 
-    Фільтр ``format_currency`` є частиною ``IntlExtension``, яке не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``format_currency`` является частью ``IntlExtension``, которое не
+    установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно у середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Аргументи
+Аргументы
 ---------
 
 * ``currency``: Валюта
-* ``attrs``: Мапа атрибутів
+* ``attrs``: Карта атрибутов
 * ``locale``: Локаль
