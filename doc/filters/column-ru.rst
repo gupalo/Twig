@@ -1,7 +1,7 @@
 ``column``
 ==========
 
-Фільтр ``column`` повертає значення з одного стовпця масиву введення.
+Фильтр ``column`` возвращает значение из одного столбца массива ввода.
 
 .. code-block:: twig
 
@@ -9,15 +9,15 @@
 
     {% set fruits = items|column('fruit') %}
 
-    {# fruits тепер містить ['apple', 'orange'] #}
+    {# fruits теперь содержит ['apple', 'orange'] #}
 
 .. note::
 
-    Внутрішньо Twig використовує PHP-функцію `array_column`_.
+    Внутренне Twig использует PHP-функцию `array_column`_.
 
-Аргументи
+Аргументы
 ---------
 
-* ``name``: Імʼя стовпця для вилучення
+* ``name``: Імя столбца для удаления
 
 .. _`array_column`: https://www.php.net/array_column
