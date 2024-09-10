@@ -1,36 +1,36 @@
 ``format_time``
 ===============
 
-Фільтр ``format_time`` форматує час. Він поводиться так само, як і
-фільтр :doc:`format_datetime<format_datetime>`, але без дати.
+Фильтр ``format_time`` форматирует время. Он ведет себя так же, как и
+фильтр :doc:`format_datetime<format_datetime>`, но без даты.
 
 .. note::
 
-    Фільтр ``format_time`` є частиною ``IntlExtension``, яке не
-    встановлено за замовчуванням. Спочатку встановіть його:
+    Фильтр ``format_time`` является частью ``IntlExtension``, которое не
+    установлено по умолчанию. Сначала установите его:
 
     .. code-block:: bash
 
         $ composer require twig/intl-extra
 
-    Потім, в проєктах Symfony, встановіть ``twig/extra-bundle``:
+    Затем, в проектах Symfony, установите ``twig/extra-bundle``:
 
     .. code-block:: bash
 
         $ composer require twig/extra-bundle
 
-    В інших випадках, додайте розширення явно у середовищі Twig::
+    В других случаях, добавьте расширение явно в окружение Twig::
 
         use Twig\Extra\Intl\IntlExtension;
 
         $twig = new \Twig\Environment(...);
         $twig->addExtension(new IntlExtension());
 
-Аргументи
+Аргументі
 ---------
 
 * ``locale``: Локаль
-* ``timeFormat``: Формат часу
-* ``pattern``: Патерн дати та часу
-* ``timezone``: Часовий пояс дати
-* ``calendar``: Календар ("gregorian" за замовчуванням)
+* ``timeFormat``: Формат времени
+* ``pattern``: Паттерн даты и времени
+* ``timezone``: Часовой пояс даты
+* ``calendar``: Календарь ("gregorian" по умолчанию)
